@@ -1,0 +1,45 @@
+<?php
+    $matches_stmt = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_matches` WHERE ((`user_one_id` = {$_SESSION['user_id']} AND NOT `user_one_seen`) OR (`user_two_id` = {$_SESSION['user_id']} AND NOT `user_two_seen`)) OR (`user_one_id` = {$_SESSION['user_id']} OR `user_two_id` = {$_SESSION['user_id']} AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH))");
+
+    // Update seen
+    $GLOBALS['link']->query("UPDATE `hot_or_not_matches` SET `user_one_seen` = 1 WHERE `user_one_id` = {$_SESSION['user_id']} AND NOT `user_one_seen`");
+    $GLOBALS['link']->query("UPDATE `hot_or_not_matches` SET `user_two_seen` = 1 WHERE `user_two_id` = {$_SESSION['user_id']} AND NOT `user_two_seen`");
+?>
+
+<a href="#">התאמות חדשות</a>
+<a href="#">כל ההתאמות</a>
+<div id="matches-wrap">
+    <?php while ($match = $matches_stmt->fetch()) : ?>
+        <?php $match_user_id = $match['user_one_id'] == $_SESSION['user_id'] ? $match['user_two_id'] : $match['user_one_id']; ?>
+        <?php $profile = get_user_row_by_id($match_user_id); ?>
+        <div class="profiles-tab-profile-wrap">
+            <div class="profiles-tab-profile-card">
+                <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
+                    <div class="pp" style="background-image: url(<?php echo $URL; ?>/img/pp.jpg);">
+                            <img src="<?php echo $URL; ?>/img/pp.jpg" style="visibility: hidden">
+                        <div class="send-message-btn chatbox-trigger" data-userid="<?php echo $profile['id']; ?>"><i class="fas fa-comment-alt"></i></div>
+                    </div>
+                </a>
+
+                <div class="textual">
+                    <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
+                        <div class="fullname"><?php echo $profile['fullname']; ?></div>
+                    </a>
+
+                    <a href="<?php echo $URL; ?>/city/<?php echo $profile['city']; ?>/">
+                        <div class="location"><?php echo $profile['city']; ?></div>
+                    </a>
+
+                    <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
+                        <strong class="about-me-label">קצת עליי:</strong>
+                        <p class="about-me">
+                            <?php echo strlen($profile['about_me']) > 100 ? mb_substr($profile['about_me'], 0, 100)."..." : $profile['about_me']; ?>
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <?php endwhile; ?>
+</div>
+
+<link rel="stylesheet" href="<?php echo $URL; ?>/css/matches.css">

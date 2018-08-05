@@ -1,0 +1,328 @@
+body {
+    background-color: #F8F8F8;
+}
+
+#main-nav {
+    background-color: #fff;
+}
+
+#hot-or-not-section {
+    padding: 0 3px;
+}
+
+#current-hot-or-not-profile-top .textual {
+    display: flex;
+    padding: 10px;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 4px 3px rgba(0,0,0,.2);
+    background-color: #fff;
+    font-weight: bold;
+    font-size: 1.1em;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#approval-rates {
+    direction: ltr;
+    font-size: 0.8em;
+}
+
+#approval-rates > * {
+    vertical-align: middle;
+}
+
+#approval-rates img {
+    height: 20px;
+    margin-right: 7px;
+}
+
+#current-hot-or-not-name-and-age {
+    display: flex;
+}
+
+div#current-hot-or-not-location {
+    font-size: 0.7em;
+    font-weight: normal;
+    color: #888;
+}
+
+#current-hot-or-not-profile-gallery {
+    /* padding: 10px; */
+    border-radius: 0 0 2px 2px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 2px 3px rgba(0,0,0,.2);
+    background-color: #fff;
+    position: relative;
+}
+
+.current-hot-or-not-profile-gallery-pic-bg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-size: 200%;
+    background-position: center;    
+    -webkit-filter: blur(11px);
+    -moz-filter: blur(11px);
+    -o-filter: blur(11px);
+    -ms-filter: blur(11px);
+    filter: blur(11px);
+}
+
+#current-hot-or-not-num-pics {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #f9f9f9;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 996;
+}
+
+#current-hot-or-not-num-pics i {
+    padding-right: 7px;
+}
+
+#current-hot-or-not-profile-gallery-pics {
+    display: flex;
+    overflow-x: hidden;
+    max-width: 100%;
+    align-items: center;
+    position: relative;
+}
+
+.current-hot-or-not-profile-gallery-pic-wrap {
+    text-align: center;
+    background-color: #e8e8e8;
+    position: relative;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 450px;
+    max-height: 500px;
+    overflow-y: hidden;
+}
+
+.current-hot-or-not-profile-gallery-pic-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    z-index: 995;
+    width: 100%;
+    height: auto;
+}
+
+#hon-gallery-right-arrow {
+    background-image: url(../img/icons/right-arrow.svg);
+    height: 25px;
+    width: 25px;
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    cursor: pointer;
+    z-index: 996;
+}
+
+#current-hot-or-not-profile-name {
+    color: #444;
+}
+
+#hon-gallery-left-arrow {
+    background-image: url(../img/icons/left-arrow.svg);
+    height: 25px;
+    width: 25px;
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    cursor: pointer;
+    z-index: 996;
+}
+
+#current-hot-or-not-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    align-items: center;
+    position: absolute;
+    top: calc(100% - 100px);
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 996;
+    width: 100%;
+}
+
+.current-hot-or-not-option {
+    height: 70px;
+    width: 70px;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 50%;
+    margin-left: 15px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.current-hot-or-not-option:hover {
+    transform: scale(1.1);
+}
+
+#current-hot-or-not-heart {
+    background-image: url("../img/icons/heart.svg");
+    border-color: #C03B2B;
+    background-position: 50% calc(50% + 2px);
+    background-size: 50%;
+    background-color: #fff;
+}
+
+#current-hot-or-not-pass {
+    background-image: url("../img/icons/pass.svg");
+    border-color: #D8D8D9;
+    background-color: #fff;
+    background-size: 50%;
+}
+
+.current-hot-or-not-option-small {
+    height: 42px;
+    width: 42px;
+    background-size: 65%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 50%;
+    margin-left: 15px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    color: #fff;
+    text-align: center;
+    line-height: 35px;
+    border: 2px solid #fff;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,.1);
+}
+
+.current-hot-or-not-option-small:hover {
+    transform: scale(1.1);
+}
+
+#current-hot-or-not-flower {
+    background-image: url("../img/icons/flower-white.svg");
+    margin-left: auto;
+    margin-right: 15px;
+    align-self: flex-end;
+}
+
+#current-hot-or-not-chat {
+    background-size: 50%;
+    line-height: 38px;
+    margin-right: auto;
+    align-self: flex-end;
+}
+
+#hot-or-not-image-adder-toggle {
+    height: 150px;
+    width: 150px;
+    background-image: url("../img/icons/add-pic.png");
+    background-size: cover;
+    margin: auto;
+    margin-top: 100px;
+    cursor: pointer;
+}
+
+#hon-join-btn {
+    margin: auto;
+    margin-top: 15px;
+    display: none;
+}
+
+#hon-pre-join-msg, .hor-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Profiles tab */
+.profiles-tab-profile-wrap {
+    padding: 1px 8px;
+}
+
+.profiles-tab-profile-card {
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 15px;
+    border: 1px solid #ebebeb;
+}
+
+.profiles-tab-profile-card .pp img {
+    width: 100%;
+}
+
+.profiles-tab-profile-card .pp {
+    background-size: cover;
+    max-height: 200px;
+    background-position: center;
+    position: relative;
+}
+
+.profiles-tab-profile-card .pp .send-message-btn {
+    position: absolute;
+    top: 100%;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #c03b2bf5;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    margin-top: -20px;
+    left: 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.profiles-tab-profile-card .pp .send-message-btn:hover {
+    background-color: #ad3a2c;
+}
+
+.profiles-tab-profile-card .textual {
+    padding: 10px;
+}
+
+.profiles-tab-profile-card .fullname {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #272727;
+}
+
+.profiles-tab-profile-card .location {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.profiles-tab-profile-card .about-me-label {
+    font-size: 0.9em;
+    margin-top: 10px;
+    display: block;
+    color: #272727;
+}
+
+.profiles-tab-profile-card .about-me {
+    font-size: 0.9em;
+    padding-top: 0;
+    margin-bottom: 0;
+    color: #272727;
+}
+
+/* Flowers */
+.flower-wrap {
+    margin-bottom: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .index-main-col:not(.profiles) {
+        padding: 0;
+    }
+}

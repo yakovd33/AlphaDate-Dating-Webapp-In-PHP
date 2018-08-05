@@ -1,0 +1,319 @@
+#popups-wrap {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 99999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.popup {
+    position: fixed;
+    z-index: 999999999;
+    display: none;
+}
+
+/* Membership popup */
+#membreship-popup-tabs-togglers {
+    display: flex;
+}
+
+#membreship-popup-tabs-togglers .tab {
+    font-weight: bold;
+    font-size: 25px;
+    padding: 30px 40px;
+    display: inline-block;
+    cursor: pointer;
+    width: 33%;
+}
+
+#membreship-popup {
+    background-color: #fff;
+    text-align: center;
+    width: 1200px;
+}
+
+#membreship-popup-tabs-togglers .tab {
+    background-color: #ebebeb;
+}
+
+#membreship-popup-tabs-togglers .tab.active {
+    background-color: #fff;
+}
+
+#franchise-tab-toggler[data-tab="franchise"] {
+    background-color: #ffc501;
+}
+
+#franchise-tab-toggler[data-tab="franchise"].active {
+    background-color: #ffc501;
+}
+
+#membreship-popup-tabs .tab {
+    display: none;
+    overflow: scroll;
+}
+
+#membreship-popup-tabs .tab.active {
+    display: block;
+    padding: 35px;
+}
+
+#login-form {
+    max-width: 665px;
+    margin: auto;
+}
+
+#login-with-facebook-btn {
+    background-color: #3b5998;
+    color: #fff;
+    padding: 20px;
+    font-size: 23px;
+    font-weight: bold;
+    background-image: url("../img/social/facebook-letter-icon.png");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) 50%;
+}
+
+#facebook-login-btn-wrap {
+    padding-bottom: 30px;
+    margin-bottom: 17px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+#login-form input, #forgot-poassword-form {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#login-form input[type="text"], #login-form input[type="email"], #login-form input[type="password"], #forgot-poassword-form input[type="text"], #forgot-poassword-form input[type="email"], #forgot-poassword-form input[type="password"] {
+    border: none;
+    background-color: #d8d8d8;
+    padding: 15px 20px;
+    font-size: 20px;
+}
+
+#forgot-poassword-form {
+    max-width: 60%;
+    margin: auto;
+}
+
+#forgot-poassword-form input[type="submit"] {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+#forgot-poassword-form input {
+    width: 100%;
+}
+
+a#forgot-pass-link {
+    display: block;
+    text-align: left;
+}
+
+#login-remember-me {
+    display: block;
+    text-align: right;
+    margin-bottom: 35px;
+}
+
+#login-form input[type="submit"], #forgot-poassword-form input[type="submit"] {
+    background-color: #c0392b;
+    font-size: 25px;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 25px 0;
+    display: block;
+}
+
+/* Signup form */
+#signup-form {
+    max-width: 665px;
+    margin: auto;
+    max-height: 500px;
+}
+
+#signup-with-facebook-btn {
+    background-color: #3b5998;
+    color: #fff;
+    padding: 20px;
+    font-size: 23px;
+    font-weight: bold;
+    background-image: url("../img/social/facebook-letter-icon.png");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) 50%;
+}
+
+#facebook-signup-btn-wrap {
+    padding-bottom: 30px;
+    margin-bottom: 17px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+#signup-form input {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#signup-form input[type="text"], #signup-form input[type="email"], #signup-form input[type="password"] {
+    border: none;
+    background-color: #d8d8d8;
+    padding: 15px 20px;
+    font-size: 20px;
+}
+
+#signup-form input[type="submit"] {
+    background-color: #c0392b;
+    font-size: 25px;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 25px 0;
+    display: block;
+}
+
+#signup-terms-checkbox-wrap {
+    margin: 30px 0;
+}
+
+/* Enter franchise */
+#franchise-form {
+    max-width: 665px;
+    margin: auto;
+}
+
+#franchise-form input {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#franchise-form input[type="text"], #franchise-form input[type="email"] {
+    border: none;
+    background-color: #d8d8d8;
+    padding: 15px 20px;
+    font-size: 20px;
+}
+
+#franchise-form input[type="submit"] {
+    background-color: #c0392b;
+    font-size: 25px;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 25px 0;
+    display: block;
+}
+
+#forgot-pass-btn {
+    text-align: left;
+    display: block;
+}
+
+#forgot-poassword-form {
+    display: none;
+}
+
+#signup-form-feedback {
+    display: none;
+    margin-top: 10px;
+    bottom: -10px;
+}
+
+#dob-datepicker {
+    display: inline-block;
+}
+
+@media screen and (max-width: 1367px) {
+    #membreship-popup-tabs-togglers .tab {
+        font-size: 15px;
+    }
+
+    #membreship-popup {
+        width: 800px;
+    }
+
+    #login-with-facebook-btn {
+        padding: 14px;
+        font-size: 20px;
+    }
+
+    #signup-with-facebook-btn {
+        padding: 14px;
+        font-size: 20px;
+    }
+
+    #signup-form input[type="text"], #signup-form input[type="email"], #signup-form input[type="password"] {
+        font-size: 15px;
+        padding: 10px 15px;
+    }
+
+    #signup-terms-checkbox-wrap {
+        margin: 23px 0;
+        font-size: 12px;
+    }
+
+    #signup-form input[type="submit"], #franchise-form input[type="submit"], #login-form input[type="submit"], #forgot-poassword-form input[type="submit"] {
+        font-size: 16px;
+        padding: 17px 0;
+    }
+
+    #franchise-form input[type="text"], #franchise-form input[type="email"], #login-form input[type="text"], #login-form input[type="email"], #login-form input[type="password"], #forgot-poassword-form input[type="email"] {
+        font-size: 14px;
+        padding: 11px 15px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #membreship-popup-tabs-togglers .tab {
+        font-size: 10px;
+        padding: 10px 20px;
+    }
+
+    #login-with-facebook-btn {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    #facebook-signup-btn-wrap {
+        padding-bottom: 23px;
+        margin-bottom: 9px;
+    }
+
+    #signup-form input[type="submit"], #franchise-form input[type="submit"], #login-form input[type="submit"] {
+        font-size: 15px;
+        padding: 9px 0;
+    }
+
+    #membreship-popup {
+        width: 95%;
+    }
+
+    #membreship-popup-tabs-togglers .tab {
+        font-size: 10px;
+        padding: 10px 0px;
+    }
+
+    #facebook-login-btn-wrap {
+        padding-bottom: 10px;
+        margin-bottom: 0px;
+    }
+
+    #franchise-form input[type="text"], #franchise-form input[type="email"], #login-form input[type="text"], #login-form input[type="email"], #login-form input[type="password"] {
+        font-size: 10px;
+        padding: 9px 15px;
+    }
+
+    #franchise-form input {
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,204 @@
+body {
+
+}
+
+#hero-section {
+    background: url('../img/homepage/homepage-hero-bg.jpg');
+    background-size: cover;
+    padding: 30px;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.fullscreen-section {
+    height: 100vh;
+}
+
+#features-section {
+    background-color: #fff;
+    border-radius: 15px 15px 0 0;
+}
+
+#hero-nav {
+    display: flex;
+    align-items: center;
+}
+
+#hero-nav-links {
+    flex-grow: 1;
+}
+
+#nav-hero-login-link {
+    border: 2px solid #fff;
+    padding: 7px 16px;
+    color: #fff;
+    background-color: #fff;
+    color: #000;
+    border-radius: 0 0 7px 7px;
+    position: fixed;
+    top: 0;
+    left: 25px;
+    box-shadow: 0px 0px 1px #828282;
+}
+
+#hero-nav-logo {
+    float: right;
+}
+
+/* Signup Card */
+#hero-signup-card {
+    background-color: #fff;
+    padding: 15px 30px;
+    border-radius: 35px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    text-align: right;
+    width: 80%;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+}
+
+#hero-signup-card input[type="submit"] {
+    padding: 7px 50px;
+    border: none;
+    border-radius: 25px;
+    background: #c0392b;
+    color: #fff;
+    cursor: pointer;
+}
+
+#hero-signup-card select {
+    border-radius: 35px;
+    background-color: #ebebeb;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-left: 45px;
+    padding-right: 15px;
+    background: url("../img/homepage/icons/select-icon.png") #ebebeb no-repeat 15px !important;
+}
+
+/* Features section */
+#features-section {
+    text-align: center;
+    padding: 20px;
+}
+
+#features-section .section-title {
+    padding-top: 20px;
+}
+
+.features-section-features-wrap {
+    margin-top: 100px;
+}
+
+.features-section-features-wrap .feature {
+
+}
+
+.features-section-features-wrap .feature .icon {
+    padding-bottom: 13px;
+}
+
+.features-section-features-wrap .feature .icon img {
+    width: 60%;
+}
+
+.features-section-features-wrap .feature .title {
+    font-weight: bold;
+}
+
+.features-section-features-wrap .feature .text {
+    max-width: 85%;
+    margin: auto;
+    padding-top: 5px;
+}
+
+/* Stats section */
+#success-stories-and-stats-section {
+    display: flex;
+    flex-direction: column;
+}
+
+#stats-section {
+    background-color: #ebebeb;
+    padding: 30px;
+}
+
+#stats-section .stat-item {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Success stories */
+#success-stories-section {
+    padding: 50px;
+    text-align: right;
+    flex-grow: 1;
+}
+
+.success-story-item {
+    display: flex;
+    justify-content: center;
+}
+
+.success-story-item .textual {
+    padding-right: 20px;
+}
+
+.success-story-item .pic img {
+    height: 190px;
+    width: 190px;
+    
+}
+
+.success-story-item .textual .names {
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 20px;
+}
+
+.success-story-item .textual .text {
+    font-size: 20px;
+    margin-top: 12px;
+}
+
+#success-stories-slider {
+    margin-top: 90px;
+}
+
+#success-stories-section .section-title {
+    text-align: center;
+}
+
+/* Join us section */
+#join-us-section {
+    padding: 50px;
+    background: url("../img/homepage/join-us-section-bg.jpg");
+    background-size: cover;
+    background-position: 50% 50%;
+    text-align: center;
+}
+
+#join-us-section-join-btn {
+    margin: auto;
+    text-align: center;
+    padding: 15px 20px;
+    border-radius: 4px;
+    border: 2px solid #fff;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+}
+
+#join-us-section-join-btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}

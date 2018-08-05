@@ -1,0 +1,36 @@
+RewriteEngine on
+
+RewriteBase /AlphaDate/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(signin|join|logout|profile)(/?)$ index.php?page=$1 [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(feed|flowers|geo|friends-of-friends|profiles|matches|meetings)(/?)$ index.php?tab=$1 [L]
+
+RewriteRule ^(profile)/([0-9]+)(/?)$ index.php?page=$1&id=$2 [L]
+
+RewriteRule ^(get_checkbox)/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2 [L,NC]
+RewriteRule ^(send_message)(/?)$ ajax/chat.php?type=$1 [L,NC]
+
+RewriteRule ^(post)/(upload)(/?)$ ajax/post.php?type=$2 [L,NC]
+RewriteRule ^(update_col)/(/?)$ ajax/profile.php?type=$1 [L,NC]
+RewriteRule ^(close_chatbox)/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2 [L,NC]
+RewriteRule ^(fold_chatbox)/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2 [L,NC]
+RewriteRule ^(messages_listen)(/?)$ ajax/chat.php?type=$1 [L,NC]
+
+RewriteRule ^(post)/(heart)/([0-9]+)(/?)$ ajax/post.php?type=$2&post_id=$3 [L,NC]
+RewriteRule ^(send_flower)(/?)$ ajax/profile.php?type=$1 [L,NC]
+RewriteRule ^(upload_hon_pic)(/?)$ ajax/hon.php?type=$1 [L,NC]
+RewriteRule ^(user_join_hon)(/?)$ ajax/hon.php?type=$1 [L,NC]
+RewriteRule ^(get_next_hon)(/?)$ ajax/hon.php?type=$1 [L,NC]
+RewriteRule ^(hon)/(heart)(/?)$ ajax/hon.php?type=$2 [L,NC]
+RewriteRule ^(hon)/(reject)(/?)$ ajax/hon.php?type=$2 [L,NC]
+
+RewriteRule ^(date)/(invite)(/?)$ ajax/dates.php?type=$2 [L,NC]
+
+RewriteRule ^(meetings)/(my|memories)(/?)$ index.php?tab=$1&type=$2 [L]
+RewriteRule ^(dates)/(approve|reject)(/?)$ ajax/dates.php?type=$2 [L]
+RewriteRule ^(user)/(block)(/?)$ ajax/profile.php?type=block-user [L]

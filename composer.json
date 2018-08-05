@@ -1,0 +1,12 @@
+{
+    "name": "yakov/alpha-date",
+    "authors": [
+        {
+            "name": "yakovd33",
+            "email": "yakovd33@gmail.com"
+        }
+    ],
+    "require": {
+        "workerman/phpsocket.io": "^1.1"
+    }
+}

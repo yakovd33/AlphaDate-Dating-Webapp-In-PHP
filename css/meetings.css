@@ -1,0 +1,45 @@
+.meeting-actions {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.meeting-action {
+    height: 31px;
+    width: 31px;
+    border-radius: 50%;
+    display: inline-block;
+    background-size: 55%;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    box-shadow: 0px 1px 5px #ebebeb;
+    margin-left: 10px;
+    border: 1px solid #ebebeb;
+    transition: 0.3s ease-in-out;
+}
+
+.meeting-action.approve-date {
+    background-image: url(../img/icons/heart.svg);
+    background-position: 50% calc(50% + 2px);
+}
+
+.meeting-action.reject-date {
+    background-image: url(../img/icons/pass.svg);
+}
+
+.meeting-action:hover {
+    background-color: #fbfbfb;
+}
+
+.meeting-filter-link {
+    color: #444;
+    font-size: 0.9em;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.meeting-filter-link.active {
+    color: #c03b2b;
+}

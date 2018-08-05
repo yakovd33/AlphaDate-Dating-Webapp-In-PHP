@@ -1,0 +1,29 @@
+#main-nav {
+    padding: 1rem;
+}
+
+#main-nav .navbar-brand {
+    margin-left: 40px;
+}
+
+#main-nav-profile-pic {
+    height: 42px;
+    width: 42px;
+    margin: 0 15px;
+    border-radius: 50%;
+}
+
+#main-nav .nav-item {
+    padding: 1rem;
+}
+
+#main-nav-list .nav-link {
+    text-align: right;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    #main-nav .navbar-brand {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,302 @@
+body {
+    background-color: #F8F8F8;
+}
+
+#site-wrap {
+    padding: 0;
+}
+
+.feed-col {
+    padding: 0;
+}
+
+#main-right-sidebar-profile-card-visual {
+    margin-top: 20px;
+}
+
+.navbar-brand img {
+    margin-left: 12px;
+}
+
+#profile-card-wrap {
+    /* background-color: #fff; */
+}
+
+.profile-card {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.profile-card .pp {
+    width: 100%;
+    position: relative;
+}
+
+.profile-card .pp img {
+    width: 80%;
+    border-radius: 50%;
+    margin: auto;
+    display: block;
+}
+
+.profile-card .pp #gender-marker {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    left: 20%;
+    transform: translateX(-50%);
+    margin-left: 12.5px;
+}
+
+.profile-card .pp #gender-marker.male {
+    background-color: #6695cc;
+}
+
+.profile-card .pp #gender-marker.female {
+    background-color: #ff75d0;
+}
+
+.profile-card .fullname {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 14px;
+}
+
+.profile-card .city {
+    color: #3e3e3e;
+    text-align: center;
+    color: #9e9e9e;
+}
+
+#profile-content-wrap {
+    padding-top: 20px;
+}
+
+.about-me-label {
+    font-weight: bold;
+    margin-bottom: 1px;
+    margin-top: 7px;
+}
+
+.about-me {
+    margin-bottom: 5px;
+    display: block !important;
+}
+
+.profile-information-item .title {
+    /* font-weight: bold; */
+    font-size: 1.2em;
+    color: #3e3e3e;
+}
+
+.profile-information-item .item-content {
+    font-size: 0.9em;
+    color: #9e9e9e;
+    margin-top: 3px;
+    font-weight: lighter;
+}
+
+.profile-information-item:not(:last-child) {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+#profile-hobbies {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.hobby-item {
+    background-color: #ebebeb;
+    border-radius: 6px;
+    padding: 4px 13px;
+    color: #949494;
+    font-size: 0.9em;
+    font-weight: normal;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.hobby-item > * {
+    display: inline-block;
+}
+
+.hobby-item .icon {
+    font-size: 1.1em;
+    margin-left: 6px;
+    display: inline-block;
+}
+
+.personal-info-item {
+    display: flex;
+}
+
+.personal-info-item > * {
+    display: inline-block;
+    font-weight: normal;
+}
+
+.personal-info-item .title {
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.editable-wrap {
+    position: relative;
+    margin-top: 5px;
+}
+
+#profile-information-item-info .editable-wrap {
+    display: none;
+}
+
+.editable-icon {
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    border: 1px solid #c03b2b;
+    border-radius: 50%;
+    font-size: 0.9em;
+    line-height: 27px;
+    background-image: url('../img/icons/pencil.svg');
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+#about-me-wrap {
+    margin-bottom: 10px;
+}
+
+#about-me-wrap .editable-icon {
+    top: -5px;
+}
+
+.editable-icon:hover {
+    background-color: #c03b2bdf;
+    background-image: url('../img/icons/pencil-white.svg');
+}
+
+.editable-wrap:hover > .editable-icon {
+    opacity: 1;
+}
+
+.editable-content {
+    padding-top: 5px;
+}
+
+#about-me-update-btn {
+    float: left;
+    display: none;
+}
+
+#job-update-btn, #education-update-btn, #info-update-btn {
+    float: left;
+}
+
+.editable-content {
+    display: none;
+}
+
+#profile-actions {
+    margin-top: 10px;
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    min-width: 200px;
+    z-index: 999;
+}
+
+#profile-actions .profile-action-wrap {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    min-width: 40px;
+    min-height: 40px;
+    margin-bottom: 7px;
+}
+
+#profile-actions .profile-action-wrap .icon {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    display: inline-block;
+    text-align: center;
+    line-height: calc(40px - 1em);
+    box-sizing: border-box;
+    color: #fff;
+    background-color: #c03b2b;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 999;
+}
+
+#profile-actions .profile-action-wrap .text {
+    height: 40px;
+    padding: 10px;
+    display: inline-block;
+    text-align: center;
+    line-height: calc(40px - 1em);
+    box-sizing: border-box;
+    color: #fff;
+    background-color: #8e3429;
+    border-radius: 35px;
+    margin-right: -40px;
+    padding-right: 50px;
+    padding-left: 15px;
+    font-weight: bold;
+    padding-bottom: 8px;
+    padding-top: 12px;
+    position: absolute;
+    right: -200px;
+    transition: 0.19s ease-in-out;
+    z-index: 997;
+}
+
+#profile-actions .profile-action-wrap .text > span {
+    margin-top: -2px;
+    display: block;
+}
+
+#profile-actions .profile-action-wrap:hover .text {
+    right: 40px;
+}
+
+#profile-actions .profile-action-wrap .right-side {
+    background-color: #F8F8F8;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    right: -1px;
+    z-index: 998;
+    border-radius: 35px 0 0 35px;
+}
+
+#profile-date-invite-link-wrap {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.date-invitation-trigger {
+    color: #7d7d7d;
+    text-align: center;
+    padding-bottom: 0px;
+    display: inline-block;
+    margin: auto;
+}
+
+#profile-date-invitation-already-invited {
+    color: #7d7d7d;
+    font-size: 0.9em;
+}

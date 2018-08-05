@@ -4,12 +4,16 @@
         $GLOBALS['link']->query("UPDATE `meetings_requests` SET `user_one_seen` = 1 WHERE `user_one_id` =  {$_SESSION['user_id']}");
         $GLOBALS['link']->query("UPDATE `meetings_requests` SET `user_two_seen` = 1 WHERE `user_two_id` =  {$_SESSION['user_id']}");
 
-        $meetings_stmt = $GLOBALS['link']->query("SELECT * FROM `meetings_requests` WHERE ((`user_one_id` = {$_SESSION['user_id']}) OR (`user_two_id` = {$_SESSION['user_id']})) AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOT `is_approved` AND NOT `is_rejected`");
+        $meetings_query = "SELECT * FROM `meetings_requests` WHERE ((`user_one_id` = {$_SESSION['user_id']}) OR (`user_two_id` = {$_SESSION['user_id']})) AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOT `is_approved` AND NOT `is_rejected`";
     } elseif ($_GET['type'] == 'my') {
-        $meetings_stmt = $GLOBALS['link']->query("SELECT * FROM `meetings_requests` WHERE (`user_one_id` = {$_SESSION['user_id']})");
+        $meetings_query = "SELECT * FROM `meetings_requests` WHERE (`user_one_id` = {$_SESSION['user_id']})";
     } elseif ($_GET['type'] == 'memories') {
-        $meetings_stmt = $GLOBALS['link']->query("SELECT * FROM `meetings_requests` WHERE ((`user_one_id` = {$_SESSION['user_id']}) OR (`user_two_id` = {$_SESSION['user_id']})) AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND `is_approved`");
+        $meetings_query = "SELECT * FROM `meetings_requests` WHERE ((`user_one_id` = {$_SESSION['user_id']}) OR (`user_two_id` = {$_SESSION['user_id']})) AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND `is_approved`";
     }
+
+    $meetings_query .= get_user_blocked_user_by_col('user_one_id');
+
+    $meetings_stmt = $GLOBALS['link']->query($meetings_query);
 ?>
 
 <link rel="stylesheet" href="<?php echo $URL; ?>/css/meetings.css">

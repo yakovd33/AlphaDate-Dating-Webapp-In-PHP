@@ -18,7 +18,7 @@
 
     <div class="post-actions">
         <div class="post-action heart {{#if hearted}}clicked{{/if}}" onclick="heart($(this))" data-postid="{{ postid }}"><i class="fas fa-heart"></i> <span class="num">{{ num_hearts }}</span></div>
-        <div class="post-action comment"><i class="fa fa-comment-alt"></i> <span class="num">{{ num_comments }}</span></div>
+        <div class="post-action comment" data-postid="{{ postid }}"><i class="fa fa-comment-alt"></i> <span class="num">{{ num_comments }}</span></div>
     </div>
 
     <div class="post-comments-section">
@@ -28,7 +28,7 @@
             </div>
         
             <form class="new-comment-input">
-                <div contenteditable="plaintext-only" placeholder="כתוב תגובה..." class="comment-text-input"></div>
+                <div contenteditable="plaintext-only" placeholder="כתוב תגובה..." class="comment-text-input" data-postid="{{ postid }}"></div>
                 
                 <input type="file" class="comment-additional-image">
                 <div class="trigger-comment-additional-image">
@@ -36,5 +36,7 @@
                 </div>
             </form>
         </div>
+
+        <div class="post-comments-wrap"></div>
     </div>
 </div>

@@ -24,6 +24,7 @@
             $hon_query .= get_user_blocked_user_by_col('id');
 
             $hon_query .= " ORDER BY `popularity` DESC";
+
             $hon_stmt = $GLOBALS['link']->query($hon_query);
 
             $current_users = [];

@@ -245,6 +245,11 @@
                                     </div>
 
                                     <div class="personal-info-item">
+                                        <div class="title">מזל</div>
+                                        <div class="det"><?php echo $user['zodiac']; ?></div>
+                                    </div>
+
+                                    <div class="personal-info-item">
                                         <div class="title">ילדים</div>
                                         <div class="det"><?php echo $user['children'] == 0 ? 'אין' : $user['children']; ?></div>
                                     </div>
@@ -308,6 +313,22 @@
                                     <option value="כחול">כחול</option>
                                     <option value="ירוק">ירוק</option>
                                     <option value="אחר">אחר</option>
+                                </select>
+
+                                <select class="profile-info-edit-input" data-col="zodiac" id="zodiac-input">
+                                    <option value="<?php echo $user['zodiac']; ?>">מזל</option>
+                                    <option value="טלה">טלה</option>
+                                    <option value="שור">שור</option>
+                                    <option value="תאומים">תאומים</option>
+                                    <option value="סרטן">סרטן</option>
+                                    <option value="אריה">אריה</option>
+                                    <option value="בתולה">בתולה</option>
+                                    <option value="מאזניים">מאזניים</option>
+                                    <option value="עקרב">עקרב</option>
+                                    <option value="קשת">קשת</option>
+                                    <option value="גדי">גדי</option>
+                                    <option value="דלי">דלי</option>
+                                    <option value="דגים">דגים</option>
                                 </select>
 
                                 <select class="profile-info-edit-input" data-col="children" id="children-input">

@@ -58,9 +58,77 @@ function heart (context) {
 function posts_comments () {
     $.each($(".post-actions .comment"), function () {
         $(this).unbind("click").click(function () {
-           $(this).parent().parent().find(".post-comments-section").toggle();    
+            if ($(this).parent().parent().find(".post-comments-section").css('display') == 'none') {
+                // Load post comments
+                data = new FormData();
+                data.append('postid', $(this).data('postid'));
+                
+                $.ajax({
+                    url: URL + '/post/get_comments/',
+                    processData: false,
+                    contentType: false,
+                    method : 'POST',
+                    data : data,
+                    context: this,
+                    success: function (response) {
+                        console.log(response);
+                        responseJson = JSON.parse(response);
+                        
+                        for (i = 0; i < responseJson.length; i++) {
+                            var source = $("#post-comment-template").html();
+                            var template = Handlebars.compile(source);
+                            var context = {
+                                fullname: responseJson[i].fullname,
+                                pp: responseJson[i].pp,
+                                text: responseJson[i].comment,
+                            };
+
+                            var html = template(context);
+                            $(this).parent().parent().find(".post-comments-wrap").append(html);
+                        }
+                    }
+                });
+            }
+
+            $(this).parent().parent().find(".post-comments-section").show().css('display', 'flex');
         });
-    })
+    });
+
+    $.each($(".new-comment-input"), function () {
+        $(this).find(".comment-text-input").unbind("keydown").keydown(function (e) {
+           if (e.which == 13) {
+               data = new FormData();
+               data.append('postid', $(this).data('postid'));
+               data.append('comment', $(this).html());
+               
+                $.ajax({
+                    url: URL + '/post/comment/',
+                    processData: false,
+                    contentType: false,
+                    method : 'POST',
+                    data : data,
+                    context: this,
+                    success: function (response) {
+                        console.log(response);
+                        responseJson = JSON.parse(response);
+
+                        $(this).html('');
+
+                        var source = $("#post-comment-template").html();
+                        var template = Handlebars.compile(source);
+                        var context = {
+                            fullname: responseJson.fullname,
+                            pp: responseJson.pp,
+                            text: responseJson.comment,
+                        };
+
+                        var html = template(context);
+                        $(this).parent().parent().parent().find(".post-comments-wrap").prepend(html);
+                    }
+                });
+            }
+        });
+    });
 }
 
 posts_comments();

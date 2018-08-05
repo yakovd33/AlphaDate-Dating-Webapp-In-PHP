@@ -1,19 +1,49 @@
 <?php
     $profiles_query = "SELECT * FROM `users` WHERE 1";
 
-    if ($CUR_USER['orientation'] != 'both') { 
-        $profiles_query .= " AND `gender` = '" . $CUR_USER['orientation'] . "'";
+    if (!isset($_GET['all'])) {
+        if ($CUR_USER['orientation'] != 'both') { 
+            $profiles_query .= " AND `gender` = '" . $CUR_USER['orientation'] . "'";
+        }
+
+        $profiles_query .= " AND (YEAR(`date_of_birth`) < YEAR(CURDATE()) - " . $CUR_USER['interest_age_min'] . ")";
+        $profiles_query .= " AND (YEAR(`date_of_birth`) > YEAR(CURDATE()) - " . $CUR_USER['interest_age_max'] . ")";
     }
 
-    $profiles_query .= " AND (YEAR(`date_of_birth`) < YEAR(CURDATE()) - " . $CUR_USER['interest_age_min'] . ")";
-    $profiles_query .= " AND (YEAR(`date_of_birth`) > YEAR(CURDATE()) - " . $CUR_USER['interest_age_max'] . ")";
+    $profiles_query .= get_user_blocked_user_by_col('id');
+
+    $order_by = " ORDER BY `popularity`";
+    if (isset($_POST['sorting']) && $_POST['sorting'] != 'popularity') {
+        $sorting = $_POST['sorting'];
+
+        if ($sorting == 'age') {
+            $order_by = " ORDER BY `date_of_birth`";
+        } else if ($sorting == 'age-desc') {
+            $order_by = " ORDER BY `date_of_birth` DESC";
+        }
+    }
+
+    $profiles_query .= $order_by;
 
     $profiles_stmt = $GLOBALS['link']->query($profiles_query);
-
-    // $GLOBALS['link']->query("UPDATE `users` SET `about_me` = 'לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית. סת אלמנקום ניסי נון ניבאה. דס איאקוליס וולופטה דיאם. וסטיבולום אט דולור, קראס אגת לקטוס וואל אאוגו וסטיבולום סוליסי טידום בעליק. קונדימנטום קורוס בליקרה, נונסטי קלובר בריקנה סטום, לפריקך תצטריק לרטי. '");
 ?>
 
 <div id="profiles-tab">
+    <form id="profiles-sorting-wrap" method="POST">
+        <select class="pretty-select" name="sorting" id="profiles-sort-by" onchange="$(this).parent().submit();">
+            <option value="popularity">מיין לפי</option>
+            <option value="popularity" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'popularity') { echo 'selected="selected"'; } ?>>פופולאריות</option>
+            <option value="age" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'age') { echo 'selected="selected"'; } ?>>גיל: נמוך לגבוה</option>
+            <option value="age-desc" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'age-desc') { echo 'selected="selected"'; } ?>>גיל: גבוה לנמוך</option>
+        </select>
+
+        <div class="mr-auto" id="profiles-choose-type">
+            <a href="<?php echo $URL; ?>/profiles/" class="<?php if (!isset($_GET['all'])) { echo 'active'; } ?>">ההעדפות שלי</a>
+            | 
+            <a href="<?php echo $URL; ?>/profiles/all/" class="<?php if (isset($_GET['all'])) { echo 'active'; } ?>">כל הפרופילים</a>
+        </div>
+    </form>
+
     <div class="row">
         <?php while ($profile = $profiles_stmt->fetch()) : ?>
             <div class="col-md-4 profiles-tab-profile-wrap">

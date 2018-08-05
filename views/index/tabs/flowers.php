@@ -1,5 +1,7 @@
 <?php
-    $new_flowers_stmt = $GLOBALS['link']->query("SELECT * FROM `sent_flowers` WHERE `to_id` = {$_SESSION['user_id']} AND NOT `seen`");
+    $new_flowers_query = "SELECT * FROM `sent_flowers` WHERE `to_id` = {$_SESSION['user_id']} AND NOT `seen`";
+    $new_flowers_query .= get_user_blocked_user_by_col('from_id');
+    $new_flowers_stmt = $GLOBALS['link']->query($new_flowers_query);
 ?>
 
 <div id="flowers">

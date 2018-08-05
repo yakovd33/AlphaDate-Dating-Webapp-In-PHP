@@ -202,7 +202,7 @@ div#current-hot-or-not-location {
 }
 
 .current-hot-or-not-option-small:hover {
-    transform: scale(1.1);
+    transform: scale(0.9);
 }
 
 #current-hot-or-not-flower {
@@ -300,6 +300,7 @@ div#current-hot-or-not-location {
 .profiles-tab-profile-card .location {
     font-size: 0.8em;
     color: #888;
+    height: 0.8em;
 }
 
 .profiles-tab-profile-card .about-me-label {
@@ -314,11 +315,31 @@ div#current-hot-or-not-location {
     padding-top: 0;
     margin-bottom: 0;
     color: #272727;
+    height: 55px;
 }
 
 /* Flowers */
 .flower-wrap {
     margin-bottom: 10px;
+}
+
+#profiles-sorting-wrap {
+    display: flex;
+    align-items: center;
+}
+
+#profiles-choose-type {
+    font-size: 0.85em;
+    color: #444;
+}
+
+#profiles-choose-type a {
+    color: #444;
+}
+
+#profiles-choose-type a.active {
+    color: #ad3a2c;
+    font-weight: bold;
 }
 
 @media screen and (min-width: 768px) {

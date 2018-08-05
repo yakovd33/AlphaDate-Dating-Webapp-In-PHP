@@ -89,3 +89,20 @@
 .datepicker table tr td.active, .datepicker table tr td.active:hover, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled:hover {
     
 }
+
+.pretty-select {
+    padding: 5px;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    font-size: 0.9em;
+	margin-bottom: 5px;
+	appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+	background: url(../img/homepage/icons/select-icon.png) #fff no-repeat 10px !important;
+	padding-left: 40px;
+	padding-right: 10px;
+	color: #444;
+	font-weight: bold;
+	cursor: pointer;
+}

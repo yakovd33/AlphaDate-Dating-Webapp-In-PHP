@@ -200,7 +200,7 @@
     }
 
     function get_user_pp_by_id ($user_id) {
-        return 'img/pp.jpg';
+        return '/AlphaDate/img/pp.jpg';
     }
 
     function get_user_blocked_user_by_col ($col) {

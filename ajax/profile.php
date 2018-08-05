@@ -5,13 +5,14 @@
     if (isset($_GET['type'])) {
         switch ($_GET['type']) {
             case 'update_col' :
-                $editable_db_cols = [ 'fullname', 'nickname', 'email', 'gender', 'city', 'orientation', 'city', 'about_me', 'date_of_birth', 'interest_age_min', 'interest_age_max', 'profession', 'company', 'education', 'relationship', 'height', 'weight', 'body_type', 'hair_color', 'eye_color', 'children', 'smoking', 'alcohol', 'children' ];
+                $editable_db_cols = [ 'fullname', 'nickname', 'email', 'gender', 'city', 'orientation', 'city', 'about_me', 'date_of_birth', 'interest_age_min', 'interest_age_max', 'profession', 'company', 'education', 'relationship', 'height', 'weight', 'body_type', 'hair_color', 'eye_color', 'children', 'smoking', 'alcohol', 'children', 'zodiac' ];
                 $relationship_values = [ 'רווק', 'גרוש', 'אלמן' ];
                 $body_types_values = [ 'אתלטי', 'ממוצע', 'שרירי', 'רזה' ];
                 $hair_color_values = [ 'חום בהיר','בלונד','חום כהה','שחור','צבוע','קירח','לבן','מגולח' ];
                 $eye_color_values = [ 'שחור','חום','כחול','ירוק','אחר' ];
                 $smoking_values = [ '0', '1' ];
                 $alcohol_values = [ 'לא שותה', 'שותה מעט', 'שותה הרבה' ];
+                $zodiac_values = [ 'טלה','שור','תאומים','סרטן','אריה','בתולה','מאזניים','עקרב','קשת','גדי','דלי','דגים' ];
 
                 if (isset($_POST['col'], $_POST['value'])) {
                     echo $col = $_POST['col'];
@@ -54,6 +55,10 @@
                             }
 
                             if (($col == 'weight') && ($value < 45 || $value > 150)) {
+                                die();
+                            }
+
+                            if ($col == 'zodiac' && !in_array($value, $zodiac_values)) {
                                 die();
                             }
 

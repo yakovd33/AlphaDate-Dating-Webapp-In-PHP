@@ -29,8 +29,8 @@
         <div class="profiles-tab-profile-wrap small col-md-3">
             <div class="profiles-tab-profile-card">
                 <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
-                    <div class="pp" style="background-image: url(<?php echo $URL; ?>/img/pp.jpg);">
-                        <img src="<?php echo $URL; ?>/img/pp.jpg" style="visibility: hidden">
+                    <div class="pp" style="background-image: url(<?php echo get_user_pp_by_id($profile['id']); ?>);">
+                        <img src="<?php echo get_user_pp_by_id($profile['id']); ?>" style="visibility: hidden">
                         <div class="send-message-btn chatbox-trigger" data-userid="<?php echo $profile['id']; ?>"><i class="fas fa-comment-alt"></i></div>
                     </div>
                 </a>
@@ -43,11 +43,13 @@
                     <div class="location"><?php echo $profile['city']; ?> | <span class="meeting-request-date">לפני 4 שעות</span></div>
                 </div>
 
-                <?php if (!$meeting['is_approved'] && !$meeting['is_rejected']) : ?>
-                    <div class="meeting-actions">
-                        <div class="meeting-action approve-date" data-dateid="<?php echo     $meeting['id']; ?>"></div>
-                        <div class="meeting-action reject-date" data-dateid="<?php echo  $meeting['id']; ?>"></div>
-                    </div>
+                <?php if ($meeting['user_two_id'] == $_SESSION['user_id']) : ?>
+                    <?php if (!$meeting['is_approved'] && !$meeting['is_rejected']) : ?>
+                        <div class="meeting-actions">
+                            <div class="meeting-action approve-date" data-dateid="<?php echo     $meeting['id']; ?>"></div>
+                            <div class="meeting-action reject-date" data-dateid="<?php echo  $meeting['id']; ?>"></div>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

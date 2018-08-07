@@ -65,3 +65,69 @@ function date_invites () {
 }
 
 date_invites();
+
+// Sidebar prefrences bar
+$("#hot-or-not-nav-link-options").click(function (e) {
+    e.preventDefault();
+
+    $("#change-prefrences-bar").fadeToggle(100);
+    // $("#change-prefrences-bar").css('left', $(this).offset().left - ($("#change-prefrences-bar").width() / 2) + 5);
+    $("#change-prefrences-bar").css('top', $(this).position().top + 42);
+});
+
+$("#update-prefrences-btn").click(function () {
+    $("#change-prefrences-bar").fadeOut(100);
+
+    data = new FormData();
+    data.append('col', 'orientation');
+    data.append('value', $("#orientation-selection .orientation-item.active").data('value'));
+    
+    $.ajax({
+        url: URL + '/update_col/',
+        processData: false,
+        contentType: false,
+        method : 'POST',
+        data : data,
+        success: function (response) {
+            console.log(response);
+            
+            data = new FormData();
+            data.append('col', 'interest_age_min');
+            data.append('value', $('#slider-range').slider("values")[0]);
+            
+            $.ajax({
+                url: URL + '/update_col/',
+                processData: false,
+                contentType: false,
+                method : 'POST',
+                data : data,
+                success: function (response) {
+                    console.log(response);
+                    
+                    data = new FormData();
+                    data.append('col', 'interest_age_max');
+                    data.append('value', $('#slider-range').slider("values")[1]);
+                    
+                    $.ajax({
+                        url: URL + '/update_col/',
+                        processData: false,
+                        contentType: false,
+                        method : 'POST',
+                        data : data,
+                        success: function (response) {
+                            console.log(response);
+                            next_hon();
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+$.each($("#orientation-selection .orientation-item"), function () {
+    $(this).click(function () {
+        $("#orientation-selection .orientation-item.active").removeClass("active");
+        $(this).addClass("active");
+    });
+});

@@ -11,12 +11,11 @@
         <link rel="stylesheet" href="<?php echo $URL; ?>/css/main.css">
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <!-- Slick JS -->
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
@@ -24,16 +23,25 @@
     <body>
     <!-- <div style="width: 300px; height: 472px !important; background: #fcb555; z-index: 999; position: fixed; bottom: -200px; left: -200px; transform: rotate(130deg);"><div class="text"></div></div> -->
         <input type="hidden" id="url" value="<?php echo $URL; ?>">
-        <?php if (is_logged()) : ?>
-            <input type="hidden" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
-        <?php endif; ?>
+        <input type="hidden" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
+        <input type="hidden" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
         <input type="hidden" id="fullname" value="<?php echo $CUR_USER['fullname']; ?>">
+        <input type="hidden" id="pp" value="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>">
 
         <script>
             URL = $("#url").val();
             USERID = $("#userid").val();
             FULLNAME = $("#fullname").val();
+            PP = $("#pp").val();
         </script>
+
+        <div id="empty-nav">
+            <a href="<?php echo $URL; ?>"><div id="empty-nav-logo"></div></a>
+
+            <div class="container" id="empty-nav-logout-btn-wrap">
+                <a href="<?php echo $URL; ?>/logout/"><div id="empty-nav-logout-btn"></div></a>
+            </div>
+        </div>
 
         <?php if (isset($_GET['page']) && $_GET['page'] != 'profile' || !isset($_GET['page'])) : ?>
             <div class="container" id="site-wrap">

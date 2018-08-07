@@ -21,15 +21,22 @@
             case 'approve' :
                 if (isset($_POST['dateid'])) {
                     $id = $_POST['dateid'];
-                    $GLOBALS['link']->query("UPDATE `meetings_requests` SET `is_approved` = 1 WHERE `id` = {$id}");
+                    $date = $GLOBALS['link']->query("SELECT * FROM `meetings_requests` WHERE `id` = {$id}")->fetch();
+
+                    if ($date['user_two_id'] == $_SESSION['user_id']) {
+                        $GLOBALS['link']->query("UPDATE `meetings_requests` SET `is_approved` = 1 WHERE `id` = {$id}");
+                    }
                 }
 
                 break;
             case 'reject' :
                 if (isset($_POST['dateid'])) {
                     $id = $_POST['dateid'];
-                    $GLOBALS['link']->query("UPDATE `meetings_requests` SET `is_rejected` = 1 WHERE `id` = {$id}");
-                    print_r($GLOBALS['link']->errorInfo());
+                    $date = $GLOBALS['link']->query("SELECT * FROM `meetings_requests` WHERE `id` = {$id}")->fetch();
+
+                    if ($date['user_two_id'] == $_SESSION['user_id']) {
+                        $GLOBALS['link']->query("UPDATE `meetings_requests` SET `is_rejected` = 1 WHERE `id` = {$id}");
+                    }
                 }
 
                 break;

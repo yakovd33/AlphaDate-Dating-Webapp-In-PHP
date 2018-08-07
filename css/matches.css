@@ -2,3 +2,19 @@
     margin-top: 0;
     margin-bottom: 15px;
 }
+
+.matches-type-link {
+    color: #444;
+    margin-bottom: 7px;
+    display: inline-block;
+    font-size: 0.9em;
+}
+
+.matches-type-link.active {
+    color: #ad3a2c;
+    font-weight: bold;
+}
+
+.matches-type-link:first-of-type {
+    margin-right: 8px;
+}

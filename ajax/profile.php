@@ -13,10 +13,11 @@
                 $smoking_values = [ '0', '1' ];
                 $alcohol_values = [ 'לא שותה', 'שותה מעט', 'שותה הרבה' ];
                 $zodiac_values = [ 'טלה','שור','תאומים','סרטן','אריה','בתולה','מאזניים','עקרב','קשת','גדי','דלי','דגים' ];
+                $orientation_values = [ 'male', 'female', 'both' ];
 
                 if (isset($_POST['col'], $_POST['value'])) {
-                    echo $col = $_POST['col'];
-                    echo $value = $_POST['value'];
+                    $col = $_POST['col'];
+                    $value = $_POST['value'];
 
                     if (!empty($col) && (strlen($value) != 0)) {
                         if (in_array($col, $editable_db_cols)) {
@@ -62,12 +63,19 @@
                                 die();
                             }
 
+                            if ($col == 'orientation' && !in_array($value, $orientation_values)) {
+                                die();
+                            }
+
+                            if (($col == 'interest_age_min' || $col == 'interest_age_max') && ($value < 0 || $value > 120)) {
+                                die();
+                            }
+
                             if (strlen($value) == 0) {
                                 die();
                             }
 
                             $GLOBALS['link']->query("UPDATE `users` SET `{$col}` = '{$value}' WHERE `id` = {$_SESSION['user_id']}");
-                            print_r($GLOBALS['link']->errorInfo());
                         }
                     } else {
                         echo 'empty';
@@ -106,6 +114,16 @@
                         // Insert block
                         $GLOBALS['link']->query("INSERT INTO `blocked_users` (`user_id`, `blocked_id`) VALUES ({$_SESSION['user_id']}, {$userid})");
                     }
+                }
+
+                break;
+
+            case 'set-pp' :
+                if (isset($_FILES['pic'])) {
+                    $file = $_FILES['pic'];
+                    echo $photo_id = insert_photo($file, 'profile-pics', 'pp');
+
+                    $GLOBALS['link']->query("UPDATE `users` SET `pp_id` = {$photo_id} WHERE `id` = {$_SESSION['user_id']}");
                 }
 
                 break;

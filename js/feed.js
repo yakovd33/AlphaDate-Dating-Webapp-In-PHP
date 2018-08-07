@@ -24,7 +24,19 @@ $("#post-upload-form").submit(function (e) {
 
             var source = $("#post-template").html();
             var template = Handlebars.compile(source);
-            var context = { postid: parsed_response.postid, userid: USERID, fullname: FULLNAME, time: 'עכשיו', text: $("#new-post-input-card-content").val().replace(/\r?\n/g, '<br>'), num_hearts: 0, num_comments: 0, hearted: false };
+            var context = {
+                postid: parsed_response.postid,
+                userid: USERID,
+                fullname: FULLNAME,
+                time: 'עכשיו',
+                text: $("#new-post-input-card-content").val().replace(/\r?\n/g, '<br>'),
+                num_hearts: 0,
+                num_comments: 0,
+                hearted: false,
+                user_pic: PP
+            };
+            
+            console.log('hehehe: ' + PP);
             var html = template(context);
             $("#feed-posts").prepend(html);            
             $("#new-post-input-card-content").val('');

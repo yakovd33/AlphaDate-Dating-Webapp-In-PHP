@@ -5,7 +5,6 @@
         // Check if user has a hor item already
         $open_item_stmt = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_voted` WHERE `voter_id` = {$_SESSION['user_id']} AND NOT `is_hearted` AND NOT `is_rejected`");
         if ($open_item_stmt->rowCount() == 0) {
-
             // Get potential users by interest
             $ages = [];
             $hair_colors = [];
@@ -15,11 +14,15 @@
             $hon_query = "SELECT *, YEAR(CURDATE()) - YEAR(`date_of_birth`) AS `age` FROM `users` WHERE 1";
 
             if ($CUR_USER['orientation'] != 'both') { 
-                $hon_query .= " AND `gender` = '" . $CUR_USER['orientation'] . "'";
+                $hon_query .= ' AND `gender` = "' . $CUR_USER['orientation'] . '"';
             }
-        
+
+            // Activate when there are enough real users
+            // $hon_query .= " AND (`orientation` = 'both' OR `orientation` = '" . $CUR_USER['gender'] . "')";
+
             $hon_query .= " AND (YEAR(`date_of_birth`) < YEAR(CURDATE()) - " . $CUR_USER['interest_age_min'] . ")";
             $hon_query .= " AND (YEAR(`date_of_birth`) > YEAR(CURDATE()) - " . $CUR_USER['interest_age_max'] . ")";
+            $hon_query .= " AND `id` <> " . $_SESSION['user_id'];
             $hon_query .= " AND `is_in_hot_or_not`";
             $hon_query .= get_user_blocked_user_by_col('id');
 
@@ -45,73 +48,75 @@
 
             $current_users = $new_current_users;
             
-            // Get previous hons averages
-            $prev_stmt = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_voted` WHERE `is_hearted` AND `voter_id` = {$CUR_USER['id']}");
-            while ($user = $prev_stmt->fetch()) {
-                $user_dets = get_user_row_by_id($user['voted_id']);
-                array_push($ages, $user_dets['age']);
+            if (count($current_users) > 1) {
+                // Get previous hons averages
+                $prev_stmt = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_voted` WHERE `is_hearted` AND `voter_id` = {$CUR_USER['id']}");
+                while ($user = $prev_stmt->fetch()) {
+                    $user_dets = get_user_row_by_id($user['voted_id']);
+                    array_push($ages, $user_dets['age']);
 
-                if ($user_dets['hair_color']) {
-                    array_push($hair_colors, $user_dets['hair_color']);
+                    if ($user_dets['hair_color']) {
+                        array_push($hair_colors, $user_dets['hair_color']);
+                    }
+
+                    if ($user_dets['eye_color']) {
+                        array_push($eye_colors, $user_dets['eye_color']);
+                    }
+
+                    if ($user_dets['body_type']) {
+                        array_push($body_types, $user_dets['body_type']);
+                    }
                 }
 
-                if ($user_dets['eye_color']) {
-                    array_push($eye_colors, $user_dets['eye_color']);
+                if (count($ages) > 0) {
+                    $avg_age = array_sum($ages) / count($ages);
+                } else {
+                    $avg_age = ($CUR_USER['interest_age_min'] + $CUR_USER['interest_age_max']) / 2;
                 }
 
-                if ($user_dets['body_type']) {
-                    array_push($body_types, $user_dets['body_type']);
+                if (count($hair_colors) > 0) {
+                    $avg_hair_colors = array_search(max(array_count_values($hair_colors)), array_count_values($hair_colors));
+                } else {
+                    $avg_hair_colors = '';
                 }
+
+                if (count($eye_colors) > 0) {
+                    $avg_eye_colors = array_search(max(array_count_values($eye_colors)), array_count_values($eye_colors));
+                } else {
+                    $avg_eye_colors = '';
+                }
+
+                if (count($body_types) > 0) {
+                    $avg_body_types = array_search(max(array_count_values($body_types)), array_count_values($body_types));
+                } else {
+                    $avg_body_types = '';
+                }
+
+                for ($i = 0; $i < count($current_users) - 1; $i++) {
+                    $user = $current_users[$i];
+
+                    if ($user['hair_color'] == $avg_hair_colors) {
+                        $user['points'] += 10;
+                    }
+
+                    if ($user['body_type'] == $avg_body_types) {
+                        $user['points'] += 7;
+                    }
+
+                    if ($user['eye_color'] == $avg_eye_colors) {
+                        $user['points'] += 5;
+                    }
+
+                    if ($user['age'] == $avg_age) {
+                        $user['points'] += 5;
+                    }
+
+                    $current_users[$i] = $user;
+                }
+                
+                usort($current_users, 'sortByPoints');
+                array_reverse($current_users);
             }
-
-            if (count($ages) > 0) {
-                $avg_age = array_sum($ages) / count($ages);
-            } else {
-                $avg_age = ($CUR_USER['interest_age_min'] + $CUR_USER['interest_age_max']) / 2;
-            }
-
-            if (count($hair_colors) > 0) {
-                $avg_hair_colors = array_search(max(array_count_values($hair_colors)), array_count_values($hair_colors));
-            } else {
-                $avg_hair_colors = '';
-            }
-
-            if (count($eye_colors) > 0) {
-                $avg_eye_colors = array_search(max(array_count_values($eye_colors)), array_count_values($eye_colors));
-            } else {
-                $avg_eye_colors = '';
-            }
-
-            if (count($body_types) > 0) {
-                $avg_body_types = array_search(max(array_count_values($body_types)), array_count_values($body_types));
-            } else {
-                $avg_body_types = '';
-            }
-
-            for ($i = 0; $i < count($current_users) - 1; $i++) {
-                $user = $current_users[$i];
-
-                if ($user['hair_color'] == $avg_hair_colors) {
-                    $user['points'] += 10;
-                }
-
-                if ($user['body_type'] == $avg_body_types) {
-                    $user['points'] += 7;
-                }
-
-                if ($user['eye_color'] == $avg_eye_colors) {
-                    $user['points'] += 5;
-                }
-
-                if ($user['age'] == $avg_age) {
-                    $user['points'] += 5;
-                }
-
-                $current_users[$i] = $user;
-            }
-            
-            usort($current_users, 'sortByPoints');
-            array_reverse($current_users);
 
             if (count($current_users) > 0) {
                 $final_user = $current_users[0];

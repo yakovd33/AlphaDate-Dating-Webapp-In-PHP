@@ -21,7 +21,7 @@
             <?php $recent_chats = $GLOBALS['link']->query("(SELECT users.* FROM `users` INNER JOIN `messages` ON (`users`.`id` = `messages`.`from_id` OR `users`.`id` = `messages`.`to_id`) AND (`messages`.`from_id` = {$_SESSION['user_id']} OR `messages`.`to_id` = {$_SESSION['user_id']}) AND `users`.`id` <> {$_SESSION['user_id']} GROUP BY `users`.`id`)"); ?>
             <?php while ($chat_user = $recent_chats->fetch()) : ?>
                 <div class="item chatbox-trigger" data-userid="<?php echo $chat_user['id']; ?>">
-                    <div class="pic"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+                    <div class="pic"><img src="<?php echo get_user_pp_by_id($chat_user['id']); ?>" alt=""></div>
                     <div class="textual">
                         <div class="fullname">
                             <?php if (is_user_logged($chat_user['id'])) : ?>

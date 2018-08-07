@@ -73,7 +73,7 @@
 
 <div class="card" id="main-sidebar-profile-card">
     <div id="main-sidebar-profile-card-visual">
-        <div id="main-sidebar-profile-card-pp"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+        <div id="main-sidebar-profile-card-pp"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
         <div id="main-sidebar-profile-card-textuals">
             <div class="fullname"><?php echo $CUR_USER['fullname']; ?></div>
             <div class="nickname"><?php echo $CUR_USER['nickname']; ?></div>
@@ -105,7 +105,7 @@
     <div id="sidebar-story-items">
         <div id="sidebar-story-items-list">
             <div class="item">
-                <div class="pic"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
                 <div class="textual">
                     <div class="fullname">כוסית אש</div>
                     <div class="time">לפני שעה</div>
@@ -113,7 +113,7 @@
             </div>
 
             <div class="item">
-                <div class="pic"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
                 <div class="textual">
                     <div class="fullname">כוסית אש</div>
                     <div class="time">לפני שעה</div>
@@ -121,7 +121,7 @@
             </div>
 
             <div class="item">
-                <div class="pic"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
                 <div class="textual">
                     <div class="fullname">כוסית אש</div>
                     <div class="time">לפני שעה</div>
@@ -129,7 +129,7 @@
             </div>
 
             <div class="item">
-                <div class="pic"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
                 <div class="textual">
                     <div class="fullname">כוסית אש</div>
                     <div class="time">לפני שעה</div>
@@ -137,7 +137,7 @@
             </div>
 
             <div class="item">
-                <div class="pic"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
                 <div class="textual">
                     <div class="fullname">כוסית אש</div>
                     <div class="time">לפני שעה</div>
@@ -145,7 +145,7 @@
             </div>
 
             <div class="item">
-                <div class="pic"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
                 <div class="textual">
                     <div class="fullname">כוסית אש</div>
                     <div class="time">לפני שעה</div>
@@ -153,7 +153,7 @@
             </div>
 
             <div class="item">
-                <div class="pic"><img src="<?php echo $URL; ?>/img/pp.jpg" alt=""></div>
+                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
                 <div class="textual">
                     <div class="fullname">כוסית אש</div>
                     <div class="time">לפני שעה</div>

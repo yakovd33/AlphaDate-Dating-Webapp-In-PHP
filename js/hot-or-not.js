@@ -63,7 +63,7 @@ function next_hon () {
 
                 var html = template(context);
             } else {
-                var html = '<div class="hor-title">לא נמצאו עוד משתמשים התואמים את הנתונים שהזנת. נסה שנית מאוחר יותר</div>';
+                var html = '<div class="hor-title">לא נמצאו עוד משתמשים התואמים את הנתונים שהזנת.<br>נסה שנית מאוחר יותר</div><img src="/AlphaDate/img/icons/sad-love.png" height="120px" style="display: block; margin: 30px auto auto auto;">';
             }
 
             $("#current-hot-or-not-profile").html(html);

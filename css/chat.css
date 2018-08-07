@@ -64,7 +64,7 @@ div#floating-chat-toggler {
     cursor: pointer;
     height: 300px;
     max-height: 300px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #floating-chat-connected-users .item {

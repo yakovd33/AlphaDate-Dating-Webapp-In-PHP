@@ -30,6 +30,11 @@ body {
 .profile-card .pp {
     width: 100%;
     position: relative;
+    cursor: pointer;
+}
+
+#self-pp-changer-input {
+    display: none;
 }
 
 .profile-card .pp img {

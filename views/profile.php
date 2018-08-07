@@ -37,22 +37,17 @@
 
 <link rel="stylesheet" href="<?php echo $URL; ?>/css/profile.css">
 
-<nav class="navbar navbar-light bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="<?php echo $URL; ?>" style="color: #cecece;"><img src="<?php echo $URL; ?>/img/icon-trans.svg" height="38px"> אלפא דייט</a>
-        <a href="<?php echo $URL; ?>/logout/">התנתקות</a>
-    </div>
-</nav>
-
 <div class="container" id="site-wrap">
     <div class="row">
         <div class="col-md-3">
             <div class="profile-card">
-                <div class="pp">
-                    <img src="<?php echo $URL; ?>/img/pp.jpg">
+                <div class="pp self">
+                    <img src="<?php echo get_user_pp_by_id($id); ?>">
                     <?php if ($user['gender'] != null) : ?>
                         <div id="gender-marker" class="<?php echo $user['gender']; ?>"></div>
                     <?php endif; ?>
+
+                    <input type="file" id="self-pp-changer-input" accept="image/x-png,,image/jpeg">
                 </div>
 
                 <div class="fullname"><?php echo $user['fullname']; ?>, <?php echo $age; ?></div>

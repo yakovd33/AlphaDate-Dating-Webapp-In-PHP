@@ -146,3 +146,27 @@ $(".block-user").click(function () {
         }
     });
 });
+
+// Change pp
+$(".profile-card .pp.self").unbind("click").click(function () {
+    $("#self-pp-changer-input")[0].click();
+});
+
+$("#self-pp-changer-input").change(function () {
+    if ($(this)[0].files.length > 0) {
+        data = new FormData();
+        data.append('pic', $(this)[0].files[0]);
+        
+        $.ajax({
+            url: URL + '/set-pp/',
+            processData: false,
+            contentType: false,
+            method : 'POST',
+            data : data,
+            success: function (response) {
+                console.log(response);
+                
+            }
+        });
+    }
+})

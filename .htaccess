@@ -16,6 +16,7 @@ RewriteRule ^(send_message)(/?)$ ajax/chat.php?type=$1 [L,NC]
 
 RewriteRule ^(post)/(upload)(/?)$ ajax/post.php?type=$2 [L,NC]
 RewriteRule ^(update_col)/(/?)$ ajax/profile.php?type=$1 [L,NC]
+RewriteRule ^(set-pp)/(/?)$ ajax/profile.php?type=$1 [L,NC]
 RewriteRule ^(close_chatbox)/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2 [L,NC]
 RewriteRule ^(fold_chatbox)/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2 [L,NC]
 RewriteRule ^(messages_listen)(/?)$ ajax/chat.php?type=$1 [L,NC]

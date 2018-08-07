@@ -200,7 +200,20 @@
     }
 
     function get_user_pp_by_id ($user_id) {
-        return '/AlphaDate/img/pp.jpg';
+        global $URL;
+
+        $user = get_user_row_by_id($user_id);
+        if ($user['pp_id']) {
+            $user['pp_path'] = get_image_path_by_id($user['pp_id']);
+
+            if (!$user['pp_path']) {
+                return $URL . '/img/pp.jpg';
+            } else {
+                return $URL . '/' . $user['pp_path'];
+            }
+        } else {
+            return $URL . '/img/pp.jpg';
+        }
     }
 
     function get_user_blocked_user_by_col ($col) {

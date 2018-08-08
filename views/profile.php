@@ -44,14 +44,14 @@
                 <div class="pp self">
                     <img src="<?php echo get_user_pp_by_id($id); ?>">
                     <?php if ($user['gender'] != null) : ?>
-                        <div id="gender-marker" class="<?php echo $user['gender']; ?>"></div>
+                        <div id="gender-marker" class="<?php echo $user['gender']; ?>" style="display: none"></div>
                     <?php endif; ?>
 
                     <input type="file" id="self-pp-changer-input" accept="image/x-png,,image/jpeg">
                 </div>
 
                 <div class="fullname"><?php echo $user['fullname']; ?>, <?php echo $age; ?></div>
-                <a href="<?php echo $URL; ?>/city/<?php echo $user['city']; ?>/"><div class="city"><?php echo $user['city']; ?></div></a>
+                <div class="city"><?php echo $user['city']; ?></div>
 
                 <?php if ($id != $_SESSION['user_id']) : ?>
                     <div id="profile-actions">
@@ -85,22 +85,44 @@
                     <button id="about-me-update-btn" class="cute-btn">עדכן</button>
                     <div class="clearfix"></div>
                 </div>
+
+                <div class="profile-information-item editable-wrap">
+                    <div class="item-content">
+                        <div id="profile-pics">
+                            <?php $user_pics_stmt = $GLOBALS['link']->query("SELECT * FROM `images` WHERE `user_id` = {$id} AND NOT `is_pp` AND NOT `is_message` AND NOT `is_story` ORDER BY `date` DESC LIMIT 6"); ?>
+
+                            <?php while ($pic = $user_pics_stmt->fetch()) : ?>
+                                <img src="<?php echo $URL; ?>/<?php echo get_image_path_by_id($pic['id']); ?>" alt="" class="profile-pic">
+                            <?php endwhile; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="col-md-9" id="profile-content-wrap">
             <div class="row">
+                <script>
+                    let isMainFeed = false;
+                    let isProfileFeed = true;
+                    let feedPage = 0;
+                    let hasFeedEnded = false;
+                    let postsPerPage = <?php echo get_setting('posts_per_page'); ?>;
+                    let profileid = <?php echo $id; ?>
+                </script>
+
                 <div class="col-md-8 feed-col">
                     <?php
                         echo $handlebars->render("new_post", [
                             'fullname' => $CUR_USER['fullname'],
                             'nickname' => $CUR_USER['nickname'],
+                            'user_pic' => get_user_pp_by_id($_SESSION['user_id'])
                         ]);
                     ?>
 
                     <div id="feed-posts">
                         <?php
-                            $posts_query = "SELECT * FROM `posts` WHERE `user_id` = {$id} ORDER BY `date` DESC LIMIT 20";
+                            $posts_query = "SELECT * FROM `posts` WHERE `user_id` = {$id} ORDER BY `date` DESC LIMIT " . get_setting('posts_per_page');
                             $posts_stmt = $GLOBALS['link']->query($posts_query);
                         ?>
 

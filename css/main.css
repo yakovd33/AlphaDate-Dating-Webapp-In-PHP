@@ -319,6 +319,17 @@ select.profile-info-edit-input {
     background: url(../img/homepage/icons/select-icon.png) #fff no-repeat 10px !important;
 }
 
+#popups-bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 99999999;
+}
+
 @media screen and (max-width: 768px) {
     .hide-on-mobile {
         display: none !important;

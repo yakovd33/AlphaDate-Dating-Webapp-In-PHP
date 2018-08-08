@@ -114,3 +114,101 @@ function hon_actions () {
 }
 
 hon_actions();
+
+// Pics manager
+$("#hon-pics-selector-trigger").click(function () {
+    $("#popups-bg").fadeIn(150);
+
+    setTimeout(function () {
+        $("#hon-pics-selector").show(150);
+    }, 150);
+});
+
+$("#add-image").click(function () {
+    $("#hon-pic-selector-new-pic").click();
+});
+
+$("#hon-pic-selector-new-pic").change(function () {
+    if ($("#hon-pic-selector-new-pic")[0].files.length > 0) {
+        data = new FormData();
+        data.append('pic', $($(this))[0].files[0]);
+        
+        $.ajax({
+            url: URL + '/upload_hon_pic/',
+            processData: false,
+            contentType: false,
+            method : 'POST',
+            data : data,
+            context: this,
+            success: function (response) {
+                var file = $($(this))[0].files[0];
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                    $("#hon-pics-selector-pics").append('<img class="hon-pic-selector-pic-item" src="' + reader.result + '">')
+                }, false);
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+
+                if ($(".hon-pic-selector-pic-item").length >= 6) {
+                    $("#add-image").hide();
+                }
+
+                $(this).val('');
+                delete_hon_pics();
+            }
+        });
+    }
+});
+
+$("#close-hon-pics-selector").click(function () {
+    $("#popups-bg").fadeOut(150);
+
+    setTimeout(function () {
+        $("#hon-pics-selector").hide(150);
+    }, 150);
+});
+
+$("#popups-bg").click(function () {
+    $("#popups-bg").fadeOut(150);
+
+    setTimeout(function () {
+        $("#hon-pics-selector").hide(150);
+    }, 150);
+});
+
+function delete_hon_pics () {
+    $.each($(".hon-pic-selector-pic-item"), function () {
+        $(this).click(function () {
+            data = new FormData();
+            data.append('picid', $(this).data('picid'));
+            
+            $.ajax({
+                url: URL + '/delete_hon_pic/',
+                processData: false,
+                contentType: false,
+                method : 'POST',
+                data : data,
+                success: function (response) {
+                    console.log(response);
+                    
+                }
+            });
+
+            $(this).fadeOut(550);
+            
+            setTimeout(function (context) {
+                context.remove();
+
+                if ($(".hon-pic-selector-pic-item").length < 6) {
+                    $("#add-image").css('display', 'inline-block');
+                    document.getElementById("close-hon-pics-selector").style['margin-right'] = 'calc(100% - 40px) !important';
+                }
+            }, 550, this);
+        });
+    });
+}
+
+delete_hon_pics();

@@ -40,6 +40,30 @@
     <?php endif; ?>
 </div>
 
+<?php if ($CUR_USER['is_in_hot_or_not']) : ?>
+    <button class="cute-btn" id="hon-pics-selector-trigger"><i class="fas fa-camera"></i> בחר תמונות שיוצגו</button>
+<?php endif; ?>
+
+<div id="hon-pics-selector">
+    <div id="hon-image-deletion-msg">לחיצה על תמונה תמחק אותה</div>
+
+    <?php
+        $user_hon_pics_stmt = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$_SESSION['user_id']}");
+    ?>
+
+    <div id="hon-pics-selector-pics">
+        <?php while ($pic = $user_hon_pics_stmt->fetch()) : ?>
+            <img class="hon-pic-selector-pic-item" data-picid="<?php echo $pic['id']; ?>" src="<?php echo get_image_path_by_id($pic['image_id']); ?>" alt="">
+        <?php endwhile; ?>
+    </div>
+
+    <div id="hon-pics-selector-order-message">*סדר התמונות ייבחר אוטומטית לפי התמונות שיביאו לכם הכי הרבה התאמות</div>
+
+    <button id="add-image" class="cute-btn" style="float: right; <?php if (get_user_num_hon_pics($_SESSION['user_id']) >= 6) { echo 'display: none;'; } ?>"><i style="margin-left: 5px;" class="fas fa-camera"></i> הוסף תמונה</button>
+    <button id="close-hon-pics-selector" class="cute-btn mr-auto" style="background: #fff; color: #c03b2b; display: block;">סגור</button>
+    <input type="file" accept="image/x-png,,image/jpeg" id="hon-pic-selector-new-pic">
+</div>
+
 <script id="hon-template" type="text/x-handlebars-template">
     <?php include 'templates/hot-or-not-item.hbs'; ?>
 </script>

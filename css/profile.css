@@ -305,3 +305,19 @@ body {
     color: #7d7d7d;
     font-size: 0.9em;
 }
+
+#profile-pics {
+    margin-top: 20px;
+}
+
+img.profile-pic {
+    width: calc(33% - 10px);
+    margin-bottom: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+img.profile-pic:not(:nth-child(3n)) {
+    margin-left: 5px;
+}

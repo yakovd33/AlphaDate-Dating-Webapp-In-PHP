@@ -1,3 +1,7 @@
+<?php
+    require_once(dirname(__DIR__) . '../../facebook-login.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="rtl">
     <head>
@@ -30,7 +34,7 @@
                     <a href="#" class="link"></a>
                 </div>
 
-                <a href="#" id="nav-hero-login-link">כניסה לרשומים</a>
+                <a href="#" id="nav-hero-login-link">התחברות/הרשמה</a>
             </div>
 
             <div class="container">
@@ -185,7 +189,74 @@
         <div id="join-us-section" class="section">
             <a href="#" id="join-us-section-join-btn">הצטרפו עכשיו</a>
         </div>
+
+        <!-- <fb:login-button></fb:login-button> -->
         
+        <script>
+            // This is called with the results from from FB.getLoginStatus().
+            function statusChangeCallback(response) {
+                console.log(response);
+                if (response.status === 'connected') {
+                    // Logged into your app and Facebook.
+                    // console.log('logged');
+                    // testAPI();
+                    console.log(response);
+                } else {
+                    // The person is not logged into your app or we are unable to tell.
+                    console.log('not logged');
+                }
+            }
+
+            function checkLoginState() {
+                FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+                });
+            }
+
+            window.fbAsyncInit = function() {
+                FB.init({
+                appId      : '1413642492113699',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v2.8'
+                });
+
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                });
+
+            };
+
+            // Load the SDK asynchronously
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            // Here we run a very simple test of the Graph API after login is
+            // successful.  See statusChangeCallback() for when this call is made.
+            function testAPI() {
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function(response) {
+                    console.log('Successful login for: ' + response.name);
+                });
+            }
+
+            // $("#login-with-facebook-btn").click(function () {
+            //     FB.login();
+            // });
+
+            function fblogout(response) {
+                if (!response.authResponse) {
+                    return;
+                }
+                
+                FB.logout(response.authResponse);
+            }
+        </script>
         <script src="<?php echo $URL; ?>/js/index.js"></script>
     </body>
 </html>

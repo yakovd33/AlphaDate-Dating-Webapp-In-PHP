@@ -169,4 +169,8 @@ $("#self-pp-changer-input").change(function () {
             }
         });
     }
+});
+
+$.each($(".profile-pic"), function () {
+    $(this).css('height', $(this).width())
 })

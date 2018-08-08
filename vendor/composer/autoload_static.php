@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit6444f24d97a5631ebfc3c8e1a44a58ef
 {
+    public static $files = array (
+        'c65d09b6820da036953a371c8c73a9b1' => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook/polyfills.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'W' => 
         array (
@@ -14,6 +18,10 @@ class ComposerStaticInit6444f24d97a5631ebfc3c8e1a44a58ef
         'P' => 
         array (
             'PHPSocketIO\\' => 12,
+        ),
+        'F' => 
+        array (
+            'Facebook\\' => 9,
         ),
         'C' => 
         array (
@@ -29,6 +37,10 @@ class ComposerStaticInit6444f24d97a5631ebfc3c8e1a44a58ef
         'PHPSocketIO\\' => 
         array (
             0 => __DIR__ . '/..' . '/workerman/phpsocket.io/src',
+        ),
+        'Facebook\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook',
         ),
         'Channel\\' => 
         array (

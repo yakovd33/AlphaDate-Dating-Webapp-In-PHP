@@ -10,6 +10,7 @@
         $profiles_query .= " AND (YEAR(`date_of_birth`) > YEAR(CURDATE()) - " . $CUR_USER['interest_age_max'] . ")";
     }
 
+    $profiles_query .= " AND `id` <> " . $_SESSION['user_id'];
     $profiles_query .= get_user_blocked_user_by_col('id');
 
     $order_by = " ORDER BY `popularity`";

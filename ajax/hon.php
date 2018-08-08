@@ -9,11 +9,25 @@
                 // Hot or not pic upload
 
                 if (isset($_FILES['pic'])) {
-                    $image_id = insert_photo($_FILES['pic'], 'hot-or-not-pics', 'hot_or_not');
-                    
-                     // Insert hot or not pic
-                    $GLOBALS['link']->query("INSERT INTO `hot_or_not_pics`(`user_id`, `image_id`) VALUES ({$_SESSION['user_id']}, {$image_id})");
+                    // Check if users hon pics is not over 6
+                    if (get_user_num_hon_pics($_SESSION['user_id']) < 6) {
+                        $image_id = insert_photo($_FILES['pic'], 'hot-or-not-pics', 'hot_or_not');
+                        
+                        // Insert hot or not pic
+                        $GLOBALS['link']->query("INSERT INTO `hot_or_not_pics`(`user_id`, `image_id`) VALUES ({$_SESSION['user_id']}, {$image_id})");
+                    }
                 }
+
+                break;
+            case 'delete_hon_pic' :
+                if (isset($_POST['picid'])) {
+                    $picid = $_POST['picid'];
+
+                    // Check if current user is the owner of the picture
+                    if ($GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$_SESSION['user_id']} AND `id` = {$picid}")->rowCount() > 0) {
+                        $GLOBALS['link']->query("DELETE FROM `hot_or_not_pics` WHERE `id` = {$picid}");
+                    }
+                }    
 
                 break;
             case 'user_join_hon' :

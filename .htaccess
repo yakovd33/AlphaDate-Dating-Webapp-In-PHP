@@ -27,6 +27,7 @@ RewriteRule ^(post)/(get_comments)(/?)$ ajax/post.php?type=$2&post_id=$3 [L,NC]
 
 RewriteRule ^(send_flower)(/?)$ ajax/profile.php?type=$1 [L,NC]
 RewriteRule ^(upload_hon_pic)(/?)$ ajax/hon.php?type=$1 [L,NC]
+RewriteRule ^(delete_hon_pic)(/?)$ ajax/hon.php?type=$1 [L,NC]
 RewriteRule ^(user_join_hon)(/?)$ ajax/hon.php?type=$1 [L,NC]
 RewriteRule ^(get_next_hon)(/?)$ ajax/hon.php?type=$1 [L,NC]
 RewriteRule ^(hon)/(heart)(/?)$ ajax/hon.php?type=$2 [L,NC]
@@ -39,3 +40,14 @@ RewriteRule ^(dates)/(approve|reject)(/?)$ ajax/dates.php?type=$2 [L]
 RewriteRule ^(user)/(block)(/?)$ ajax/profile.php?type=block-user [L]
 
 RewriteRule ^(profiles)/(all)(/?)$ index.php?tab=$1&$2 [L]
+
+RewriteRule ^(story)/(upload)(/?)$ ajax/story.php?type=$2 [L]
+RewriteRule ^(story)/(get_user_stories)/([0-9]+)(/?)$ ajax/story.php?type=$2&userid=$3 [L]
+RewriteRule ^(story)/(get)/([0-9]+)(/?)$ ajax/story.php?type=$2&storyid=$3 [L]
+
+RewriteRule ^(contact)(/?)$ contact.php [L]
+RewriteRule ^(about)(/?)$ about.php [L]
+RewriteRule ^(terms)(/?)$ terms.php [L]
+
+
+RewriteRule ^(get-main-feed-page)/([0-9]+)(/?)$ ajax/feed.php?type=$1&page=$2 [L]

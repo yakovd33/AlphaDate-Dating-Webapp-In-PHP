@@ -20,7 +20,7 @@
         <div class="tab active" data-tab="login">
             <form action="<?php echo $URL; ?>/signin/" method="post" id="login-form">
                 <div id="facebook-login-btn-wrap">
-                    <div id="login-with-facebook-btn">התחבר באמצעות פייסבוק</div>
+                    <a href="<?php echo $login_url; ?>"><div id="login-with-facebook-btn">התחבר באמצעות פייסבוק</div></a>
                 </div>
 
                 <input type="email" name="email" placeholder="אימייל">

@@ -104,71 +104,143 @@
     <!-- <div id="sidebar-story-items" class="card"> -->
     <div id="sidebar-story-items">
         <div id="sidebar-story-items-list">
-            <div class="item">
-                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
-                <div class="textual">
-                    <div class="fullname">כוסית אש</div>
-                    <div class="time">לפני שעה</div>
-                </div>
+            <div id="sidebar-story-add-btn">
+                <div class="icon"><i class="fas fa-plus"></i></div>
+                <div class="text">הוסף לסטורי שלך</div>
             </div>
 
-            <div class="item">
-                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
-                <div class="textual">
-                    <div class="fullname">כוסית אש</div>
-                    <div class="time">לפני שעה</div>
-                </div>
-            </div>
+            <?php $recent_stories_users_stmt = $GLOBALS['link']->query("SELECT DISTINCT `user_id` AS `uid` FROM `stories` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) AND `user_id` <> {$_SESSION['user_id']} " . get_user_blocked_user_by_col('user_id')); ?>
+            
+            <?php
+                // Sort stories by date
+                $users_last_stories = [];
 
-            <div class="item">
-                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
-                <div class="textual">
-                    <div class="fullname">כוסית אש</div>
-                    <div class="time">לפני שעה</div>
-                </div>
-            </div>
+                while ($story_user = $recent_stories_users_stmt->fetch()) {
+                    $uid = $story_user['uid'];
+                    $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `date` DESC LIMIT 1")->fetch();
+                    array_push($users_last_stories, $user_last_story);
+                }
 
-            <div class="item">
-                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
-                <div class="textual">
-                    <div class="fullname">כוסית אש</div>
-                    <div class="time">לפני שעה</div>
-                </div>
-            </div>
+                usort($users_last_stories, 'sort_by_date');
+                
+                foreach ($users_last_stories as $story) {
+                    $story['user_id'] . ' ' . $story['date'] . '<br>';
+                }
 
-            <div class="item">
-                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
-                <div class="textual">
-                    <div class="fullname">כוסית אש</div>
-                    <div class="time">לפני שעה</div>
-                </div>
-            </div>
+                $self_story_stmt = $GLOBALS['link']->query("SELECT DISTINCT `user_id` AS `uid` FROM `stories` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) AND `user_id` = {$_SESSION['user_id']}");
+                
+                // Filter seen stories
+                $unseen_stories = [];
+                $seen_stories = [];
 
-            <div class="item">
-                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
-                <div class="textual">
-                    <div class="fullname">כוסית אש</div>
-                    <div class="time">לפני שעה</div>
-                </div>
-            </div>
+                foreach ($users_last_stories as $story) {
+                    if (has_user_seen_story($story['id'])) {
+                        array_push($seen_stories, $story);
+                    } else {
+                        array_push($unseen_stories, $story);
+                    }
+                }
+            ?>
 
-            <div class="item">
-                <div class="pic"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
-                <div class="textual">
-                    <div class="fullname">כוסית אש</div>
-                    <div class="time">לפני שעה</div>
+            <?php while ($story = $self_story_stmt->fetch()) : ?>
+                <?php $uid = $_SESSION['user_id']; ?>
+                <?php $story_user = get_user_row_by_id($uid); ?>
+                <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
+                
+                <div class="item" data-userid="<?php echo $_SESSION['user_id']; ?>">
+                    <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                    <div class="textual">
+                        <div class="fullname">הסטורי שלי</div>
+                    </div>
                 </div>
-            </div>
+            <?php endwhile; ?>
+
+            <?php foreach ($unseen_stories as $story) : ?>
+                <?php $uid = $story['user_id']; ?>
+                <?php $story_user = get_user_row_by_id($uid); ?>
+                <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
+
+                <div class="item" data-userid="<?php echo $uid; ?>">
+                    <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                    <div class="textual">
+                        <div class="fullname"><?php echo $story_user['fullname']; ?></div>
+                        <div class="time"><?php echo $user_last_story['date']; ?></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+            <?php if (count($seen_stories) > 0) : ?>
+                <div id="seen-stories-title">סטוריז שראית כבר</div>
+            <?php endif; ?>
+
+            <?php foreach ($seen_stories as $story) : ?>
+                <?php $uid = $story['user_id']; ?>
+                <?php $story_user = get_user_row_by_id($uid); ?>
+                <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
+
+                <div class="item" data-userid="<?php echo $uid; ?>">
+                    <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                    <div class="textual">
+                        <div class="fullname"><?php echo $story_user['fullname']; ?></div>
+                        <div class="time"><?php echo $user_last_story['date']; ?></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
     <div id="sidebar-credit">
-        <a href="#" class="footer-link">צור קשר</a>
-        <a href="#" class="footer-link">אודות</a>
-        <a href="#" class="footer-link">תנאי שימוש</a>
-        <a href="#" class="footer-link">תכנית שותפים</a>
+        <a href="<?php echo $URL; ?>/contact/" class="footer-link">צור קשר</a>
+        <a href="<?php echo $URL; ?>/about/" class="footer-link">אודות</a>
+        <a href="<?php echo $URL; ?>/terms/" class="footer-link">תנאי שימוש</a>
+        <a href="<?php echo $URL; ?>/contact/" class="footer-link">תכנית שותפים</a>
         <div>
             כל הזכויות שמורות לאלפא דייט 2018 ©
+        </div>
+    </div>
+</div>
+
+<div id="new-story-adder-wrap">
+    <div id="new-story-pic">
+        <div id="new-story-pic-text"></div>
+    </div>
+
+    <div id="new-story-text-wrap">
+        <div id="new-story-text">
+            <input type="text" id="new-story-text-input" placeholder="טקסט סטורי">
+            <input type="color" id="new-story-text-color-input" value="#ffffff">
+        </div>
+
+        <div id="choose-text-type">טקסט עם רקע</div>
+        <input type="checkbox" id="new-story-text-type-checkbox">
+    </div>
+
+   <button class="cute-btn" id="new-story-choose-pic">הוסף תמונה</button>
+   <input type="file" id="new-story-image-input" accept="image/x-png,,image/jpeg" style="display: none">
+
+   <button id="submit-new-story" class="cute-btn">העלה</button>
+</div>
+
+<div id="story-showcase-wrap">
+    <div id="story-showcase">
+        <div id="story-showcase-content">
+            <a href="" id="story-user-profile-link">
+                <div id="story-showcase-user-dets">
+                    <div class="pp"><img src="<?php echo get_user_pp_by_id(1); ?>" alt=""></div>
+                    <div class="fullname">יעקב שטרית</div>
+                    <div class="time">6 שעות</div>
+                </div>
+            </a>
+
+            <div id="story-hourglasses">
+                <span class="story-hourglass"><span class="story-hourglass-spent"></span></span>
+                <span class="story-hourglass"><span class="story-hourglass-spent"></span></span>
+                <span class="story-hourglass"><span class="story-hourglass-spent"></span></span>
+            </div>
+
+            <div id="story-pic">
+                <div id="story-pic-text"></div>
+            </div>
         </div>
     </div>
 </div>

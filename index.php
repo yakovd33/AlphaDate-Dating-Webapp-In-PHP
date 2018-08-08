@@ -11,11 +11,6 @@
         $CUR_USER = get_user_row_by_id($_SESSION['user_id']);
         update_last_seen();
     }
-
-    if (get_setting('is_chat_socket_running') == 'false') {
-        set_setting('is_chat_socket_running', 'true');
-        shell_exec("php blah.php start");
-    }
 ?>
 
 <?php if (!isset($_GET['page'])) : ?>

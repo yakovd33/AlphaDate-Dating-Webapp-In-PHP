@@ -144,3 +144,87 @@ function posts_comments () {
 }
 
 posts_comments();
+
+// Lazyload
+$(window).scroll(function () {
+    if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+        if (!hasFeedEnded) {
+            feedPage++;
+
+            if (isMainFeed) {
+                $.ajax({
+                    url: URL + '/get-main-feed-page/' + feedPage,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                        
+                        response_json = JSON.parse(response);
+
+                        if (response_json.posts.length < postsPerPage) {
+                            // No more posts
+                            hasFeedEnded = false;
+                        }
+
+                        for (i = 0; i < response_json.posts.length; i++) {
+                            console.log(response_json.posts[i].postid);
+                            var template = Handlebars.compile($('#post-template').html());
+                            var context = {
+                                postid: response_json.posts[i].postid,
+                                userid: response_json.posts[i].userid,
+                                fullname: response_json.posts[i].fullname,
+                                text: response_json.posts[i].text,
+                                time: response_json.posts[i].time,
+                                num_hearts: response_json.posts[i].num_hearts,
+                                num_comments: response_json.posts[i].num_comments,
+                                hearted: response_json.posts[i].hearted,
+                                user_pic: response_json.posts[i].user_pic
+                            };
+                            var html = template(context);
+                            $("#feed-posts").append(html);
+                        }
+                    }
+                });
+            } else if (isProfileFeed) {
+                data = new FormData();
+                data.append('userid', profileid);
+
+                $.ajax({
+                    url: URL + '/get-main-feed-page/' + feedPage,
+                    processData: false,
+                    contentType: false,
+                    data: data,
+                    method: 'POST',
+                    success: function (response) {
+                        console.log(response);
+                        
+                        response_json = JSON.parse(response);
+
+                        if (response_json.posts.length < postsPerPage) {
+                            // No more posts
+                            hasFeedEnded = false;
+                        }
+
+                        for (i = 0; i < response_json.posts.length; i++) {
+                            console.log(response_json.posts[i].postid);
+                            var template = Handlebars.compile($('#post-template').html());
+                            var context = {
+                                postid: response_json.posts[i].postid,
+                                userid: response_json.posts[i].userid,
+                                fullname: response_json.posts[i].fullname,
+                                text: response_json.posts[i].text,
+                                time: response_json.posts[i].time,
+                                num_hearts: response_json.posts[i].num_hearts,
+                                num_comments: response_json.posts[i].num_comments,
+                                hearted: response_json.posts[i].hearted,
+                                user_pic: response_json.posts[i].user_pic
+                            };
+                            var html = template(context);
+                            $("#feed-posts").append(html);
+                        }
+                    }
+                });
+            }
+        }
+    }
+});

@@ -40,6 +40,34 @@
 }
 
 /* Story */
+#sidebar-story-add-btn {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#sidebar-story-add-btn .icon {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: #ebebeb;
+    text-align: center;
+    line-height: 60px;
+    font-size: 1.4em;
+    color: #717171;
+}
+
+#sidebar-story-add-btn .text {
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #444;
+}
+
+#sidebar-story-add-btn > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 #sidebar-story-title {
     font-weight: bold;
     margin-top: 15px;
@@ -81,6 +109,10 @@
     max-height: 271px;
     overflow-y: scroll;
     margin-top: 25px;
+}
+
+#sidebar-story-items-list .item {
+    cursor: pointer;
 }
 
 #sidebar-credit {
@@ -211,7 +243,7 @@
     border: none;
     margin-top: 5px;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
+    /* transition: 0.3s ease; */
     border: 1px solid #a7392c;
 }
 
@@ -556,4 +588,236 @@
     margin: auto;
     text-align: center;
     display: block;
+}
+
+#new-story-adder-wrap {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 450px;
+    max-width: 90%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 35px #2b2b2b;
+    z-index: 99999999;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+#new-story-choose-pic {
+    outline: none;
+    margin-top: 10px;
+}
+
+#new-story-pic {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#new-story-pic img {
+    max-height: 70vh;
+}
+
+#new-story-text-wrap {
+    display: none;
+}
+
+#new-story-text {
+    display: flex;
+    align-items: center;
+}
+
+#new-story-pic-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 4px 5px;
+    border-radius: 5px;
+    max-width: 70%;
+    text-align: center;
+    word-break: break-word;
+    max-height: 90%;
+    overflow: hidden;
+}
+
+#new-story-text-input {
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    font-size: 0.9em;
+    width: 85%;
+}
+
+#new-story-text-color-input {
+    width: 10%;
+    border: none;
+    padding: 0;
+    background: none;
+    display: inline-block;
+    height: 39px;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+#choose-text-type {
+    font-size: 0.9em;
+    color: #444;
+    cursor: pointer;
+}
+
+#new-story-text-type-checkbox {
+    display: none;
+}
+
+#submit-new-story {
+    background-color: #fff;
+    color: #ad3a2c;
+}
+
+#seen-stories-title {
+    font-size: 0.8em;
+    margin-top: 5px;
+    color: #444;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Story showcase */
+#story-showcase-wrap {
+    display: none;
+}
+
+#story-showcase {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 450px;
+    max-width: 90%;
+    /* background-color: #fff; */
+    border-radius: 5px;
+    /* box-shadow: 0 0 35px #2b2b2b; */
+    z-index: 99999999;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+}
+
+#popups-bg {
+    /* display: block !important; */
+}
+
+#story-showcase-content {
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#story-showcase-user-dets {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    left: 0;
+    padding: 15px;
+}
+
+#story-showcase-user-dets .pp {
+    display: inline-block;
+}
+
+#story-showcase-user-dets .time {
+    display: inline-block;
+    float: left;
+    color: #fff;
+    text-shadow: 0 0 5px #444;
+}
+
+#story-showcase-user-dets .pp img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+#story-showcase-user-dets .fullname {
+    color: #fff;
+    text-shadow: 0 0 5px #444;
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#story-hourglasses {
+    display: flex;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    padding: 15px;
+}
+
+#story-hourglasses .story-hourglass {
+    flex-grow: 1;
+    background-color: #969696;
+    height: 2px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+#story-hourglasses .story-hourglass:not(:last-child) {
+    margin-left: 8px;
+}
+
+.story-hourglass-spent {
+    width: 0;
+    height: 100%;
+    display: block;
+    background-color: #fff;
+    transition: 0.3s ease-in-out;
+}
+
+.story-hourglass.active .story-hourglass-spent {
+    -webkit-animation: hourglass-expand 10s;
+    animation: hourglass-expand 10s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hourglass-expand {
+    from {
+        width: 0;
+    } to {
+        width: 100%;
+    }
+}
+
+#story-pic {
+    width: 100%;
+    height: 90vh;
+    /* min-height: 300px; */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#story-pic-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 4px 5px;
+    border-radius: 5px;
+    max-width: 70%;
+    text-align: center;
+    word-break: break-word;
+    max-height: 90%;
+    overflow: hidden;
 }

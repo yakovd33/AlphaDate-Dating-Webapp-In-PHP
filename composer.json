@@ -7,6 +7,7 @@
         }
     ],
     "require": {
-        "workerman/phpsocket.io": "^1.1"
+        "workerman/phpsocket.io": "^1.1",
+        "facebook/graph-sdk": "^5.6"
     }
 }

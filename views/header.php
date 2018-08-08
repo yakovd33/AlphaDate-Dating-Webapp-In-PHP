@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="<?php echo $URL; ?>/css/main.css">
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
         <!-- Slick JS -->
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -34,6 +34,8 @@
             FULLNAME = $("#fullname").val();
             PP = $("#pp").val();
         </script>
+
+        <div id="popups-bg"></div>
 
         <div id="empty-nav">
             <a href="<?php echo $URL; ?>"><div id="empty-nav-logo"></div></a>

@@ -20,8 +20,8 @@
             // Activate when there are enough real users
             // $hon_query .= " AND (`orientation` = 'both' OR `orientation` = '" . $CUR_USER['gender'] . "')";
 
-            $hon_query .= " AND (YEAR(`date_of_birth`) < YEAR(CURDATE()) - " . $CUR_USER['interest_age_min'] . ")";
-            $hon_query .= " AND (YEAR(`date_of_birth`) > YEAR(CURDATE()) - " . $CUR_USER['interest_age_max'] . ")";
+            $hon_query .= " AND (YEAR(`date_of_birth`) <= YEAR(CURDATE()) - " . $CUR_USER['interest_age_min'] . ")";
+            $hon_query .= " AND (YEAR(`date_of_birth`) >= YEAR(CURDATE()) - " . $CUR_USER['interest_age_max'] . ")";
             $hon_query .= " AND `id` <> " . $_SESSION['user_id'];
             $hon_query .= " AND `is_in_hot_or_not`";
             $hon_query .= get_user_blocked_user_by_col('id');
@@ -140,14 +140,24 @@
             }
         } else {
             $final_user = get_user_row_by_id($open_item_stmt->fetch()['voted_id']);
-            $user_info = [];
-            $user_info['userid'] = $final_user['id'];
-            $user_info['fullname'] = $final_user['fullname'];
-            $user_info['age'] = $final_user['age'];
-            $user_info['city'] = $final_user['city'];
-            $user_info['popularity'] = get_user_popularity($final_user['id']);
-            $user_info['num_images'] = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$final_user['id']}")->rowCount();
-            $user_info['images'] = get_user_hon_pics($final_user['id']);
+            $pics_count =  $GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$final_user['id']}")->rowCount();
+            
+            if ($pics_count > 0) {
+                $user_info = [];
+                $user_info['userid'] = $final_user['id'];
+                $user_info['fullname'] = $final_user['fullname'];
+                $user_info['age'] = $final_user['age'];
+                $user_info['city'] = $final_user['city'];
+                $user_info['popularity'] = get_user_popularity($final_user['id']);
+                $user_info['num_images'] = $pics_count;
+                $user_info['images'] = get_user_hon_pics($final_user['id']);
+            } else {
+                // Remove open card
+                $GLOBALS['link']->query("DELETE FROM `hot_or_not_voted` WHERE `voter_id` = {$_SESSION['user_id']} AND NOT `is_hearted` AND NOT `is_rejected`");
+                
+                // Return new card
+                get_hon();
+            }
 
             return json_encode($user_info);
         }

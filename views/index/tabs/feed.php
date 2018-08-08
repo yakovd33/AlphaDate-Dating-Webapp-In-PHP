@@ -1,7 +1,7 @@
 <?php
     $posts_query = "SELECT * FROM `posts` WHERE 1 ";
     $posts_query .= get_user_blocked_user_by_col('user_id');
-    $posts_query .= " ORDER BY `date` DESC LIMIT 20";
+    $posts_query .= " ORDER BY `date` DESC LIMIT " . get_setting('posts_per_page');
     $posts_stmt = $GLOBALS['link']->query($posts_query);
 
     echo $handlebars->render("new_post", [
@@ -10,6 +10,14 @@
         'user_pic' => get_user_pp_by_id($CUR_USER['id'])
     ]);
 ?>
+
+<script>
+    let isMainFeed = true;
+    let isProfileFeed = false;
+    let feedPage = 0;
+    let hasFeedEnded = false;
+    let postsPerPage = <?php echo get_setting('posts_per_page'); ?>;
+</script>
 
 <div id="feed-posts">
     <?php

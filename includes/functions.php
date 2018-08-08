@@ -144,6 +144,10 @@
         }
     }
 
+    function sort_by_date ($a, $b) {
+        return $a['date'] < $b['date'];
+    }
+    
     function get_login_hash () {
         $hash = md5(time() . rand(0, 99999) . rand(0, 9999));
         $GLOBALS['link']->query("INSERT INTO `login_hashes`(`user_id`, `hash`) VALUES ({$_SESSION['user_id']}, '{$hash}')");
@@ -229,5 +233,9 @@
 
     function is_user_blocked ($user_id) {
         return $GLOBALS['link']->query("SELECT * FROM `blocked_users` WHERE `user_id` = {$_SESSION['user_id']} AND `blocked_id` = {$user_id}")->rowCount() > 0;
+    }
+
+    function has_user_seen_story ($story_id) {
+        return ($GLOBALS['link']->query("SELECT * FROM `story_views` WHERE `user_id` = {$_SESSION['user_id']} AND `story_id` = {$story_id}")->rowCount() > 0);
     }
 ?>

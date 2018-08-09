@@ -137,7 +137,7 @@
 
                 break;
             case 'messages_listen' :
-                $pending_messages_stmt = $GLOBALS['link']->query("SELECT * FROM `pending_messages` WHERE `to_id` = {$_SESSION['user_id']}");
+                $pending_messages_stmt = $GLOBALS['link']->query("SELECT * FROM `pending_messages` WHERE `to_id` = {$_SESSION['user_id']} ORDER BY `id`");
                 $messages = [];
 
                 while ($pending_message = $pending_messages_stmt->fetch()) {

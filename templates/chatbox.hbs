@@ -1,10 +1,13 @@
-<div class="chat-box" data-userid="{{ userid }}" data-lastupdated="" tabindex="1">
-    <div class="name-options">
+<div class="chat-box" data-userid="{{ userid }}" data-groupid="{{ groupid }}" tabindex="1">
+    <div class="name-options" data-userid="{{ userid }}" data-groupid="{{ groupid }}">
         <div class="chat-name">
             {{#if isLogged}}
                 <span class="logged-indicator"></span>
             {{/if}}
+
             <a href="/AlphaDate/profile/{{ userid }}/">{{ fullname }}</a>
+
+            {{ group_name }}
         </div>
         
         <div class="chatbox-options">
@@ -12,7 +15,7 @@
                 
             </div>
             
-            <div class="close-chatbox" data-userid="{{ userid }}">
+            <div class="close-chatbox" data-userid="{{ userid }}"  data-groupid="{{ groupid }}">
                 <i class="fa fa-times" aria-hidden="true"></i>
             </div>
         </div>
@@ -20,30 +23,31 @@
     
     <div class="chatbox-wrap" style="{{#if isFolded}} display: none {{/if}}">
         <div class="chat-content-container">
-        <div class="chat-content-wrap">
-            <a href="#" class="load-more-btn">טען עוד...</a>
+            <div class="chat-content-wrap">
+                <a href="#" class="load-more-btn">טען עוד...</a>
 
-            <div class="messages">
-                {{#each this.messages}}
-                    {{> chat_message}}
-                {{/each}}
-            </div>
+                <div class="messages">
+                    {{#each this.messages}}
+                        {{> chat_message}}
+                    {{/each}}
+                </div>
 
-            <div class="typing-indicator-wrap">
-                <div class="typing-indicator">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <div class="typing-indicator-wrap">
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="new-message">
-            <div contenteditable="plaintext-only" class="new-message-input" data-userid="{{ userid }}" placeholder="הקלד הודעה..."></div>
-            <div class="message-additional">
-                <input type="file" class="message-additional-image" accept="image/x-png,,image/jpeg" data-userid="{{ userid }}" style="display: none;">
-                <div class="message-additional-item trigger-message-additional-image"><i class="fa fa-camera" aria-hidden="true"></i></div>
-                <div class="message-additional-item emoji-selection-trigger"><i class="far fa-{{#random_emoji}}{{/random_emoji}}" aria-hidden="true"></i></div>
+            <div class="new-message">
+                <div contenteditable="plaintext-only" class="new-message-input" data-userid="{{ userid }}" data-groupid="{{ groupid }}" placeholder="הקלד הודעה..."></div>
+                <div class="message-additional">
+                    <input type="file" class="message-additional-image" accept="image/x-png,,image/jpeg" data-userid="{{ userid }}" data-groupid="{{ groupid }}" style="display: none;">
+                    <div class="message-additional-item trigger-message-additional-image"><i class="fa fa-camera" aria-hidden="true"></i></div>
+                    <div class="message-additional-item emoji-selection-trigger"><i class="far fa-{{#random_emoji}}{{/random_emoji}}" aria-hidden="true"></i></div>
+                </div>
             </div>
         </div>
     </div>

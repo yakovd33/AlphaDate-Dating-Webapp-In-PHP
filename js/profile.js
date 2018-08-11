@@ -173,4 +173,7 @@ $("#self-pp-changer-input").change(function () {
 
 $.each($(".profile-pic"), function () {
     $(this).css('height', $(this).width())
-})
+});
+
+// Make pp same height as width
+$(".profile-card .pp img").height($(".profile-card .pp img").width());

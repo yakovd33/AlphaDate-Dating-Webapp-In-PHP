@@ -238,4 +238,15 @@
     function has_user_seen_story ($story_id) {
         return ($GLOBALS['link']->query("SELECT * FROM `story_views` WHERE `user_id` = {$_SESSION['user_id']} AND `story_id` = {$story_id}")->rowCount() > 0);
     }
+
+    function get_user_chatgroup_list_by_col ($col) {
+        $user_group_chats_stmt = $GLOBALS['link']->query("SELECT * FROM `chat_groups_members` WHERE `user_id` = {$_SESSION['user_id']}");
+        $ret = " ";
+
+        while ($chat_group = $user_group_chats_stmt->fetch()) {
+            $ret .= " AND $col = " . $chat_group['group_id'];
+        }
+
+        return $ret;
+    }
 ?>

@@ -136,6 +136,9 @@ div#floating-chat-toggler {
     -webkit-transition: 0.3s ease-in-out;
     -moz-transition: 0.3s ease-in-out;
     transition: 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #chat-boxes .chat-box .name-options:hover {
@@ -396,4 +399,16 @@ div#floating-chat-toggler {
     display: inline-block;
     border-radius: 50%;
     margin-left: 6px;
+}
+
+.group-user-fullname {
+    font-weight: bold;
+}
+
+#chat-boxes .chat-box .message .group-user-fullname a {
+    color: #000;
+}
+
+#chat-boxes .chat-box .message.self .group-user-fullname a {
+    color: #fff;
 }

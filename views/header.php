@@ -43,6 +43,86 @@
             <div class="container" id="empty-nav-logout-btn-wrap">
                 <a href="<?php echo $URL; ?>/logout/"><div id="empty-nav-logout-btn"></div></a>
             </div>
+
+            <div id="empty-nav-mobile-menu-toggler">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div id="mobile-story">
+            <?php
+                $recent_stories_users_stmt = $GLOBALS['link']->query("SELECT DISTINCT `user_id` AS `uid` FROM `stories` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) AND `user_id` <> {$_SESSION['user_id']} " . get_user_blocked_user_by_col('user_id'));
+                
+                // Sort stories by date
+                $users_last_stories = [];
+
+                while ($story_user = $recent_stories_users_stmt->fetch()) {
+                    $uid = $story_user['uid'];
+                    $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `date` DESC LIMIT 1")->fetch();
+                    array_push($users_last_stories, $user_last_story);
+                }
+
+                usort($users_last_stories, 'sort_by_date');
+                
+                foreach ($users_last_stories as $story) {
+                    $story['user_id'] . ' ' . $story['date'] . '<br>';
+                }
+
+                $self_story_stmt = $GLOBALS['link']->query("SELECT DISTINCT `user_id` AS `uid` FROM `stories` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) AND `user_id` = {$_SESSION['user_id']}");
+                
+                // Filter seen stories
+                $unseen_stories = [];
+                $seen_stories = [];
+
+                foreach ($users_last_stories as $story) {
+                    if (has_user_seen_story($story['id'])) {
+                        array_push($seen_stories, $story);
+                    } else {
+                        array_push($unseen_stories, $story);
+                    }
+                }
+            ?>
+
+            <div id="mobiles-stories-list" class="story-list">
+                <div id="sidebar-story-add-btn">
+                    <div class="icon"><i class="fas fa-plus"></i></div>
+                </div>
+
+                <?php while ($story = $self_story_stmt->fetch()) : ?>
+                    <?php $uid = $_SESSION['user_id']; ?>
+                    <?php $story_user = get_user_row_by_id($uid); ?>
+                    <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
+                    
+                    <div class="item" data-userid="<?php echo $_SESSION['user_id']; ?>">
+                        <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                        <div class="fullname"><?php echo $story_user['fullname']; ?></div>
+                    </div>
+                <?php endwhile; ?>
+
+                <?php foreach ($unseen_stories as $story) : ?>
+                    <?php $uid = $story['user_id']; ?>
+                    <?php $story_user = get_user_row_by_id($uid); ?>
+                    <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
+
+                    <div class="item" data-userid="<?php echo $uid; ?>">
+                        <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                        <div class="fullname"><?php echo $story_user['fullname']; ?></div>
+                    </div>
+                <?php endforeach; ?>
+
+                <?php foreach ($seen_stories as $story) : ?>
+                    <?php $uid = $story['user_id']; ?>
+                    <?php $story_user = get_user_row_by_id($uid); ?>
+                    <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
+
+                    <div class="item" data-userid="<?php echo $uid; ?>">
+                        <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                        <div class="fullname"><?php echo $story_user['fullname']; ?></div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
 
         <?php if (isset($_GET['page']) && $_GET['page'] != 'profile' || !isset($_GET['page'])) : ?>

@@ -322,3 +322,9 @@ img.profile-pic {
 img.profile-pic:not(:nth-child(3n)) {
     margin-left: 5px;
 }
+
+@media screen and (max-width: 768px) {
+    .feed-col {
+        padding: 15px;
+    }
+}

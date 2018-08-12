@@ -1,22 +1,10 @@
 <div class="popup" id="membreship-popup" style="display: block;">
     <div id="membreship-popup-tabs-togglers">
-        <div class="tab" id="franchise-tab-toggler" data-tab="franchise">הירשם בתור זכיין</div>
         <div class="tab active" data-tab="login">יש לכם חשבון? התחברו</div>
         <div class="tab" data-tab="signup">לקוחות חדשים? הירשמו</div>
     </div>
 
     <div id="membreship-popup-tabs">
-        <div class="tab" data-tab="franchise">
-            <form action="" id="franchise-form">
-                <input type="text" placeholder="שם">
-                <input type="text" placeholder="שם משפחה">
-                <input type="email" placeholder="אימייל">
-                <input type="email" placeholder="מס' נייד">
-
-                <input type="submit" value="">
-            </form>
-        </div>
-
         <div class="tab active" data-tab="login">
             <form action="<?php echo $URL; ?>/signin/" method="post" id="login-form">
                 <div id="facebook-login-btn-wrap">

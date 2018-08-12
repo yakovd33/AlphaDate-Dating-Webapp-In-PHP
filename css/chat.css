@@ -476,3 +476,9 @@ div#floating-chat-toggler {
 #new-group-popup input[type="submit"] {
     margin-top: 10px;
 }
+
+@media screen and (max-width: 768px) {
+    #chat-wrap {
+        display: none;
+    }
+}

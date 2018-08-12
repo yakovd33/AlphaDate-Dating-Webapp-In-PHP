@@ -111,7 +111,7 @@
                     let profileid = <?php echo $id; ?>
                 </script>
 
-                <div class="col-md-8 feed-col">
+                <div class="col-md-8 feed-col order-md-1 order-2">
                     <?php
                         echo $handlebars->render("new_post", [
                             'fullname' => $CUR_USER['fullname'],
@@ -152,7 +152,7 @@
                     </script>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 order-md-2 order-1">
                     <?php if ($_SESSION['user_id'] != $id) : ?>
                         <div id="profile-date-invite-link-wrap">
                             <?php if ($GLOBALS['link']->query("SELECT * FROM `meetings_requests` WHERE `user_one_id` = {$_SESSION['user_id']} AND `user_two_id` = {$id} AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH)")->rowCount() == 0) : ?>

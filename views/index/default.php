@@ -86,7 +86,7 @@
             <h2 class="section-title">למה לבחור בנו מבין כל האתרים?</h2>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 features-section-features-wrap">
+                    <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
                             <div class="icon"><img src="img/homepage/features/verified.svg" alt=""></div>
                             <div class="title">חשבונות מאושרים</div>
@@ -94,7 +94,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 features-section-features-wrap">
+                    <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
                             <div class="icon"><img src="img/homepage/features/verified.svg" alt=""></div>
                             <div class="title">חשבונות מאושרים</div>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 features-section-features-wrap">
+                    <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
                             <div class="icon"><img src="img/homepage/features/success.svg" alt=""></div>
                             <div class="title">חשבונות מאושרים</div>
@@ -110,7 +110,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3 features-section-features-wrap">
+                    <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
                             <div class="icon"><img src="img/homepage/features/events.svg" alt=""></div>
                             <div class="title">חשבונות מאושרים</div>

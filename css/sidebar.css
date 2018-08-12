@@ -833,3 +833,34 @@
     max-height: 90%;
     overflow: hidden;
 }
+
+@media screen and (max-width: 768px) {
+    #right-sidebar-wrap {
+        display: none;
+        margin-bottom: 10px;
+    }
+    
+    #buy-flowers-btn {
+        display: none;
+    }
+
+    #right-sidebar-links {
+        margin-top: 20px;
+    }
+
+    #right-sidebar-paid-heads {
+        display: none;
+    }
+
+    #sidebar-story-section {
+        display: none;
+    }
+
+    #story-showcase {
+        padding: 0;
+    }
+
+    #sidebar-story-add-btn {
+        margin-left: 15px;
+    }
+}

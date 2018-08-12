@@ -4,11 +4,11 @@
 <link rel="stylesheet" href="<?php echo $URL; ?>/css/index-logged.css">
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" id="right-sidebar-wrap">
         <?php include 'views/sidebars/right-sidebar.php'; ?>
     </div>
 
-    <div class="index-main-col <?php if (isset($_GET['tab'])) { echo $_GET['tab']; } ?> <?php if (!isset($_GET['tab']) || ($_GET['tab'] != 'profiles') && ($_GET['tab'] != 'meetings')) { echo 'col-md-5'; } else { echo 'col-md-9'; } ?>">
+    <div class="index-main-col <?php if (isset($_GET['tab'])) { echo $_GET['tab']; } else { echo 'hon'; } ?> <?php if (isset($_GET['tab'])) { echo $_GET['tab']; } ?> <?php if (!isset($_GET['tab']) || ($_GET['tab'] != 'profiles') && ($_GET['tab'] != 'meetings')) { echo 'col-md-5'; } else { echo 'col-md-9'; } ?>">
         <div id="index-tabs">
             <?php if (!isset($_GET['tab'])) : ?>
                 <?php include 'tabs/hot-or-not.php'; ?>

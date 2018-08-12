@@ -29,7 +29,7 @@
     padding: 30px 40px;
     display: inline-block;
     cursor: pointer;
-    width: 33%;
+    width: 50%;
 }
 
 #membreship-popup {
@@ -322,5 +322,11 @@ a#forgot-pass-link {
 
     #franchise-form input {
         margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #membreship-popup-tabs .tab.active {
+        padding: 15px;
     }
 }

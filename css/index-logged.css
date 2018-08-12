@@ -399,3 +399,21 @@ div#current-hot-or-not-location {
         padding: 0;
     }
 }
+
+@media screen and (max-width: 768px) {
+    #hon-pre-join-msg, .hor-title {
+        font-size: 0.9em;
+    }
+
+    #index-tabs {
+        margin-bottom: 10px;
+    }
+
+    #hon-pre-join-msg, .hor-title {
+        margin-top: 0;
+    }
+
+    .index-main-col.hon {
+        padding: 5px;
+    }
+}

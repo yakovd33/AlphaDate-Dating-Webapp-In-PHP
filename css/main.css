@@ -345,4 +345,8 @@ select.profile-info-edit-input {
     .show-on-mobile {
         display: block !important;
     }
+
+    #site-wrap {
+        padding: 15px !important;
+    }
 }

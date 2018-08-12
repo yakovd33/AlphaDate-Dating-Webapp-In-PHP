@@ -225,7 +225,7 @@ $("#submit-new-story").click(function () {
 
 // Open stories
 function open_stories () {
-    $.each($("#sidebar-story-items-list .item"), function () {
+    $.each($(".story-list .item"), function () {
         $(this).click(function () {
             $("#popups-bg").fadeIn(150);
 
@@ -296,4 +296,11 @@ $("#popups-bg").click(function () {
     setTimeout(function () {
         $("#story-showcase-wrap").fadeOut(150);
     }, 150);
+});
+
+$("#empty-nav-mobile-menu-toggler").unbind("click").click(function() {
+    $(this).toggleClass("toggled");
+
+    $("#right-sidebar-wrap").slideToggle();
+    $("#mobile-story").slideToggle();
 });

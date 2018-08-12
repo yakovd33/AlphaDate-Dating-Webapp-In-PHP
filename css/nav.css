@@ -28,6 +28,8 @@
     box-shadow: 1px 1px 3px #ebebeb;
     position: relative;
     min-height: 70px;
+    display: flex;
+    align-items: center;
 }
 
 #empty-nav-logo {
@@ -60,8 +62,102 @@
     float: left;
 }
 
+#empty-nav-mobile-menu-toggler {
+    display: none;
+    float: right;
+}
+
+#empty-nav-mobile-menu-toggler * {
+    transition: 0.6s ease;
+}
+
+#empty-nav-mobile-menu-toggler > span {
+    height: 3px;
+    background-color: #c03b2b;
+    display: block;
+    margin-top: 6px;
+}
+
+#empty-nav-mobile-menu-toggler > span:nth-child(1) {
+    width: 25px;
+    margin-top: 0;
+}
+
+#empty-nav-mobile-menu-toggler > span:nth-child(2) {
+    width: 17px;
+}
+
+#empty-nav-mobile-menu-toggler > span:nth-child(3) {
+    width: 25px;
+}
+
+#empty-nav-mobile-menu-toggler.toggled > span:nth-child(3) {
+    /* display: none; */
+    margin-right: -100px;
+}
+  
+#empty-nav-mobile-menu-toggler.toggled > span:nth-child(1) {
+    transform: rotate(45deg);
+}
+  
+#empty-nav-mobile-menu-toggler.toggled > span:nth-child(2) {
+    transform: rotate(-45deg);
+    margin-top: -2px;
+    width: 25px;
+}
+
+#empty-nav-mobile-menu-toggler.toggled {
+    margin-top: 1px;
+}
+
+#mobile-story {
+    display: none;
+}
+
 @media screen and (max-width: 768px) {
+    #empty-nav {
+        box-shadow: none;
+        border-bottom: 1px solid #ebebeb;
+    }
+
     #main-nav .navbar-brand {
         margin-left: 0;
+    }
+
+    #empty-nav-mobile-menu-toggler {
+        display: block;
+        position: absolute;
+        z-index: 999999;
+    }
+
+    #mobile-story {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        background-color: #fff;
+        box-shadow: 1px 1px 3px #ebebeb;
+    }
+
+    #mobile-story .item .pic img {
+        height: 55px;
+        width: 55px;
+        border-radius: 50%;
+    }
+
+    #mobiles-stories-list {
+        display: flex;
+        padding: 10px 13px;
+        width: auto;
+    }
+
+    #mobiles-stories-list .item {
+        padding-left: 15px;
+    }
+
+    #mobiles-stories-list .item .fullname {
+        max-width: 65px;
+        text-align: center;
+        font-size: 0.6em;
+        margin-top: 5px;
     }
 }

@@ -103,15 +103,15 @@
 
     <!-- <div id="sidebar-story-items" class="card"> -->
     <div id="sidebar-story-items">
-        <div id="sidebar-story-items-list">
+        <div id="sidebar-story-items-list" class="story-list">
             <div id="sidebar-story-add-btn">
                 <div class="icon"><i class="fas fa-plus"></i></div>
                 <div class="text">הוסף לסטורי שלך</div>
             </div>
 
-            <?php $recent_stories_users_stmt = $GLOBALS['link']->query("SELECT DISTINCT `user_id` AS `uid` FROM `stories` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) AND `user_id` <> {$_SESSION['user_id']} " . get_user_blocked_user_by_col('user_id')); ?>
-            
             <?php
+                $recent_stories_users_stmt = $GLOBALS['link']->query("SELECT DISTINCT `user_id` AS `uid` FROM `stories` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) AND `user_id` <> {$_SESSION['user_id']} " . get_user_blocked_user_by_col('user_id'));
+
                 // Sort stories by date
                 $users_last_stories = [];
 

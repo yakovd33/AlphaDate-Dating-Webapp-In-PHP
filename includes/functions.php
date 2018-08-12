@@ -241,12 +241,37 @@
 
     function get_user_chatgroup_list_by_col ($col) {
         $user_group_chats_stmt = $GLOBALS['link']->query("SELECT * FROM `chat_groups_members` WHERE `user_id` = {$_SESSION['user_id']}");
-        $ret = " ";
+        $ret = " AND (";
 
         while ($chat_group = $user_group_chats_stmt->fetch()) {
-            $ret .= " AND $col = " . $chat_group['group_id'];
+            $ret .= " `$col` = " . $chat_group['group_id'] . " OR ";
         }
 
+        $ret .= " 0)";
+
         return $ret;
+    }
+
+    function friendly_time ($timestamp) {
+        $current_timestamp = $GLOBALS['link']->query("SELECT NOW() AS `timestamp`")->fetch()['timestamp'];
+        $time_delta = strtotime($current_timestamp) - strtotime($timestamp);
+        
+        if($time_delta <= 1) return 'לפני פחות משנייה';
+        if($time_delta < (60)) return 'לפני ' . $time_delta . ' שניות';
+        if($time_delta < (60*60)) { $minutes = round($time_delta/60); return 'לפני כ' . $minutes . ' דקות'; }
+        if($time_delta < (60*60*16)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ($hours > 1 ? ' שעות' : ''); }
+        if($time_delta < (60*60*24)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ' שעות'; }
+        if($time_delta < (time() - strtotime('yesterday'))) return 'אתמול';
+        if($time_delta < (60*60*24*6.5)) return 'לפני כ' . round($time_delta/(60*60*24)) . ' ימים';
+        if($time_delta < (time() - strtotime('last week'))) return 'שבוע שעבר';
+        if(round($time_delta/(60*60*24*7))  == 1) return 'לפני כשבוע';
+        if($time_delta < (60*60*24*7*3.5)) return 'לפני כ' . round($time_delta/(60*60*24*7)) . ' שבועות';
+        if($time_delta < (time() - strtotime('last month'))) return 'חודש שעבר';
+        if(round($time_delta/(60*60*24*7*4))  == 1) return 'לפני כחודש';
+        if($time_delta < (60*60*24*7*4*11.5)) return 'about ' . round($time_delta/(60*60*24*7*4)) . ' חודשים';
+        if($time_delta < (time() - strtotime('last year'))) return 'שנה שעבר';
+        if(round($time_delta/(60*60*24*7*52)) == 1) return 'לפני כשנה';
+        if($time_delta >= (60*60*24*7*4*12)) return 'לפני כ' . round($time_delta/(60*60*24*7*52)) . ' שנים'; 
+        return false;
     }
 ?>

@@ -22,6 +22,7 @@ RewriteRule ^(close_chatbox)/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2 [L,NC]
 RewriteRule ^(close_chatbox)/group/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2&group [L,NC]
 RewriteRule ^(fold_chatbox)/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2 [L,NC]
 RewriteRule ^(fold_chatbox)/group/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2&group [L,NC]
+RewriteRule ^(new_group)(/?)$ ajax/chat.php?type=$1 [L]
 RewriteRule ^(messages_listen)(/?)$ ajax/chat.php?type=$1 [L,NC]
 
 RewriteRule ^(post)/(heart)/([0-9]+)(/?)$ ajax/post.php?type=$2&post_id=$3 [L,NC]

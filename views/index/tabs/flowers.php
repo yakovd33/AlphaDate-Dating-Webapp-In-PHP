@@ -1,5 +1,5 @@
 <?php
-    $new_flowers_query = "SELECT * FROM `sent_flowers` WHERE `to_id` = {$_SESSION['user_id']} AND NOT `seen`";
+    $new_flowers_query = "SELECT * FROM `sent_flowers` WHERE `to_id` = {$_SESSION['user_id']} AND NOT `seen` ORDER BY `date` DESC";
     $new_flowers_query .= get_user_blocked_user_by_col('from_id');
     $new_flowers_stmt = $GLOBALS['link']->query($new_flowers_query);
 ?>
@@ -18,7 +18,7 @@
                 קיבלת פרח מאת <a href="<?php echo $URL; ?>/profile/<?php echo $sender['id']; ?>/"><?php echo $sender['fullname']; ?></a>
             </div>
 
-            <div class="date"><?php echo $flower['date']; ?></div>
+            <div class="date"><?php echo friendly_time($flower['date']); ?></div>
         </div>
     <?php endwhile; ?>
 </div>

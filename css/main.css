@@ -330,6 +330,13 @@ select.profile-info-edit-input {
     z-index: 99999999;
 }
 
+.cute-input {
+    padding: 5px;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
 @media screen and (max-width: 768px) {
     .hide-on-mobile {
         display: none !important;

@@ -182,7 +182,7 @@
                     <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
                     <div class="textual">
                         <div class="fullname"><?php echo $story_user['fullname']; ?></div>
-                        <div class="time"><?php echo $user_last_story['date']; ?></div>
+                        <div class="time"><?php echo friendly_time($user_last_story['date']); ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>

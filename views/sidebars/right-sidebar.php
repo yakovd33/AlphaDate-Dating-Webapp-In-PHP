@@ -39,7 +39,7 @@
         <div class="orientation-item <?php if ($CUR_USER['orientation'] == 'both') { echo 'active'; } ?>" data-value="both">הכל</div>
     </div>
 
-    <label for="" class="interest-label">בגילאים</label>
+    <label for="" class="interest-label" id="age-interest-label">בגילאים</label>
 
     <div id="age-interest-select-wrap">
         <span id="max-age"><?php echo $CUR_USER['interest_age_max']; ?></span>

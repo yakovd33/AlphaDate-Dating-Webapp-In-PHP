@@ -108,7 +108,6 @@
 
                 break;
             case 'send_message' :
-                print_r($_POST);
                 $resp = [];
                 if (isset($_POST['text']) && (isset($_POST['userid']) || isset($_POST['groupid']))) {
                     $is_user = false;
@@ -276,6 +275,41 @@
                 $GLOBALS['link']->query("DELETE FROM `pending_messages` WHERE `to_id` = {$_SESSION['user_id']}");
 
                 echo json_encode($messages);
+
+                break;
+            case 'new_group' :
+                if (isset($_POST['group_name'], $_POST['group_members'])) {
+                    $name = addslashes(htmlentities($_POST['group_name']));
+                    $members = $_POST['group_members'];
+
+                    if (!empty($name) && count($members) > 1) {
+                        // Create group
+                        $GLOBALS['link']->query("INSERT INTO `chat_groups`(`name`, `user_id`) VALUES ('{$name}', {$_SESSION['user_id']})");
+                        echo $group_id = $GLOBALS['link']->lastInsertId();
+
+                        $GLOBALS['link']->query("INSERT INTO `messages`(`from_id`, `message`, `group_id`) VALUES ({$_SESSION['user_id']}, 'יצר את הקבוצה', {$group_id})");
+                        $message_id = $GLOBALS['link']->lastInsertId();
+
+                        // Add group members
+                        $GLOBALS['link']->query("INSERT INTO `chat_groups_members`(`user_id`, `group_id`) VALUES ({$_SESSION['user_id']}, {$group_id})");
+
+                        foreach ($members as $member) {
+                            $GLOBALS['link']->query("INSERT INTO `chat_groups_members`(`user_id`, `group_id`) VALUES ({$member}, {$group_id})");
+                        }
+
+                        // Send pending message to members
+                        $group_members_stmt = $GLOBALS['link']->query("SELECT * FROM `chat_groups_members` WHERE `group_id` = {$group_id}");
+                        
+                        while ($member = $group_members_stmt->fetch()) {
+                            $member_id = $member['user_id'];
+
+                            // Prevent message from being sent to the sender
+                            if ($member_id != $_SESSION['user_id']) {
+                                $GLOBALS['link']->query("INSERT INTO `pending_messages`(`to_id`, `message_id`, `group_id`) VALUES ({$member_id}, {$message_id}, {$group_id})");
+                            }
+                        }
+                    }
+                }
 
                 break;
         }

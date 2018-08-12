@@ -412,3 +412,67 @@ div#floating-chat-toggler {
 #chat-boxes .chat-box .message.self .group-user-fullname a {
     color: #fff;
 }
+
+#new-group-popup {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 35px #2b2b2b;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    max-width: 95%;
+    z-index: 99999999;
+}
+
+#new-group-name {
+    width: 100%;
+}
+
+.new-group-popup-label {
+    font-weight: bold;
+    margin-top: 13px;
+    font-size: 0.9em;
+    margin-bottom: -3px;
+}
+
+#new-group-popup-members-select-list {
+    max-height: 235px;
+    overflow-y: auto;
+}
+
+#new-group-popup-members-select-list .member {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    padding: 3.5px;
+    border-radius: 5px;
+}
+
+#new-group-popup-members-select-list .member .pp img {
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
+#new-group-popup-members-select-list .member:hover {
+    background-color: #ebebeb;
+}
+
+#new-group-popup-members-select-list .member.active {
+    background-color: #ad3a2c;
+    color: #fff;
+}
+
+#new-group-popup-members-select-list .member input {
+    display: none;
+}
+
+#new-group-popup input[type="submit"] {
+    margin-top: 10px;
+}

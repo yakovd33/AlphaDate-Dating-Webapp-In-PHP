@@ -7,7 +7,7 @@
             </span>
 
             <div id="chat-toggler-options">
-                <div class="chat-toggler-option">
+                <div class="chat-toggler-option" id="chat-new-group">
                     <i class="far fa-edit"></i>
                 </div>
 
@@ -21,7 +21,7 @@
             <?php
                 $recent_chats = $GLOBALS['link']->query("(SELECT users.* FROM `users` INNER JOIN `messages` ON (`users`.`id` = `messages`.`from_id` OR `users`.`id` = `messages`.`to_id`) AND (`messages`.`from_id` = {$_SESSION['user_id']} OR `messages`.`to_id` = {$_SESSION['user_id']}) AND `users`.`id` <> {$_SESSION['user_id']} GROUP BY `users`.`id`)");
                 $recent_chat_groups = $GLOBALS['link']->query("SELECT `group_id` FROM `messages` WHERE 1 " . get_user_chatgroup_list_by_col('group_id') . " GROUP BY `group_id`");
-            
+
                 $total_chats = [];
                 while ($chat = $recent_chats->fetch()) {
                     // array_push($total_chats, $chat);
@@ -150,6 +150,33 @@
         <?php endwhile; ?>
     </div>
 </div>
+
+<form id="new-group-popup">
+    <input type="text" class="cute-input" name="group_name" id="new-group-name" placeholder="שם הקבוצה">
+
+    <label class="new-group-popup-label">בחירת חברים</label>
+
+    <div id="new-group-popup-members-select-list">
+        <?php foreach ($total_chats as $chat) : ?>
+            <?php if (!$chat['group_id']) : ?>
+                <?php $user_id = $chat['from_id'] == $_SESSION['user_id'] ? $chat['to_id'] : $chat['from_id']; ?>
+                <?php $user = get_user_row_by_id($user_id); ?>
+
+                <label class="member" for="new-group-member-<?php echo $user_id; ?>">
+                    <div class="pp"><img src="<?php echo get_user_pp_by_id($user_id); ?>" alt=""></div>
+                    <div class="dets">
+                        <div class="fullname"><?php echo $user['fullname']; ?></div>
+                    </div>
+
+                    <input type="checkbox" id="new-group-member-<?php echo $user_id; ?>" name="group_members[]" value="<?php echo $user_id; ?>">
+                </label>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+
+    <button class="cute-btn" style="float: left" type="submit">צור קבוצה</button>
+    <div class="clearfix"></div>
+</form>
 
 <script id="chatbox-template" type="text/x-handlebars-template">
     <?php include 'templates/chatbox.hbs'; ?>

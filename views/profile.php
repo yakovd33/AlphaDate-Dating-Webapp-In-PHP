@@ -138,7 +138,7 @@
                                     'userid' => $post['user_id'],
                                     'fullname' => $poster['fullname'],
                                     'text' => nl2br($post['text']),
-                                    'time' => $post['date'],
+                                    'time' => friendly_time($post['date']),
                                     'num_hearts' => $num_hearts,
                                     'num_comments' => $num_comments,
                                     'hearted' => $GLOBALS['link']->query("SELECT * FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0

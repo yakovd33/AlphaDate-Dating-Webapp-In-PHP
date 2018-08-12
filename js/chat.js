@@ -421,3 +421,43 @@ function chat_image_upload () {
         });
     });
 }
+
+// Create new group
+$("#chat-new-group").click(function () {
+    $("#popups-bg").fadeIn(150);
+
+    setTimeout(function () {
+        $("#new-group-popup").fadeIn(150);
+    }, 150);
+});
+
+$("#popups-bg").click(function () {
+    $("#popups-bg").fadeOut(150);
+
+    setTimeout(function () {
+        $("#new-group-popup").fadeOut(150);
+    }, 150);
+});
+
+$.each($("#new-group-popup-members-select-list .member"), function () {
+    $(this).unbind("click").click(function (e) {
+        if ($(e.target).prop("tagName") != 'INPUT') {
+            $(this).toggleClass("active");
+        }
+    });
+});
+
+$("#new-group-popup").submit(function (e) {
+    e.preventDefault();
+
+    if ($("#new-group-name").val().length > 0 && $("input[name='group_members[]']:checked").length > 1) {
+        $.post(URL + '/new_group/', $(this).serialize(), function (group_id) {
+            $("#popups-bg").click();
+
+            // Add group to chat list
+            $("#floating-chat-connected-users").prepend('<div class="item chatbox-trigger" data-groupid="' + group_id + '"> <div class="pic"><img src="/AlphaDate/img/icons/group-icon.png" alt=""></div> <div class="textual"> <div class="fullname"> ' + $("#new-group-name").val() + ' </div> </div> </div>');
+            chatbox_options();
+            open_group_chatbox(group_id);
+        });
+    }
+})

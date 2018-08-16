@@ -50,7 +50,7 @@
                     <div class="hero-signup-card-title">בגיל</div>
                     <div id="hero-signup-card-age-chooser">
                         <select name="" id="" class="form-control">
-                            <option value="17">17</option>
+                            <option value="18">18</option>
                         </select>
                     </div>
 
@@ -66,7 +66,7 @@
                     <div class="hero-signup-card-title">בגילאים</div>
                     <div id="hero-signup-card-prefrences-chooser">
                         <select class="form-control" name="" id="">
-                            <option value="">17</option>
+                            <option value="18">18</option>
                         </select>
                     </div>
 

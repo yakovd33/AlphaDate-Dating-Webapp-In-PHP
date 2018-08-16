@@ -9,6 +9,7 @@ RewriteRule ^(signin|join|logout|profile)(/?)$ index.php?page=$1 [NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(feed|flowers|geo|friends-of-friends|profiles|matches|meetings)(/?)$ index.php?tab=$1 [L]
+RewriteRule ^(profiles)/([0-9]+)(/?)$ index.php?tab=$1&pagination=$2 [L]
 
 RewriteRule ^(profile)/([0-9]+)(/?)$ index.php?page=$1&id=$2 [L]
 RewriteRule ^(get_checkbox)/([0-9]+)(/?)$ ajax/chat.php?type=$1&id=$2 [L,NC]

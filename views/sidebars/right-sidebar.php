@@ -63,7 +63,7 @@
 <script>
     $("#slider-range").slider({
         range: true, 
-        min: 17,
+        min: 18,
         max: 120,
         step: 1,
         slide: function( event, ui ) {

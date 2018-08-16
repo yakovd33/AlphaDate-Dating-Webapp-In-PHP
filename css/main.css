@@ -400,6 +400,25 @@ select.profile-info-edit-input {
     color: #ad3a2c;
 }
 
+/* Pagination */
+#pagination {
+    margin-top: 10px;
+    float: left;
+    direction: ltr;
+}
+
+#pagination .page {
+    padding: 5px 10px;
+    background-color: #ebebeb;
+    color: #444;
+    border-radius: 5px;
+}
+
+#pagination .page.active {
+    background-color: #ad3a2c;
+    color: #fff;
+}
+
 @media screen and (max-width: 768px) {
     .hide-on-mobile {
         display: none !important;

@@ -26,6 +26,21 @@
 
     $profiles_query .= $order_by;
 
+    if (isset($_GET['pagination'])) {
+        $page = $_GET['pagination'];
+    } else {
+        $page = 0;
+    }
+
+    if ($page == 0) {
+        $start = 0;
+    } else {
+        $start = $page - 1;
+    }
+    
+    $no_limit_query = $profiles_query;
+    $profiles_query .= " LIMIT " . $start * get_setting('profiles_per_page') . ', ' . get_setting('profiles_per_page');
+
     $profiles_stmt = $GLOBALS['link']->query($profiles_query);
 ?>
 
@@ -75,5 +90,17 @@
                 </div>
             </div>
         <?php endwhile; ?>
+    </div>
+
+    <div id="pagination">
+        <?php
+            $profiles_max_page = ceil($GLOBALS['link']->query($no_limit_query)->rowCount() / get_setting('profiles_per_page'));
+        ?>
+
+        <?php for ($i = $page - 5; $i <= $page + 5 && $i <= $profiles_max_page; $i++) : ?>
+            <?php if ($i > 0) : ?>
+                <a class="page <?php if (($i == $page) || ($page == 0 && $i == 1)) { echo 'active'; } ?>" href="<?php echo $URL; ?>/profiles/<?php echo $i != 1 ? $i : ''; ?>"><?php echo $i; ?></a>
+            <?php endif; ?>
+        <?php endfor; ?>
     </div>
 </div>

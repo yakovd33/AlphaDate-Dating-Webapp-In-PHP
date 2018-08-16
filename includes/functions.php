@@ -274,4 +274,16 @@
         if($time_delta >= (60*60*24*7*4*12)) return 'לפני כ' . round($time_delta/(60*60*24*7*52)) . ' שנים'; 
         return false;
     }
+
+    function random_color_part() {
+        return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+    }
+    
+    function random_color() {
+        return random_color_part() . random_color_part() . random_color_part();
+    }
+
+    function get_num_unread_messages () {
+        return $GLOBALS['link']->query("SELECT * FROM `messages` WHERE `to_id` = {$_SESSION['user_id']} AND NOT `seen`")->rowCount() + $GLOBALS['link']->query("SELECT * FROM `unseen_group_messages` WHERE `user_id` = {$_SESSION['user_id']}")->rowCount();
+    }
 ?>

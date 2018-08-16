@@ -1,7 +1,7 @@
 <div class="container" id="chat-wrap">
     <div id="floating-chat">
-        <div id="floating-chat-toggler">
-            <span>
+        <div id="floating-chat-toggler" data-num="<?php echo get_num_unread_messages(); ?>">
+            <span id="chat-toggler-text">
                 צ'אט
                 <!-- <span id="chat-num-connected">(<?php //echo get_num_connected_followed(); ?>)</span> -->
             </span>
@@ -54,7 +54,7 @@
                     }
                 ?>
 
-                <div class="item chatbox-trigger" <?php if ($is_user) { echo 'data-userid="' . $chat_user['id'] . '"'; } ?> <?php if ($is_group) { echo 'data-groupid="' . $group['id'] . '"'; } ?>>
+                <div class="item chatbox-trigger" data-userid="<?php if ($is_user) { echo $chat_user['id']; } ?>" data-groupid="<?php if ($is_group) { echo $group['id']; } ?>">
                     <?php if ($is_user) : ?>
                         <div class="pic"><img src="<?php echo get_user_pp_by_id($chat_user['id']); ?>" alt=""></div>
                     <?php elseif ($is_group) : ?>
@@ -77,78 +77,92 @@
                             <div class="distance"><?php echo $chat_user['city']; ?></div>
                         <?php endif; ?>
                     </div>
+
+                    <div class="chat-list-unread-msgs-marker">
+                        <?php if ($is_group) : ?>
+                            <?php echo $GLOBALS['link']->query("SELECT * FROM `unseen_group_messages` WHERE `group_id` = {$group_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount(); ?>
+                        <?php else : ?>
+                            <?php echo $GLOBALS['link']->query("SELECT * FROM `messages` WHERE `from_id` = {$user_id} AND `to_id` = {$_SESSION['user_id']} AND NOT `seen`")->rowCount(); ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
             <?php endforeach; ?>
+
+            <?php if (count($total_chats) == 0) : ?>
+                <div id="no-chats-msg">אין שיחות להצגה.</div>
+            <?php endif; ?>
         </div>
     </div>
 
-    <div id="chat-boxes">
-        <?php $open_chatboxes_stmt = $GLOBALS['link']->query("SELECT * FROM `open_chatboxes` WHERE `user_id` = {$_SESSION['user_id']}"); ?>
-        <?php while ($chatbox = $open_chatboxes_stmt->fetch()) : ?>
-            <?php
-                if ($chatbox['to_id']) {
-                    $to_user = get_user_row_by_id($chatbox['to_id']);
-                }
-
-                $group_id = $chatbox['group_id'];
-                
-                if ($chatbox['to_id']) {
-                    $chat_messages_query = $GLOBALS['link']->query("SELECT * FROM `messages` WHERE (`from_id` = {$_SESSION['user_id']} AND `to_id` = {$to_user['id']}) OR (`from_id` = {$to_user['id']} AND `to_id` = {$_SESSION['user_id']}) ORDER BY `date`");
-                } elseif ($chatbox['group_id']) {
-                    $chat_messages_query = $GLOBALS['link']->query("SELECT * FROM `messages` WHERE `group_id` = {$group_id} ORDER BY `date`");
-                }
-
-                $chat_messages = [];
-
-                while ($message = $chat_messages_query->fetch()) {
-
-                    $message_image = false;
-
-                    if ($message['image_id']) {
-                        $message_image = get_image_path_by_id($message['image_id']);
+    <?php if (!isset($no_chatboxes)) : ?>
+        <div id="chat-boxes">
+            <?php $open_chatboxes_stmt = $GLOBALS['link']->query("SELECT * FROM `open_chatboxes` WHERE `user_id` = {$_SESSION['user_id']}"); ?>
+            <?php while ($chatbox = $open_chatboxes_stmt->fetch()) : ?>
+                <?php
+                    if ($chatbox['to_id']) {
+                        $to_user = get_user_row_by_id($chatbox['to_id']);
                     }
 
-                    $sender = get_user_row_by_id($message['from_id']);
-                    $message_final = [
-                        'userid' => $message['from_id'],
-                        'text' => $message['message'],
-                        'date' => $message['date'],
-                        'isSelf' => ($message['from_id'] == $_SESSION['user_id']),
-                        'image' => $message_image,
-                    ];
-
-                    if ($message['group_id']) {
-                        $message_final['fullname'] = $sender['fullname'];
-                    }
+                    $group_id = $chatbox['group_id'];
                     
-                    array_push($chat_messages, $message_final);
-                }
+                    if ($chatbox['to_id']) {
+                        $chat_messages_query = $GLOBALS['link']->query("SELECT * FROM `messages` WHERE (`from_id` = {$_SESSION['user_id']} AND `to_id` = {$to_user['id']}) OR (`from_id` = {$to_user['id']} AND `to_id` = {$_SESSION['user_id']}) ORDER BY `date`");
+                    } elseif ($chatbox['group_id']) {
+                        $chat_messages_query = $GLOBALS['link']->query("SELECT * FROM `messages` WHERE `group_id` = {$group_id} ORDER BY `date`");
+                    }
 
-                if ($chatbox['to_id']) {
-                    echo $handlebars->render("chatbox", [
-                        'userid' => $chatbox['to_id'],
-                        'fullname' => $to_user['fullname'],
-                        'messages' => $chat_messages,
-                        'isFolded' => $chatbox['is_folded'],
-                        'isLogged' => is_user_logged($to_user['id'])
-                    ]);
-                } elseif ($chatbox['group_id']) {
-                    $group = $GLOBALS['link']->query("SELECT * FROM `chat_groups` WHERE `id` = {$group_id}")->fetch();
+                    $chat_messages = [];
 
-                    echo $handlebars->render("chatbox", [
-                        'groupid' => $chatbox['group_id'],
-                        'group_name' => $group['name'],
-                        'messages' => $chat_messages,
-                        'isFolded' => $chatbox['is_folded'],
-                        'isLogged' => false
-                    ]);
-                }
+                    while ($message = $chat_messages_query->fetch()) {
 
-                // Read messages
-                $GLOBALS['link']->query("DELETE FROM `pending_messages` WHERE `to_id` = {$_SESSION['user_id']}");
-            ?>
-        <?php endwhile; ?>
-    </div>
+                        $message_image = false;
+
+                        if ($message['image_id']) {
+                            $message_image = get_image_path_by_id($message['image_id']);
+                        }
+
+                        $sender = get_user_row_by_id($message['from_id']);
+                        $message_final = [
+                            'userid' => $message['from_id'],
+                            'text' => $message['message'],
+                            'date' => $message['date'],
+                            'isSelf' => ($message['from_id'] == $_SESSION['user_id']),
+                            'image' => $message_image,
+                        ];
+
+                        if ($message['group_id']) {
+                            $message_final['fullname'] = $sender['fullname'];
+                        }
+                        
+                        array_push($chat_messages, $message_final);
+                    }
+
+                    if ($chatbox['to_id']) {
+                        echo $handlebars->render("chatbox", [
+                            'userid' => $chatbox['to_id'],
+                            'fullname' => $to_user['fullname'],
+                            'messages' => $chat_messages,
+                            'isFolded' => $chatbox['is_folded'],
+                            'isLogged' => is_user_logged($to_user['id'])
+                        ]);
+                    } elseif ($chatbox['group_id']) {
+                        $group = $GLOBALS['link']->query("SELECT * FROM `chat_groups` WHERE `id` = {$group_id}")->fetch();
+
+                        echo $handlebars->render("chatbox", [
+                            'groupid' => $chatbox['group_id'],
+                            'group_name' => $group['name'],
+                            'messages' => $chat_messages,
+                            'isFolded' => $chatbox['is_folded'],
+                            'isLogged' => false
+                        ]);
+                    }
+
+                    // Read messages
+                    $GLOBALS['link']->query("DELETE FROM `pending_messages` WHERE `to_id` = {$_SESSION['user_id']}");
+                ?>
+            <?php endwhile; ?>
+        </div>
+    <?php endif; ?>
 </div>
 
 <form id="new-group-popup">
@@ -184,6 +198,10 @@
 
 <script id="chat-message-template" type="text/x-handlebars-template">
     <?php include 'templates/chat_message.hbs'; ?>
+</script>
+
+<script>
+    is_fullscreen_chat = false;
 </script>
 
 <script src="<?php echo $URL; ?>/js/chat.js"></script>

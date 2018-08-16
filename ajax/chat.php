@@ -17,6 +17,7 @@
                     $user = get_user_row_by_id($id);
 
                     $resp['userid'] = $id;
+                    $resp['pp'] = get_user_pp_by_id($id);
                     $resp['fullname'] = $user['fullname'];
 
                     $chat_messages = [];
@@ -177,6 +178,7 @@
                             // Prevent message from being sent to the sender
                             if ($member_id != $_SESSION['user_id']) {
                                 $GLOBALS['link']->query("INSERT INTO `pending_messages`(`to_id`, `message_id`, `group_id`) VALUES ({$member_id}, {$message_id}, {$groupid})");
+                                $GLOBALS['link']->query("INSERT INTO `unseen_group_messages`(`user_id`, `group_id`) VALUES ({$member_id}, {$groupid})");
                             }
                         }
                     }
@@ -262,6 +264,7 @@
 
                         array_push($messages, [
                             'groupid' => $message['group_id'],
+                            'group_userid' => $sender['id'],
                             'fullname' => $sender['fullname'],
                             'text' => $message['message'],
                             'date' => $message['date'],
@@ -312,6 +315,18 @@
                 }
 
                 break;
+            case 'read' :
+                if (isset($_GET['userid'])) {
+                    $userid = $_GET['userid'];
+
+                    $GLOBALS['link']->query("UPDATE `messages` SET `seen` = 1 WHERE `from_id` = {$userid} AND `to_id` = {$_SESSION['user_id']}");
+                }
+
+                if (isset($_GET['groupid'])) {
+                    $groupid = $_GET['groupid'];
+
+                    $GLOBALS['link']->query("DELETE FROM `unseen_group_messages` WHERE `user_id` = {$_SESSION['user_id']} AND `group_id` = {$groupid}");
+                }
         }
     }
 ?>

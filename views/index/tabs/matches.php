@@ -33,13 +33,6 @@
                     <a href="<?php echo $URL; ?>/city/<?php echo $profile['city']; ?>/">
                         <div class="location"><?php echo $profile['city']; ?></div>
                     </a>
-
-                    <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
-                        <strong class="about-me-label">קצת עליי:</strong>
-                        <p class="about-me">
-                            <?php echo strlen($profile['about_me']) > 100 ? mb_substr($profile['about_me'], 0, 100)."..." : $profile['about_me']; ?>
-                        </p>
-                    </a>
                 </div>
             </div>
         </div>

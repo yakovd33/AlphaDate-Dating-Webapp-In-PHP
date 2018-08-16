@@ -53,5 +53,12 @@ RewriteRule ^(contact)(/?)$ contact.php [L]
 RewriteRule ^(about)(/?)$ about.php [L]
 RewriteRule ^(terms)(/?)$ terms.php [L]
 
-
 RewriteRule ^(get-main-feed-page)/([0-9]+)(/?)$ ajax/feed.php?type=$1&page=$2 [L]
+
+RewriteRule ^(conversation)/([0-9]+)(/?)$ index.php?page=$1&id=$2 [NC]
+RewriteRule ^(conversation)/(group)/([0-9]+)(/?)$ index.php?page=$1&id=$3&group [NC]
+
+RewriteRule ^(conversation)/(read)/([0-9]+)(/?)$ ajax/chat.php?type=$2&userid=$3 [NC]
+RewriteRule ^(conversation)/(read)/(group)/([0-9]+)(/?)$ ajax/chat.php?type=$2&groupid=$4 [NC]
+
+RewriteRule ^(feed)/(sort)(/?)$ ajax/feed.php?type=$2 [NC]

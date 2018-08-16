@@ -101,6 +101,13 @@
 
                         // Insert flower to db
                         $GLOBALS['link']->query("INSERT INTO `sent_flowers`(`from_id`, `to_id`) VALUES ({$_SESSION['user_id']}, {$userid})");
+                    
+                        // Give popularity to sent user if is first flower sent today
+                        if ($GLOBALS['link']->query("SELECT * FROM `sent_flowers` WHERE `from_id` = {$_SESSION['user_id']} AND `to_id` = {$userid} AND DATE(`date`) = DATE(NOW())")->rowCount() == 0) {
+                            increase_user_popularity($userid, 4);
+                        }
+
+                        d_log("SELECT * FROM `sent_flowers` WHERE `from_id` = {$_SESSION['user_id']} AND `to_id` = {$userid} AND DATE(`date`) = DATE(NOW())");
                     }
                 }
 

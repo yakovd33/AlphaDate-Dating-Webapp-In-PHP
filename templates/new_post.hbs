@@ -2,22 +2,34 @@
     <form id="post-upload-form">
         <div id="main-right-sidebar-profile-card-visual-post-input">
             <div id="main-right-sidebar-profile-card-pp">
-                <a href="/AlphaDate/profile/"><img src="{{ user_pic }}" alt=""></a>
+                <a href="/AlphaDate/profile/">
+                    <img src="{{ user_pic }}" class="new-post-pic">
+                    <img src="/AlphaDate/img/anonymous.png" class="new-post-pic anonymous">
+                </a>
             </div>
 
             <div id="main-right-sidebar-profile-card-textuals">
                 <a href="/AlphaDate/profile/">
-                    <div class="fullname">{{ fullname }}</div>
+                    <div class="fullname regular">{{ fullname }}</div>
                     <div class="nickname">{{ nickname }}</div>
                 </a>
+
+                <div class="fullname anonymous" contenteditable="plaintext-only">אנונימי</div>
             </div>
+
+            <div id="new-post-anonymous"></div>
+            <input type="checkbox" id="new-post-is-anonymous">
         </div>
 
         <textarea placeholder="שתף את העוקבים שלך..." id="new-post-input-card-content"></textarea>
+        <div id="new-post-pic-wrap">
+
+        </div>
 
         <div id="new-post-bottom">
             <div id="new-post-additionals">
-                <div class="new-post-additional"><i class="fas fa-camera"></i></div>
+                <div class="new-post-additional" id="new-post-pic-trigger"><i class="fas fa-camera"></i></div>
+                <input type="file" id="new-post-pic-input" accept="image/x-png,,image/jpeg">
             </div>
 
             <div id="new-post-submition-wrap" class="mr-auto">

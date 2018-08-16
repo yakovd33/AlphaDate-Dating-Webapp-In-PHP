@@ -61,7 +61,7 @@
                     $resp['pp'] = get_user_pp_by_id($uid);
                     $resp['stories'] = [];
 
-                    $user_stories_stmt = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} AND `date` > DATE_SUB(NOW(), INTERVAL 1 DAY)");
+                    $user_stories_stmt = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} AND `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) ORDER BY `date`");
 
                     while ($story = $user_stories_stmt->fetch()) {
                         // array_push($stories, $story);

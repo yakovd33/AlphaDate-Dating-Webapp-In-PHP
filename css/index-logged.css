@@ -416,4 +416,14 @@ div#current-hot-or-not-location {
     .index-main-col.hon {
         padding: 5px;
     }
+
+    #hon-pics-selector-trigger {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .profiles-tab-profile-wrap {
+        padding: 0
+    }
 }

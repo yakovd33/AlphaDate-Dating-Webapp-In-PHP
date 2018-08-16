@@ -101,7 +101,7 @@
     <?php while ($head = $paid_heads->fetch()) : ?>
         <a href="<?php echo $URL; ?>/profile/<?php echo $head['user_id']; ?>">
             <div class="head">
-                <img src="<?php echo $URL; ?>/<?php echo get_user_pp_by_id($head['user_id']); ?>">
+                <img src="<?php echo get_user_pp_by_id($head['user_id']); ?>">
             </div>
         </a>
     <?php endwhile; ?>

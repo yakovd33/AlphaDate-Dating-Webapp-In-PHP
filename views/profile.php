@@ -28,6 +28,9 @@
             }
 
             $GLOBALS['link']->query("INSERT INTO `profile_views`(`viewer_id`, `viewed_id`, `date`, `referal`) VALUES ({$_SESSION['user_id']}, {$id}, CURDATE(), '{$refer}')");
+        
+            // Increase viewed profile user popularity
+            increase_user_popularity($id, 2);
         } else {
             // Increase streak
             $GLOBALS['link']->query("UPDATE `profile_views` SET `streak` = `streak` + 1 WHERE `viewer_id` = {$_SESSION['user_id']} AND `viewed_id` = {$id} AND `date` = CURDATE()");
@@ -36,6 +39,12 @@
 ?>
 
 <link rel="stylesheet" href="<?php echo $URL; ?>/css/profile.css">
+
+<?php include 'story-essantials.php'; ?>
+
+<div class="col-md-3" id="right-sidebar-wrap">
+    <?php include 'views/sidebars/right-sidebar.php'; ?>
+</div>
 
 <div class="container" id="site-wrap">
     <div class="row">
@@ -89,7 +98,7 @@
                 <div class="profile-information-item editable-wrap">
                     <div class="item-content">
                         <div id="profile-pics">
-                            <?php $user_pics_stmt = $GLOBALS['link']->query("SELECT * FROM `images` WHERE `user_id` = {$id} AND NOT `is_pp` AND NOT `is_message` AND NOT `is_story` ORDER BY `date` DESC LIMIT 6"); ?>
+                            <?php $user_pics_stmt = $GLOBALS['link']->query("SELECT * FROM `images` WHERE `user_id` = {$id} AND NOT `is_pp` AND NOT `is_message` AND NOT `is_story` AND NOT `is_message` ORDER BY `date` DESC LIMIT 6"); ?>
 
                             <?php while ($pic = $user_pics_stmt->fetch()) : ?>
                                 <img src="<?php echo $URL; ?>/<?php echo get_image_path_by_id($pic['id']); ?>" alt="" class="profile-pic">
@@ -99,7 +108,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-9" id="profile-content-wrap">
             <div class="row">
                 <script>
@@ -113,16 +121,18 @@
 
                 <div class="col-md-8 feed-col order-md-1 order-2">
                     <?php
-                        echo $handlebars->render("new_post", [
-                            'fullname' => $CUR_USER['fullname'],
-                            'nickname' => $CUR_USER['nickname'],
-                            'user_pic' => get_user_pp_by_id($_SESSION['user_id'])
-                        ]);
+                        if ($id == $_SESSION['user_id']) {
+                            echo $handlebars->render("new_post", [
+                                'fullname' => $CUR_USER['fullname'],
+                                'nickname' => $CUR_USER['nickname'],
+                                'user_pic' => get_user_pp_by_id($_SESSION['user_id'])
+                            ]);
+                        }
                     ?>
 
                     <div id="feed-posts">
                         <?php
-                            $posts_query = "SELECT * FROM `posts` WHERE `user_id` = {$id} ORDER BY `date` DESC LIMIT " . get_setting('posts_per_page');
+                            $posts_query = "SELECT * FROM `posts` WHERE `user_id` = {$id} AND NOT `is_anonymous` ORDER BY `date` DESC LIMIT " . get_setting('posts_per_page');
                             $posts_stmt = $GLOBALS['link']->query($posts_query);
                         ?>
 
@@ -141,6 +151,7 @@
                                     'time' => friendly_time($post['date']),
                                     'num_hearts' => $num_hearts,
                                     'num_comments' => $num_comments,
+                                    'user_pic' => get_user_pp_by_id($id),
                                     'hearted' => $GLOBALS['link']->query("SELECT * FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0
                                 ]);
                             }

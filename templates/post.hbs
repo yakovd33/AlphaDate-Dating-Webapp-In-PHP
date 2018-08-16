@@ -1,7 +1,7 @@
 <div class="card post-card">
     <div class="user-dets">
         <div class="post-card-pp">
-            <a href="/AlphaDate/profile/{{ userid }}"><img src="{{ user_pic }}" alt=""></a>
+            <a href="/AlphaDate/profile/{{ userid }}"><img src="{{ user_pic }}" class="{{ anonymous }}"></a>
         </div>
 
         <div class="post-card-textuals">
@@ -14,6 +14,10 @@
 
     <div class="post-content">
         <div class="text">{{#safe text }}{{/safe}}</div>
+
+        <div class="pic">
+            <img src="{{ image }}">
+        </div>
     </div>
 
     <div class="post-actions">

@@ -12,6 +12,8 @@
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
         <!-- Slick JS -->
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -19,6 +21,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+
+        <script src="<?php echo $URL; ?>/js/functions.js"></script>
     </head>
     <body>
     <!-- <div style="width: 300px; height: 472px !important; background: #fcb555; z-index: 999; position: fixed; bottom: -200px; left: -200px; transform: rotate(130deg);"><div class="text"></div></div> -->
@@ -33,6 +37,8 @@
             USERID = $("#userid").val();
             FULLNAME = $("#fullname").val();
             PP = $("#pp").val();
+            isMobileFloatingChat = <?php echo $CUR_USER['mobile_floating_stories']; ?>;
+            current_unread_messages = <?php echo get_num_unread_messages(); ?>;
         </script>
 
         <div id="popups-bg"></div>
@@ -86,7 +92,7 @@
             ?>
 
             <div id="mobiles-stories-list" class="story-list">
-                <div id="sidebar-story-add-btn">
+                <div id="sidebar-story-add-btn-mobile">
                     <div class="icon"><i class="fas fa-plus"></i></div>
                 </div>
 

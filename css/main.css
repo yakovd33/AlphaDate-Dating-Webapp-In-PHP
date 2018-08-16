@@ -83,6 +83,16 @@ input[type="submit"] {
     max-height: 180px;
 }
 
+#new-post-pic-input {
+    display: none;
+}
+
+#new-post-pic-wrap img {
+    height: 60px;
+    width: 60px;
+    border-radius: 5px;
+}
+
 #post-upload-form {
     width: 100%;
 }
@@ -149,6 +159,11 @@ input[type="submit"] {
     border-radius: 50%;
 }
 
+.post-card-pp img.anonymous {
+    background-color: #ebebeb;
+    padding: 10px;
+}
+
 .post-card-textuals {
     display: inline-block;
     vertical-align: middle;
@@ -167,6 +182,12 @@ input[type="submit"] {
 
 .post-content {
     margin-top: 8px;
+}
+
+.post-content .pic img {
+    width: 100%;
+    max-height: 500px;
+    border-radius: 5px;
 }
 
 .post-actions {
@@ -319,6 +340,27 @@ select.profile-info-edit-input {
     background: url(../img/homepage/icons/select-icon.png) #fff no-repeat 10px !important;
 }
 
+#new-post-anonymous {
+    background-image: url("../img/anonymous.png");
+    height: 20px;
+    width: 20px;
+    background-size: cover;
+    position: absolute;
+    top: 27px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.new-post-pic.anonymous {
+    display: none;
+    padding: 10px;
+    background-color: #ebebeb;
+}
+
+#new-post-is-anonymous {
+    display: none;
+}
+
 #popups-bg {
     display: none;
     position: fixed;
@@ -335,6 +377,27 @@ select.profile-info-edit-input {
     border: 1px solid #ebebeb;
     border-radius: 5px;
     font-size: 0.9em;
+}
+
+#feed-sorting-wrap {
+    margin-top: 7px;
+    font-size: 0.9em;
+    color: #666;
+    text-align: left;
+    margin-bottom: -4px;
+}
+
+#feed-sorting-wrap .feed-sorting-option {
+    color: #444;
+}
+
+#feed-sorting-wrap .feed-sorting-option:first-child {
+    margin-right: 10px;
+}
+
+#feed-sorting-wrap .feed-sorting-option.active {
+    font-weight: bold;
+    color: #ad3a2c;
 }
 
 @media screen and (max-width: 768px) {

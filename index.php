@@ -30,12 +30,21 @@
                 header("Location: " . $URL);
             ?>
         <?php else : ?>
+            <?php
+                if (!is_logged()) {
+                    header("Location: " . $URL);
+                }
+            ?>
+
             <?php include 'views/header.php'; ?>
             
             <?php
                 switch ($_GET['page']) {
                     case 'profile' :
                         include 'views/profile.php';
+                        break;
+                    case 'conversation' :
+                        include 'views/chatbox.php';
                         break;
                 }
             ?>

@@ -181,7 +181,7 @@ $("#popups-bg").click(function () {
 
 function delete_hon_pics () {
     $.each($(".hon-pic-selector-pic-item"), function () {
-        $(this).click(function () {
+        $(this).unbind("click").click(function () {
             data = new FormData();
             data.append('picid', $(this).data('picid'));
             
@@ -207,6 +207,8 @@ function delete_hon_pics () {
                     document.getElementById("close-hon-pics-selector").style['margin-right'] = 'calc(100% - 40px) !important';
                 }
             }, 550, this);
+            
+            delete_hon_pics();
         });
     });
 }

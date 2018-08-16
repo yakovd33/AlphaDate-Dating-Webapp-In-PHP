@@ -6,6 +6,10 @@ body {
     padding: 0;
 }
 
+#right-sidebar-wrap {
+    display: none;
+}
+
 .feed-col {
     padding: 0;
 }
@@ -326,5 +330,23 @@ img.profile-pic:not(:nth-child(3n)) {
 @media screen and (max-width: 768px) {
     .feed-col {
         padding: 15px;
+    }
+
+    #profile-actions {
+        position: relative;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        right: auto;
+        min-width: auto;
+    }
+
+    #profile-actions .profile-action-wrap {
+        display: inline-block;
+        margin-left: 12px;
+    }
+
+    #profile-actions .profile-action-wrap .text {
+        display: none;
     }
 }

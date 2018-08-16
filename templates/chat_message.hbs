@@ -1,7 +1,7 @@
 {{#if message includeZero=true}}
     <div class="message {{#if message.isSelf}} self {{/if}}">
         <div class="message-content-text" {{#if message.image}} style="display: none" {{/if}}>
-            <div class="group-user-fullname"><a href="/AlphaDate/profile/{{ userid }}">{{ fullname }}</a></div>
+            <div class="group-user-fullname"><a href="/AlphaDate/profile/{{ message.userid }}">{{ message.fullname }}</a></div>
             {{ message.text }}
         </div>
 
@@ -11,7 +11,7 @@
 {{else}}
     <div class="message {{#if this.isSelf}} self {{/if}}">
         <div class="message-content-text" {{#if this.image}} style="display: none" {{/if}}>
-            <div class="group-user-fullname"><a href="/AlphaDate/profile/{{ userid }}">{{ fullname }}</a></div>
+            <div class="group-user-fullname"><a href="/AlphaDate/profile/{{ this.userid }}">{{ this.fullname }}</a></div>
             {{ this.text }}
         </div>
 

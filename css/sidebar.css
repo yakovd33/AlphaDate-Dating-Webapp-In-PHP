@@ -40,12 +40,12 @@
 }
 
 /* Story */
-#sidebar-story-add-btn {
+#sidebar-story-add-btn, #sidebar-story-add-btn-mobile {
     margin-bottom: 10px;
     cursor: pointer;
 }
 
-#sidebar-story-add-btn .icon {
+#sidebar-story-add-btn .icon, #sidebar-story-add-btn-mobile .icon {
     height: 60px;
     width: 60px;
     border-radius: 50%;
@@ -63,7 +63,7 @@
     color: #444;
 }
 
-#sidebar-story-add-btn > * {
+#sidebar-story-add-btn > *, #sidebar-story-add-btn-mobile > * {
     display: inline-block;
     vertical-align: middle;
 }
@@ -114,6 +114,36 @@
 #sidebar-story-items-list .item {
     cursor: pointer;
 }
+
+#new-story-text-colors-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+#new-story-text-colors {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+}
+
+#new-story-text-colors .color {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#new-story-rand-color {
+    font-size: 14px;
+    color: #444;
+    text-align: center;
+    line-height: 25px;
+}
+
+/* End of story */
 
 #sidebar-credit {
     padding: 10px 0;
@@ -219,6 +249,10 @@
     font-size: 0.8em;
 }
 
+#main-right-sidebar-profile-card-textuals .fullname.anonymous {
+    display: none;
+}
+
 #main-right-sidebar-profile-card-textuals .nickname {
     font-size: 0.7em;
 }
@@ -250,10 +284,21 @@
 
 #buy-flowers-btn img {
     height: 20px;
+    display: none;
 }
 
-#buy-flowers-btn:hover {
-    background-color: #ad3a2c;
+#buy-flowers-btn {
+    display: inline-block;
+    width: auto;
+    background: none;
+    border: none;
+    color: #444;
+    float: left;
+    vertical-align: middle;
+    margin-top: 0;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 #right-sidebar-paid-heads {
@@ -661,7 +706,15 @@
     border: 1px solid #ebebeb;
     border-radius: 5px;
     font-size: 0.9em;
-    width: 85%;
+    width: 100%;
+}
+
+#choose-text-type {
+    margin-top: 10px;
+    padding: 6px 9px;
+    border-radius: 5px;
+    background-color: #ebebeb;
+    float: left;
 }
 
 #new-story-text-color-input {
@@ -673,6 +726,7 @@
     height: 39px;
     border-radius: 14px;
     overflow: hidden;
+    display: none;
 }
 
 #choose-text-type {
@@ -696,6 +750,16 @@
     color: #444;
     margin-bottom: 5px;
     font-weight: bold;
+}
+
+#new-story-pic-disclamer {
+    font-size: 0.7em;
+    color: #fff;
+    text-shadow: 0px 0px 10px #444;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: none;
 }
 
 /* Story showcase */
@@ -839,8 +903,14 @@
         display: none;
         margin-bottom: 10px;
     }
-    
-    #buy-flowers-btn {
+
+    #buy-flowers-btn:hover {
+        background: none;
+        color: #444;
+        outline: none;
+    }
+
+    #buy-flowers-btn img {
         display: none;
     }
 
@@ -860,7 +930,34 @@
         padding: 0;
     }
 
-    #sidebar-story-add-btn {
+    #sidebar-story-add-btn-mobile {
         margin-left: 15px;
+    }
+
+    #change-prefrences-bar {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin-left: 0;
+        position: fixed;
+        z-index: 99999999;
+        box-shadow: 0 0 35px #3c3c3c80;
+        width: 90%;
+    }
+
+    #change-prefrences-bar-arrow {
+        display: none;
+    }
+
+    .selector .ui-slider-handle {
+        top: 4px;
+    }
+
+    #new-story-text-colors {
+        width: calc(12 * (25px + 10px));
+    }
+
+    #new-story-pic img {
+        max-height: 55vh;
     }
 }

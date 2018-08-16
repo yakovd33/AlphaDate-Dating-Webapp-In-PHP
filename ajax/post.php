@@ -8,13 +8,33 @@
                 // Post upload
                 $text = trim(addslashes(htmlentities($_POST['text'])));
                 $photo = null;
+                $anonymous = 0;
+                $anonymous_nickname = 'אנונימי';
 
-                $GLOBALS['link']->query("INSERT INTO `posts`(`user_id`, `text`, `photo_url`) VALUES ({$_SESSION['user_id']}, '{$text}', '{$photo}')");
+                if (isset($_FILES['image'])) {
+                    $file = $_FILES['image'];
+                    $photo = insert_photo($file, 'posts_pics');
+                }
 
-                $resp = [];
-                $resp['postid'] = $GLOBALS['link']->lastInsertId();
+                if (!empty($text) || $photo) {
+                    if (isset($_POST['is_anonymous']) && $_POST['is_anonymous'] == 'true') {
+                        $anonymous = 1;
 
-                echo json_encode($resp);
+                        if (isset($_POST['anonymous_nickname'])) {
+                            if (!empty($_POST['anonymous_nickname'])) {
+                                $anonymous_nickname = addslashes(htmlentities($_POST['anonymous_nickname']));
+                            }
+                        }
+                    }
+
+                    $new_post_prep_stmt = $GLOBALS['link']->prepare("INSERT INTO `posts`(`user_id`, `text`, `image_id`, `is_anonymous`, `anonymous_nickname`) VALUES (?, ?, ?, ?, ?)");
+                    $new_post_prep_stmt->execute([$_SESSION['user_id'], $text, $photo, $anonymous, $anonymous_nickname]);
+                    
+                    $resp = [];
+                    $resp['postid'] = $GLOBALS['link']->lastInsertId();
+
+                    echo json_encode($resp);
+                }
 
                 break;
             case 'heart' :
@@ -26,9 +46,12 @@
                     if ($hearted) {
                         // Delete heart
                         $GLOBALS['link']->query("DELETE FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}");
+                        
+                        $GLOBALS['link']->query("UPDATE `posts` SET `hearts` = `hearts` - 1 WHERE `id` = {$post_id}");
                     } else {
                         // Insert heart
                         $GLOBALS['link']->query("INSERT INTO `posts_hearts`(`post_id`, `user_id`) VALUES ({$post_id}, {$_SESSION['user_id']})");
+                        $GLOBALS['link']->query("UPDATE `posts` SET `hearts` = `hearts` + 1 WHERE `id` = {$post_id}");
                     }
                 }
                 break;
@@ -45,6 +68,7 @@
 
                     // Insert comment
                     $GLOBALS['link']->query("INSERT INTO `posts_comments`(`post_id`, `user_id`, `comment`) VALUES ({$postid}, {$_SESSION['user_id']}, '{$comment}')");
+                    $GLOBALS['link']->query("UPDATE `posts` SET `comments` = `comments` + 1 WHERE `id` = {$postid}");
                     echo json_encode($resp);
                 }
 

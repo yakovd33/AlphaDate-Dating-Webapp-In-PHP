@@ -1,4 +1,8 @@
-        <?php include 'chat.php'; ?>
+        <?php
+            if ((isset($_GET['page']) && $_GET['page'] != 'conversation') || !isset($_GET['page'])) {
+                include 'chat.php';
+            }
+        ?>
 
         <?php if (isset($_GET['page']) && $_GET['page'] != 'profile' || !isset($_GET['page'])) : ?>
             </div>

@@ -193,9 +193,11 @@
             // Check if other side hearted too
             if ($GLOBALS['link']->query("SELECT * FROM `hot_or_not_voted` WHERE `voted_id` = {$cur_hon['voter_id']} AND `voter_id` = {$cur_hon['voted_id']}")->rowCount() > 0) {
                 // Create a match
-                echo 'hehehe';
                 $GLOBALS['link']->query("INSERT INTO `hot_or_not_matches`(`user_one_id`, `user_two_id`) VALUES ({$cur_hon['voter_id']}, {$cur_hon['voted_id']})");
             }
+
+            // Give hearted user popularity
+            increase_user_popularity($cur_hon['voted_id'], $CUR_USER['popularity'] / 10 + 2);
         }
     }
 
@@ -205,6 +207,9 @@
         if ($cur_hon) {
             // Update is_hearted
             $GLOBALS['link']->query("UPDATE `hot_or_not_voted` SET `is_rejected` = 1 WHERE `id` = {$cur_hon['id']}");
+
+            // Decrease rejected user popularity
+            increase_user_popularity($cur_hon['voted_id'], -1);
         }
     }
 ?>

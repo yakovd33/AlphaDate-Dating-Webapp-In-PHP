@@ -1,0 +1,106 @@
+#empty-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+#chat-boxes {
+    position: fixed !important;
+    top: 70px !important;
+    right: auto !important;
+    left: auto !important;
+    padding: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+}
+
+#chat-boxes .chat-box {
+    width: 100% !important;
+    margin: auto !important;
+    height: 100% !important;
+}
+
+.close-chatbox {
+    display: none !important;
+}
+
+#mobile-story {
+    display: none !important;
+}
+
+#chat-boxes .chat-box .chat-content-wrap {
+    max-height: calc(100% - 70px - 41px - 42px) !important;
+    min-height: calc(100% - 70px - 41px - 42px) !important;
+    position: fixed !important;
+    right: 0 !important;
+    left: 0 !important;
+    top: calc(70px + 41px) !important;
+}
+
+#chat-boxes .chat-box .new-message {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+}
+
+.chat-content-wrap {
+    padding-bottom: 10px !important;
+}
+
+#chat-boxes .chat-box .chat-content-wrap .messages {
+    padding: 8px 12px !important;
+}
+
+#chat-boxes .chat-box .name-options {
+    position: fixed !important;
+    top: 70px !important;
+    left: 0 !important;
+    right: 0 !important;
+    box-shadow: none !important;
+}
+
+#chat-boxes .chat-box .name-options .chat-name {
+    font-weight: bold !important;
+    margin: auto !important;
+    display: block;
+}
+
+.chatbox-wrap {
+    display: block !important;
+}
+
+#right-sidebar-wrap {
+    display: none;
+}
+
+#chat-boxes .chat-box .new-message .new-message-input {
+    padding: 5px;
+}
+
+#chat-boxes .chat-box .new-message .message-additional .message-additional-item {
+    font-size: 1.1em;
+}
+
+#chat-boxes .chat-box .new-message .message-additional .message-additional-item:not(:last-child) {
+    margin-left: 8px;
+}
+
+#floating-chat-toggler, #floating-chat-connected-users {
+    z-index: 999999;
+}
+
+@media screen and (max-width: 768px) {
+    #site-wrap {
+        padding: 10px 0 !important;
+    }
+
+    #right-sidebar-wrap {
+        margin-bottom: 10px;
+        position: fixed;
+        z-index: 99999;
+        top: 80px;
+        background-color: #fff;
+    }
+}

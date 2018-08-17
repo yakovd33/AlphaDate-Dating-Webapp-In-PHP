@@ -504,6 +504,27 @@
     font-size: 0.9em;
 }
 
+.read-indicator {
+    font-size: 0.8em;
+    color: #555;
+    float: left;
+    margin-top: 5px;
+    direction: ltr;
+    width: 100%;
+    text-align: left;
+    display: none;
+    margin-bottom: 5px;
+}
+
+.read-indicator i {
+    margin-right: 3px;
+    font-size: 1.1em;
+}
+
+.read-indicator.read {
+    display: block;
+}
+
 @media screen and (max-width: 768px) {
     #floating-chat-toggler:after {
         position: relative;

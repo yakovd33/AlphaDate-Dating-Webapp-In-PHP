@@ -66,10 +66,21 @@
             $userid = explode(';', $msg)[0];
             $to_id = explode(';', $msg)[1];
 
-            // $to_socket = get_user_socket_by_id($users, $to_id);
             $to_socket = $users[$to_id];
             if ($to_socket) {
                 $to_socket->emit('untyping', $userid);
+            }
+        });
+
+        $socket->on('read', function ($msg) use ($io) {
+            global $users;
+
+            $userid = explode(';', $msg)[0];
+            $to_id = explode(';', $msg)[1];
+
+            $to_socket = $users[$to_id];
+            if ($to_socket) {
+                $to_socket->emit('read', $userid);
             }
         });
     });

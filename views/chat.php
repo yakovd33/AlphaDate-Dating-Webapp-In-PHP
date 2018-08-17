@@ -138,13 +138,19 @@
                     }
 
                     if ($chatbox['to_id']) {
-                        echo $handlebars->render("chatbox", [
+                        $chatbox_args = [
                             'userid' => $chatbox['to_id'],
                             'fullname' => $to_user['fullname'],
                             'messages' => $chat_messages,
                             'isFolded' => $chatbox['is_folded'],
                             'isLogged' => is_user_logged($to_user['id'])
-                        ]);
+                        ];
+
+                        if (is_last_message_with_user_self($chatbox['to_id']) && has_user_read_last_message($chatbox['to_id'])) {
+                            $chatbox_args['read'] = 'read';
+                        }
+
+                        echo $handlebars->render("chatbox", $chatbox_args);
                     } elseif ($chatbox['group_id']) {
                         $group = $GLOBALS['link']->query("SELECT * FROM `chat_groups` WHERE `id` = {$group_id}")->fetch();
 

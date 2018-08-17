@@ -2,30 +2,34 @@ blop = new Audio(URL + '/audio/blop.mp3');
 fullscreen_chat_id = false;
 
 // Socket.IO
-// window.socket = io.connect('http://'+document.domain+':2021', { query: "userid=" + USERID });
+isSocketing = false;
 
-socket = {
-    connected: false
-};
-
-// window.socket = io.connect('http://192.168.43.20:2021', { query: "userid=" + USERID });
+if (isSocketing) {
+    window.socket = io.connect('http://'+document.domain+':2021', { query: "userid=" + USERID });
+}
 
 function socketing () {
-    if (socket.connected) {
-        $.each($("#chat-boxes .chat-box"), function () {
-            socket.on('typing', function (from_id) { 
-                // Show typing indicator
+    if (isSocketing) {
+        socket.on('typing', function (from_id) {
+            // Show typing indicator
+            $(".chat-box[data-userid='" + from_id + "'] .typing-indicator-wrap").show();
+            setTimeout(function () {
                 $(".chat-box[data-userid='" + from_id + "'] .typing-indicator-wrap").show();
-                setTimeout(function () {
-                    $(".chat-box[data-userid='" + from_id + "'] .typing-indicator-wrap").show();
-                }, 100);
-                $(".chat-box[data-userid='" + from_id + "'] .chat-content-wrap").scrollTop($(".chat-box[data-userid='" + from_id + "'] .chat-content-wrap").prop('scrollHeight'));
-            });
+            }, 100);
+            
+            $(".chat-box[data-userid='" + from_id + "'] .chat-content-wrap").scrollTop($(".chat-box[data-userid='" + from_id + "'] .chat-content-wrap").prop('scrollHeight'));
+            $(".chat-box[data-userid='" + from_id + "'] .read-indicator").removeClass("read");
+        });
 
-            socket.on('untyping', function (from_id) {    
-                // Show typing indicator
-                $(".chat-box[data-userid='" + from_id + "'] .typing-indicator-wrap").hide();
-            });
+        socket.on('untyping', function (from_id) {    
+            // Show typing indicator
+            $(".chat-box[data-userid='" + from_id + "'] .typing-indicator-wrap").hide();
+        });
+
+        socket.on('read', function (from_id) {    
+            // Show read indicator
+            $(".chat-box[data-userid='" + from_id + "'] .read-indicator").addClass("read");
+            $(".chat-box[data-userid='" + from_id + "'] .chat-content-wrap").scrollTop($(".chat-box[data-userid='" + from_id + "'] .chat-content-wrap").prop('scrollHeight'));
         });
     }
 }
@@ -161,6 +165,9 @@ function sendMessages () {
 
                     if ($(this).attr('data-userid') != "") {
                         data.append('userid', $(this).data('userid'));
+
+                        // Hide chat read indicator
+                        $(".chat-box[data-userid='" + $(this).data('userid') + "'] .read-indicator").removeClass("read");
                     } else if ($(this).attr('data-groupid') != "") {
                         data.append('groupid', $(this).data('groupid'));
                     }
@@ -306,6 +313,9 @@ function message_listen () {
                             // Private message
                             $(".chatbox-trigger[data-userid=" + userid + "]").find(".chat-list-unread-msgs-marker").text(parseInt($(".chatbox-trigger[data-userid=" + userid + "]").find(".chat-list-unread-msgs-marker").text()) + 1);
 
+                            // Hide chat read indicator
+                            $(".chat-box[data-userid='" + userid + "'] .read-indicator").removeClass("read");
+
                             if ($(".chat-box[data-userid='" + userid + "']").length == 0) {
                                 // Chatbox isn't open
                                 open_chatbox(userid);
@@ -349,7 +359,6 @@ function message_listen () {
                                         console.log(response);
                                         response_parsed = JSON.parse(response);
 
-                                        
                                         var source = $("#connected-users-list-template").html();
                                         var template = Handlebars.compile(source);
                                         var context = {
@@ -474,9 +483,9 @@ function chatbox_options () {
     message_listen();
     fold_on_esc();
     chat_image_upload();
-    read_messages();
+    read_messages(window.socket);
 
-    if (socket.connected) {
+    if (isSocketing) {
         typing_option(window.socket);
         socketing();
     }
@@ -496,7 +505,7 @@ if (!is_fullscreen_chat) {
 // Typing...
 socketing();
 function typing_option (socket) {
-    if (socket.connected) {
+    // if (socket.connected) {
         $.each($(".chat-box"), function () {
             if ($(this).data('userid') != "") {
                 console.log('userrr');
@@ -515,7 +524,7 @@ function typing_option (socket) {
                 });
             }
         });
-        }
+    // }
 }
 
 function chat_image_upload () {
@@ -640,12 +649,17 @@ function hide_read_markers () {
 
 hide_read_markers();
 
-function read_messages () {
+function read_messages (socket) {
     $.each($(".new-message-input"), function () {
         $(this).focus(function () {
             if ($(this).data('userid') != '') {
                 // Private message
                 read_private_messages($(this).data('userid'));
+                
+                if (socket.connected) {
+                    // Socket read
+                    socket.emit('read', USERID + ';' + $(this).data('userid'));
+                }
             } else {
                 // Group message
                 read_group_messages($(this).data('groupid'));

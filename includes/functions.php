@@ -290,4 +290,12 @@
     function check_csrf () {
         return (!isset($_POST['csrf_token']) || $_POST['csrf_token'] != $_SESSION['csrf_token']);
     }
+
+    function is_last_message_with_user_self ($userid) {
+        return ($GLOBALS['link']->query("SELECT * FROM `messages` WHERE (`from_id` = {$_SESSION['user_id']} OR `from_id` = {$userid}) AND (`to_id` = {$_SESSION['user_id']} OR `to_id` = {$userid}) ORDER BY `date` DESC LIMIT 1")->fetch()['from_id'] == $_SESSION['user_id']);   
+    }
+
+    function has_user_read_last_message ($userid) {
+        return ($GLOBALS['link']->query("SELECT * FROM `messages` WHERE ((`from_id` = {$_SESSION['user_id']} OR `from_id` = {$userid}) AND (`to_id` = {$_SESSION['user_id']} OR `to_id` = {$userid})) ORDER BY `date` DESC LIMIT 1")->fetch()['seen']);
+    }
 ?>

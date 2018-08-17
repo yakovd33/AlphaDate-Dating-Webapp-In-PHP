@@ -1,3 +1,5 @@
+<input type="hidden" id="csrf_token" value="<?php echo $_SESSION['csrf_token'] = md5(time() + rand(0, 100)); ?>">
+
 <div class="popup" id="membreship-popup" style="display: block;">
     <div id="membreship-popup-tabs-togglers">
         <div class="tab active" data-tab="login">יש לכם חשבון? התחברו</div>

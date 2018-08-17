@@ -11,6 +11,10 @@
                     $color = addslashes(htmlentities($_POST['color']));
                     $isBg = $_POST['isBg'];
 
+                    if (check_csrf()) {
+                        die('CSRF DETECTED!');
+                    }
+
                     $img_id = insert_photo($img, 'story-pics', 'story');
 
                     $GLOBALS['link']->query("INSERT INTO `stories`(`user_id`, `image_id`, `text`, `text_color`, `is_text_with_bg`) VALUES ({$_SESSION['user_id']}, {$img_id}, '{$text}', '{$color}', {$isBg})");

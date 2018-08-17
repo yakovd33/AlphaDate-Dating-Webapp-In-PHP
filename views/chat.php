@@ -205,3 +205,16 @@
 </script>
 
 <script src="<?php echo $URL; ?>/js/chat.js"></script>
+
+<script id="connected-users-list-template" type="text/x-handlebars-template">
+    <div class="item chatbox-trigger" data-userid="{{ userid }}" data-groupid="{{ groupid }}">
+        <div class="pic"><img src="{{ pp }}"></div>
+                                    
+        <div class="textual">
+            <div class="fullname">{{ fullname }}</div>
+            <div class="distance">{{ city }}</div>
+        </div>
+
+        <div class="chat-list-unread-msgs-marker">{{ unread_messages }}</div>
+    </div>
+</script>

@@ -144,8 +144,12 @@
                             $insert_msg_prep_msg = $GLOBALS['link']->prepare("INSERT INTO `messages`(`from_id`, `to_id`, `message`, `image_id`) VALUES (?, ?, ?, ?)");
                             $insert_msg_prep_msg->execute([ $_SESSION['user_id'], $userid, $text, $image_id]);
                         } elseif ($is_group) {
-                            $insert_msg_prep_msg = $GLOBALS['link']->prepare("INSERT INTO `messages`(`from_id`, `message`, `image_id`, `group_id`) VALUES (?, ?, ?, ?)");
-                            $insert_msg_prep_msg->execute([ $_SESSION['user_id'], $text, $image_id, $groupid]);
+
+                            // Check if user is in group
+                            if ($GLOBALS['link']->query("SELECT * FROM `chat_groups_members` WHERE `user_id` = {$_SESSION['user_id']} AND `group_id` = {$groupid}")->rowCount() > 0) {
+                                $insert_msg_prep_msg = $GLOBALS['link']->prepare("INSERT INTO `messages`(`from_id`, `message`, `image_id`, `group_id`) VALUES (?, ?, ?, ?)");
+                                $insert_msg_prep_msg->execute([ $_SESSION['user_id'], $text, $image_id, $groupid]);
+                            }
                         }
 
                         print_r($GLOBALS['link']->errorInfo());
@@ -327,6 +331,35 @@
 
                     $GLOBALS['link']->query("DELETE FROM `unseen_group_messages` WHERE `user_id` = {$_SESSION['user_id']} AND `group_id` = {$groupid}");
                 }
+            case 'get_user_chatlist_item' :
+                if (isset($_POST['userid'])) {
+                    $userid = $_POST['userid'];
+                    $user = get_user_row_by_id($userid);
+
+                    $resp = [
+                        'fullname' => $user['fullname'],
+                        'city' => $user['city'],
+                        'unread_messages' => $GLOBALS['link']->query("SELECT * FROM `messages` WHERE `from_id` = {$userid} AND `to_id` = {$_SESSION['user_id']} AND NOT `seen`")->rowCount(),
+                        'pp' => get_user_pp_by_id($userid)
+                    ];
+
+                    echo json_encode($resp);
+                }
+                break;
+            case 'get_group_chatlist_item' :
+                if (isset($_POST['groupid'])) {
+                    $groupid = $_POST['groupid'];
+                    $group = $GLOBALS['link']->query("SELECT * FROM `chat_groups` WHERE `id` = {$groupid}")->fetch();
+
+                    $resp = [
+                        'fullname' => $group['name'],
+                        'unread_messages' => $GLOBALS['link']->query("SELECT * FROM `messages` WHERE `group_id` = {$groupid} AND `to_id` = {$_SESSION['user_id']} AND NOT `seen`")->rowCount(),
+                        'pp' => $URL . '/img/icons/group-icon.png'
+                    ];
+
+                    echo json_encode($resp);
+                }
+                break;
         }
     }
 ?>

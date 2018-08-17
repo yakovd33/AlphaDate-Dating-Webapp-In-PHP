@@ -13,6 +13,7 @@
 
                 <input type="email" name="email" placeholder="אימייל">
                 <input type="password" name="password" placeholder="סיסמא">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <a href="#" id="forgot-pass-btn">שכחתי סיסמא</a>
 
                 <input type="submit" value="התחברו לאלפא דייט">
@@ -27,6 +28,8 @@
 
         <div class="tab" data-tab="signup">
             <form action="<?php echo $URL; ?>/join/" id="signup-form">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                
                 <div id="facebook-signup-btn-wrap">
                     <div id="signup-with-facebook-btn">הרשם באמצעות פייסבוק</div>
                 </div>

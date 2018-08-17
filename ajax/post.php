@@ -11,6 +11,10 @@
                 $anonymous = 0;
                 $anonymous_nickname = 'אנונימי';
 
+                if (check_csrf()) {
+                    die('CSRF DETECTED!');
+                }
+
                 if (isset($_FILES['image'])) {
                     $file = $_FILES['image'];
                     $photo = insert_photo($file, 'posts_pics');

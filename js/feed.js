@@ -22,6 +22,7 @@ $("#post-upload-form").submit(function (e) {
     data.append('text', $("#new-post-input-card-content").val());
     data.append('is_anonymous', $("#new-post-is-anonymous").prop('checked'));
     data.append('anonymous_nickname', $("#main-right-sidebar-profile-card-textuals .fullname.anonymous").text());
+    data.append('csrf_token', $("#csrf_token").val());
 
     if ($("#new-post-pic-input")[0].files.length > 0) {
         data.append('image', $("#new-post-pic-input")[0].files[0]);

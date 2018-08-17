@@ -272,102 +272,178 @@ $.each($(".chat-content-wrap"), function () {
 
 // Listen to new messages
 function message_listen () {
+    listen_seconds = 0;
+
     setInterval(function (context) {
-        $.ajax({
-            url: URL + '/messages_listen/',
-            processData: false,
-            contentType: false,
-            method : 'POST',
-            success: function (response) {
-                response_parsed = JSON.parse(response);
+        // Prevents message from being sent right when loading
+        // Listens for messages every 5 seconds if there are open chatboxes
+        // Listens for messages every 22 seconds if there aren't open chatboxes
+        
+        if ((($(".chat-box").length > 0 && listen_seconds % 5 == 0) || ($(".chat-box").length == 0 && listen_seconds % 22 == 0)) && listen_seconds != 0) {
+            console.log(listen_seconds);
+            $.ajax({
+                url: URL + '/messages_listen/',
+                processData: false,
+                contentType: false,
+                method : 'POST',
+                success: function (response) {
+                    response_parsed = JSON.parse(response);
 
-                if (response_parsed.length > 0) {
-                    blop.play();
+                    if (response_parsed.length > 0) {
+                        blop.play();
 
-                    current_unread_messages += response_parsed.length;
-                    $('body').append('<style>#floating-chat-toggler:after { content: "' + current_unread_messages + '"; } </style>');
-                }
-
-                for (i = 0; i < response_parsed.length; i++) {
-                    userid = response_parsed[i].userid;
-                    text = response_parsed[i].text;
-                    image = response_parsed[i].image;
-                    date = response_parsed[i].date;
-
-                    if (userid) {
-                        // Private message
-                        $(".chatbox-trigger[data-userid=" + userid + "]").find(".chat-list-unread-msgs-marker").text(parseInt($(".chatbox-trigger[data-userid=" + userid + "]").find(".chat-list-unread-msgs-marker").text()) + 1);
-
-                        if ($(".chat-box[data-userid='" + userid + "']").length == 0) {
-                            // Chatbox isn't open
-                            open_chatbox(userid);
-                        } else {
-                            $(".chat-box[data-userid='" + userid + "']").show().css('order', '1').find(".chatbox-wrap").show();
-
-                            var source = $("#chat-message-template").html();
-                            var template = Handlebars.compile(source);
-                            var context = {
-                                message: {
-                                    text: text,
-                                    isSelf: false,
-                                    image: image,
-                                    date: date
-                                }
-                            };
-                            var html = template(context);
-
-                            $(".chat-box[data-userid='" + userid + "'] .chat-content-wrap .messages").append(html);
-
-                            $(".chat-box[data-userid='" + userid + "'] .chat-content-wrap").scrollTop($(".chat-box[data-userid='" + userid + "'] .chat-content-wrap").prop('scrollHeight'));
-                        }
-
-                        // Reorder chatlist
-                        element = $("#floating-chat-connected-users .item[data-userid='" + userid + "']").clone(true);
-                        $("#floating-chat-connected-users .item[data-userid='" + userid + "']").remove();
-                        $("#floating-chat-connected-users").prepend(element);
-                    } else {
-                        // Group message
-                        groupid = response_parsed[i].groupid;
-                        fullname = response_parsed[i].fullname;
-                        group_userid = response_parsed[i].group_userid;
-                        
-                        $(".chatbox-trigger[data-groupid=" + groupid + "]").find(".chat-list-unread-msgs-marker").text(parseInt($(".chatbox-trigger[data-groupid=" + groupid + "]").find(".chat-list-unread-msgs-marker").text()) + 1);
-                        
-                        if ($(".chat-box[data-groupid='" + groupid + "']").length == 0) {
-                            // Chatbox isn't open
-                            open_group_chatbox(groupid);
-                        } else {
-                            $(".chat-box[data-groupid='" + groupid + "']").show().css('order', '1').find(".chatbox-wrap").show();
-
-                            var source = $("#chat-message-template").html();
-                            var template = Handlebars.compile(source);
-                            var context = {
-                                message: {
-                                    fullname: fullname,
-                                    userid: group_userid,
-                                    text: text,
-                                    isSelf: false,
-                                    image: image,
-                                    date: date
-                                }
-                            };
-                            var html = template(context);
-
-                            $(".chat-box[data-groupid='" + groupid + "'] .chat-content-wrap .messages").append(html);
-
-                            $(".chat-box[data-groupid='" + groupid + "'] .chat-content-wrap").scrollTop($(".chat-box[data-groupid='" + groupid + "'] .chat-content-wrap").prop('scrollHeight'));
-                        }
-
-                        element = $("#floating-chat-connected-users .item[data-groupid='" + groupid + "']").clone(true);
-                        $("#floating-chat-connected-users .item[data-groupid='" + groupid + "']").remove();
-                        $("#floating-chat-connected-users").prepend(element);
+                        current_unread_messages += response_parsed.length;
+                        $('body').append('<style>#floating-chat-toggler:after { content: "' + current_unread_messages + '"; } </style>');
                     }
-                }
 
-                hide_read_markers();
-            }
-        });
-    }, 5000, this);
+                    for (i = 0; i < response_parsed.length; i++) {
+                        userid = response_parsed[i].userid;
+                        text = response_parsed[i].text;
+                        image = response_parsed[i].image;
+                        date = response_parsed[i].date;
+
+                        if (userid) {
+                            // Private message
+                            $(".chatbox-trigger[data-userid=" + userid + "]").find(".chat-list-unread-msgs-marker").text(parseInt($(".chatbox-trigger[data-userid=" + userid + "]").find(".chat-list-unread-msgs-marker").text()) + 1);
+
+                            if ($(".chat-box[data-userid='" + userid + "']").length == 0) {
+                                // Chatbox isn't open
+                                open_chatbox(userid);
+                            } else {
+                                $(".chat-box[data-userid='" + userid + "']").show().css('order', '1').find(".chatbox-wrap").show();
+
+                                var source = $("#chat-message-template").html();
+                                var template = Handlebars.compile(source);
+                                var context = {
+                                    message: {
+                                        text: text,
+                                        isSelf: false,
+                                        image: image,
+                                        date: date
+                                    }
+                                };
+                                var html = template(context);
+
+                                $(".chat-box[data-userid='" + userid + "'] .chat-content-wrap .messages").append(html);
+
+                                $(".chat-box[data-userid='" + userid + "'] .chat-content-wrap").scrollTop($(".chat-box[data-userid='" + userid + "'] .chat-content-wrap").prop('scrollHeight'));
+                            }
+
+                            // Reorder chatlist
+                            if ($("#floating-chat-connected-users .item[data-userid='" + userid + "']").length > 0) {
+                                element = $("#floating-chat-connected-users .item[data-userid='" + userid + "']").clone(true);
+                                $("#floating-chat-connected-users .item[data-userid='" + userid + "']").remove();
+                                $("#floating-chat-connected-users").prepend(element);
+                            } else {
+                                // Add item to chatlist
+                                data = new FormData();
+                                data.append('userid', userid);
+                                
+                                $.ajax({
+                                    url: URL + '/get_user_chatlist_item/',
+                                    processData: false,
+                                    contentType: false,
+                                    method : 'POST',
+                                    data : data,
+                                    success: function (response) {
+                                        console.log(response);
+                                        response_parsed = JSON.parse(response);
+
+                                        
+                                        var source = $("#connected-users-list-template").html();
+                                        var template = Handlebars.compile(source);
+                                        var context = {
+                                            fullname: response_parsed.fullname,
+                                            userid: userid,
+                                            pp: response_parsed.pp,
+                                            city: response_parsed.city,
+                                            unread_messages: response_parsed.unread_messages
+                                        };
+                                        var html = template(context);
+
+                                        $("#floating-chat-connected-users").prepend(html);
+                                        chat_togglers();
+                                    }
+                                });
+                            }
+                        } else {
+                            // Group message
+                            groupid = response_parsed[i].groupid;
+                            fullname = response_parsed[i].fullname;
+                            group_userid = response_parsed[i].group_userid;
+                            
+                            $(".chatbox-trigger[data-groupid=" + groupid + "]").find(".chat-list-unread-msgs-marker").text(parseInt($(".chatbox-trigger[data-groupid=" + groupid + "]").find(".chat-list-unread-msgs-marker").text()) + 1);
+                            
+                            if ($(".chat-box[data-groupid='" + groupid + "']").length == 0) {
+                                // Chatbox isn't open
+                                open_group_chatbox(groupid);
+                            } else {
+                                $(".chat-box[data-groupid='" + groupid + "']").show().css('order', '1').find(".chatbox-wrap").show();
+
+                                var source = $("#chat-message-template").html();
+                                var template = Handlebars.compile(source);
+                                var context = {
+                                    message: {
+                                        fullname: fullname,
+                                        userid: group_userid,
+                                        text: text,
+                                        isSelf: false,
+                                        image: image,
+                                        date: date
+                                    }
+                                };
+                                var html = template(context);
+
+                                $(".chat-box[data-groupid='" + groupid + "'] .chat-content-wrap .messages").append(html);
+
+                                $(".chat-box[data-groupid='" + groupid + "'] .chat-content-wrap").scrollTop($(".chat-box[data-groupid='" + groupid + "'] .chat-content-wrap").prop('scrollHeight'));
+                            }
+
+                            if ($("#floating-chat-connected-users .item[data-groupid='" + groupid + "']").length > 0) {
+                                element = $("#floating-chat-connected-users .item[data-groupid='" + groupid + "']").clone(true);
+                                $("#floating-chat-connected-users .item[data-groupid='" + groupid + "']").remove();
+                                $("#floating-chat-connected-users").prepend(element);
+                            } else {
+                                // Add item to chatlist
+                                data = new FormData();
+                                data.append('groupid', groupid);
+                                
+                                $.ajax({
+                                    url: URL + '/get_group_chatlist_item/',
+                                    processData: false,
+                                    contentType: false,
+                                    method : 'POST',
+                                    data : data,
+                                    success: function (response) {
+                                        console.log(response);
+                                        response_parsed = JSON.parse(response);
+
+                                        
+                                        var source = $("#connected-users-list-template").html();
+                                        var template = Handlebars.compile(source);
+                                        var context = {
+                                            fullname: response_parsed.fullname,
+                                            groupid: groupid,
+                                            pp: response_parsed.pp,
+                                            unread_messages: response_parsed.unread_messages
+                                        };
+                                        var html = template(context);
+
+                                        $("#floating-chat-connected-users").prepend(html);
+                                        chat_togglers();
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    hide_read_markers();
+                }
+            });            
+        }
+
+        listen_seconds += 1;
+    }, 1000, this);
 }
 
 // Fold on esc

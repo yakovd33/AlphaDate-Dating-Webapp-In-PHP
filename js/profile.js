@@ -18,6 +18,7 @@ $("#about-me-update-btn").click(function () {
     data = new FormData();
     data.append('col', 'about_me');
     data.append('value',  $(".about-me.editable").html());
+    data.append('csrf_token', $("#csrf_token").val());
     
     $.ajax({
         url: URL + '/update_col/',

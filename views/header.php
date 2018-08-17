@@ -31,6 +31,7 @@
         <input type="hidden" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
         <input type="hidden" id="fullname" value="<?php echo $CUR_USER['fullname']; ?>">
         <input type="hidden" id="pp" value="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>">
+        <input type="hidden" id="csrf_token" value="<?php echo $_SESSION['csrf_token'] = md5(time() + rand(0, 100)); ?>">
 
         <script>
             URL = $("#url").val();

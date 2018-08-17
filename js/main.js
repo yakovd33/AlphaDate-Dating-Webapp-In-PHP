@@ -239,6 +239,7 @@ $("#submit-new-story").click(function () {
         data.append('text', text);
         data.append('color', color);
         data.append('isBg', isBg);
+        data.append('csrf_token', $("#csrf_token").val());
         
         $.ajax({
             url: URL + '/story/upload/',

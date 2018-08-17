@@ -63,3 +63,6 @@ RewriteRule ^(conversation)/(read)/([0-9]+)(/?)$ ajax/chat.php?type=$2&userid=$3
 RewriteRule ^(conversation)/(read)/(group)/([0-9]+)(/?)$ ajax/chat.php?type=$2&groupid=$4 [NC]
 
 RewriteRule ^(feed)/(sort)(/?)$ ajax/feed.php?type=$2 [NC]
+
+RewriteRule ^(get_user_chatlist_item)(/?)$ ajax/chat.php?type=$1 [NC]
+RewriteRule ^(get_group_chatlist_item)(/?)$ ajax/chat.php?type=$1 [NC]

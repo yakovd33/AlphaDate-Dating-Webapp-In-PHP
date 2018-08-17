@@ -6,6 +6,10 @@
         $date_of_birth = $_POST['date_of_birth'];
         $gender = $_POST['gender'];
 
+        if (check_csrf()) {
+            die('CSRF DETECTED!');
+        }
+
         if (!empty($fullname) && !empty($email) && !empty($password) && !empty($date_of_birth) && !empty($gender)) {
             if (!email_exists($email)) {
                 if ($gender != 'male' && $gender != 'female') {

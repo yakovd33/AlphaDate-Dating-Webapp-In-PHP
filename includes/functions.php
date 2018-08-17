@@ -286,4 +286,8 @@
     function get_num_unread_messages () {
         return $GLOBALS['link']->query("SELECT * FROM `messages` WHERE `to_id` = {$_SESSION['user_id']} AND NOT `seen`")->rowCount() + $GLOBALS['link']->query("SELECT * FROM `unseen_group_messages` WHERE `user_id` = {$_SESSION['user_id']}")->rowCount();
     }
+
+    function check_csrf () {
+        return (!isset($_POST['csrf_token']) || $_POST['csrf_token'] != $_SESSION['csrf_token']);
+    }
 ?>

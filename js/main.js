@@ -368,3 +368,20 @@ function color_story_text() {
 //         }
 //     }
 // });
+
+function delete_hobby (hobby_id) {
+    data = new FormData();
+    data.append('hobby_id', hobby_id);
+    
+    $.ajax({
+        url: URL + '/hobby/delete/',
+        processData: false,
+        contentType: false,
+        method : 'POST',
+        data : data,
+        success: function (response) {
+            console.log(response);
+            
+        }
+    });
+}

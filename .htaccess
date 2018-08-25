@@ -66,3 +66,6 @@ RewriteRule ^(feed)/(sort)(/?)$ ajax/feed.php?type=$2 [NC]
 
 RewriteRule ^(get_user_chatlist_item)(/?)$ ajax/chat.php?type=$1 [NC]
 RewriteRule ^(get_group_chatlist_item)(/?)$ ajax/chat.php?type=$1 [NC]
+
+RewriteRule ^(hobby)/(delete)(/?)$ ajax/profile.php?type=delete_hobby [NC]
+RewriteRule ^(hobby)/(new)(/?)$ ajax/profile.php?type=new_hobby [NC]

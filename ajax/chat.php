@@ -131,7 +131,7 @@
                         die();
                     }
 
-                    if ((!empty($text) || (empty($text) && isset($_FILES['pic'])))) {                        
+                    if ((!empty(trim($text)) || (empty($text) && isset($_FILES['pic'])))) {                        
                         $image_id = null;
                         // In case of pic
                         if (isset($_FILES['pic'])) {
@@ -257,7 +257,7 @@
                         // Regular private message
                         array_push($messages, [
                             'userid' => $message['from_id'],
-                            'text' => $message['message'],
+                            'text' => nl2br($message['message']),
                             'date' => $message['date'],
                             'isSelf' => false,
                             'image' => $message_image,

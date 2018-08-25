@@ -156,6 +156,7 @@
 
     #mobiles-stories-list .item {
         padding-left: 15px;
+        text-align: center;
     }
 
     #mobiles-stories-list .item .fullname {

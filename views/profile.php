@@ -59,7 +59,7 @@
                     <input type="file" id="self-pp-changer-input" accept="image/x-png,,image/jpeg">
                 </div>
 
-                <div class="fullname"><?php echo $user['fullname']; ?>, <?php echo $age; ?></div>
+                <div class="fullname"><span id="user-fullname"><?php echo $user['fullname']; ?></span>, <?php echo $age; ?></div>
                 <div class="city"><?php echo $user['city']; ?></div>
 
                 <?php if ($id != $_SESSION['user_id']) : ?>
@@ -152,7 +152,9 @@
                                     'num_hearts' => $num_hearts,
                                     'num_comments' => $num_comments,
                                     'user_pic' => get_user_pp_by_id($id),
-                                    'hearted' => $GLOBALS['link']->query("SELECT * FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0
+                                    'hearted' => $GLOBALS['link']->query("SELECT * FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0,
+                                    'isPic' => $post['image_id'] == null ? 'noPic' : 'yesPic',
+                                    'image' => $post['image_id'] == null ? '' : $URL . '/' . get_image_path_by_id($post['image_id']),
                                 ]);
                             }
                         ?>
@@ -179,7 +181,7 @@
                             <div class="profile-information-item editable-wrap" id="profile-job-info-item">
                                 <div class="editable-icon"></div>
                                 <div class="title">עבודה</div>
-                                <div class="item-content">
+                                <div class="item-content" id="job-item-content">
                                     <?php if ($user['profession'] != "") : ?>
                                         <strong><?php echo $user['profession']; ?></strong>
                                     <?php endif; ?>
@@ -205,7 +207,7 @@
                         <div class="profile-information-item editable-wrap" id="profile-education-info-item">
                             <div class="editable-icon"></div>
                             <div class="title">השכלה</div>
-                            <div class="item-content"><?php echo $user['education']; ?></div>
+                            <div class="item-content" id="education-item-content"><?php echo $user['education']; ?></div>
 
                             <?php if ($id == $_SESSION['user_id']) : ?>
                                 <div class="editable-content">
@@ -249,47 +251,47 @@
 
                                     <div class="personal-info-item">
                                         <div class="title">גובה</div>
-                                        <div class="det"><?php echo height_format($user['height']); ?></div>
+                                        <div class="det" id="height-det"><?php echo height_format($user['height']); ?></div>
                                     </div>
 
                                     <div class="personal-info-item">
                                         <div class="title">משקל</div>
-                                        <div class="det"><?php echo $user['weight']; ?> ק"ג</div>
+                                        <div class="det" id="weight-det"><?php echo $user['weight']; ?> ק"ג</div>
                                     </div>
 
                                     <div class="personal-info-item">
                                         <div class="title">מבנה גוף</div>
-                                        <div class="det"><?php echo $user['body_type']; ?></div>
+                                        <div class="det" id="body-type-det"><?php echo $user['body_type']; ?></div>
                                     </div>
 
                                     <div class="personal-info-item">
                                         <div class="title">צבע שיער</div>
-                                        <div class="det"><?php echo $user['hair_color']; ?></div>
+                                        <div class="det" id="hair-color-det"><?php echo $user['hair_color']; ?></div>
                                     </div>
 
                                     <div class="personal-info-item">
                                         <div class="title">צבע עיניים</div>
-                                        <div class="det"><?php echo $user['eye_color']; ?></div>
+                                        <div class="det" id="eye-color-det"><?php echo $user['eye_color']; ?></div>
                                     </div>
 
                                     <div class="personal-info-item">
                                         <div class="title">מזל</div>
-                                        <div class="det"><?php echo $user['zodiac']; ?></div>
+                                        <div class="det" id="zodiac-det"><?php echo $user['zodiac']; ?></div>
                                     </div>
 
                                     <div class="personal-info-item">
                                         <div class="title">ילדים</div>
-                                        <div class="det"><?php echo $user['children'] == 0 ? 'אין' : $user['children']; ?></div>
+                                        <div class="det" id="children-det"><?php echo $user['children'] == 0 ? 'אין' : $user['children']; ?></div>
                                     </div>
 
                                     <div class="personal-info-item">
                                         <div class="title">עישון</div>
-                                        <div class="det"><?php echo $user['smoking'] ? 'מעשן' : 'לא מעשן'; ?></div>
+                                        <div class="det" id="smoking-det"><?php echo $user['smoking'] ? 'מעשן' : 'לא מעשן'; ?></div>
                                     </div>
 
                                     <div class="personal-info-item">
                                         <div class="title">אלכוהול</div>
-                                        <div class="det">שותה מעט</div>
+                                        <div class="det" id="alcohol-det">שותה מעט</div>
                                     </div>
                                 </div>
                             </div>
@@ -389,36 +391,19 @@
 
                             <div class="item-content">
                                 <div id="profile-hobbies">
-                                    <div class="hobby-item">
-                                        <div class="icon"><i class="fas fa-cocktail"></i></div>
-                                        <div class="title">מין זמין בטעם חמין</div>
+                                    <div class="hobby-item" id="new-hobby-btn">
+                                        <div class="title"><i class="fas fa-plus"></i></div>
                                     </div>
 
-                                    <div class="hobby-item">
-                                        <div class="icon"><i class="fas fa-futbol"></i></div>
-                                        <div class="title">טניס</div>
-                                    </div>
-
-                                    <div class="hobby-item">
-                                        <div class="icon"><i class="fas fa-futbol"></i></div>
-                                        <div class="title">טניס</div>
-                                    </div>
-
-                                    <div class="hobby-item">
-                                        <div class="icon"><i class="fas fa-futbol"></i></div>
-                                        <div class="title">טניס</div>
-                                    </div>
-
-                                    <div class="hobby-item">
-                                        <div class="icon"><i class="fas fa-futbol"></i></div>
-                                        <div class="title">טניס</div>
-                                    </div>
-
-                                    <div class="hobby-item">
-                                        <div class="icon"><i class="fas fa-futbol"></i></div>
-                                        <div class="title">טניס</div>
-                                    </div>
+                                    <?php $hobbies_stmt = $GLOBALS['link']->query("SELECT * FROM `users_hobbies` WHERE `user_id` = {$_SESSION['user_id']} AND `active`"); ?>
+                                    <?php while ($hobby = $hobbies_stmt->fetch()) : ?>
+                                        <div class="hobby-item" onclick="delete_hobby(<?php echo $hobby['id']; ?>); $(this).remove();">
+                                            <div class="title"><?php echo $hobby['text']; ?></div>
+                                        </div>
+                                    <?php endwhile; ?>
                                 </div>
+
+                                <p id="hobbies-delete-warning">לחיצה על תחביב תמחק אותו מהרשימה.</p>
                             </div>
                         </div>
                     </div>

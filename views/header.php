@@ -26,12 +26,14 @@
     </head>
     <body>
     <!-- <div style="width: 300px; height: 472px !important; background: #fcb555; z-index: 999; position: fixed; bottom: -200px; left: -200px; transform: rotate(130deg);"><div class="text"></div></div> -->
-        <input type="hidden" id="url" value="<?php echo $URL; ?>">
-        <input type="hidden" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
-        <input type="hidden" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
-        <input type="hidden" id="fullname" value="<?php echo $CUR_USER['fullname']; ?>">
-        <input type="hidden" id="pp" value="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>">
-        <input type="hidden" id="csrf_token" value="<?php echo $_SESSION['csrf_token'] = md5(time() + rand(0, 100)); ?>">
+        <?php if (is_logged()) : ?>
+            <input type="hidden" id="url" value="<?php echo $URL; ?>">
+            <input type="hidden" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
+            <input type="hidden" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
+            <input type="hidden" id="fullname" value="<?php echo $CUR_USER['fullname']; ?>">
+            <input type="hidden" id="pp" value="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>">
+            <input type="hidden" id="csrf_token" value="<?php echo $_SESSION['csrf_token'] = md5(time() + rand(0, 100)); ?>">
+        <?php endif; ?>
 
         <script>
             URL = $("#url").val();

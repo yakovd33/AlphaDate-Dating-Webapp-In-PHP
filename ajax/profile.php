@@ -134,6 +134,26 @@
                 }
 
                 break;
+            case 'delete_hobby' :
+                if (isset($_POST['hobby_id'])) {
+                    // Check if user is the owner of the hobby
+                    $hobby_id = $_POST['hobby_id'];
+                    if ($GLOBALS['link']->query("SELECT * FROM `users_hobbies` WHERE `id` = {$hobby_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0) {
+                        $GLOBALS['link']->query("UPDATE `users_hobbies` SET `active` = 0 WHERE `id` = {$hobby_id}");
+                    }
+                }
+
+                break;
+
+            case 'new_hobby' :
+                if (isset($_POST['text'])) {
+                    $text = trim(addslashes(htmlentities($_POST['text'])));
+
+                    $GLOBALS['link']->query("INSERT INTO `users_hobbies`(`user_id`, `text`) VALUES ({$_SESSION['user_id']}, '{$text}')");
+                    echo $GLOBALS['link']->lastInsertId();
+                }
+
+                break;
         }
     }
 ?>

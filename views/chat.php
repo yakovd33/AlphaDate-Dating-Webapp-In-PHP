@@ -124,7 +124,7 @@
                         $sender = get_user_row_by_id($message['from_id']);
                         $message_final = [
                             'userid' => $message['from_id'],
-                            'text' => $message['message'],
+                            'text' => nl2br($message['message']),
                             'date' => $message['date'],
                             'isSelf' => ($message['from_id'] == $_SESSION['user_id']),
                             'image' => $message_image,

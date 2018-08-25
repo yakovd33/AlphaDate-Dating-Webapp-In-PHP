@@ -69,7 +69,8 @@
                 'num_comments' => $num_comments,
                 'hearted' => $GLOBALS['link']->query("SELECT * FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0,
                 'user_pic' => $post_userpic,
-                'anonymous' => $is_anonymous
+                'anonymous' => $is_anonymous,
+                'isPic' => $post['image_id'] == null ? 'noPic' : 'yesPic',
             ];
 
             if ($post['image_id']) {

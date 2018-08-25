@@ -37,14 +37,13 @@ function socketing () {
 function chat_togglers () {
     $.each($(".chatbox-trigger"), function () {
         $(this).unbind("click").click(function (e) {
-            current_unread_messages -= parseInt($(this).find(".chat-list-unread-msgs-marker").text());
-            $('body').append('<style>#floating-chat-toggler:after { content: "' + current_unread_messages + '"; } </style>');
-            $(this).find(".chat-list-unread-msgs-marker").text('0');
-            hide_read_markers();
-
             e.preventDefault();
             
             if ($(this).data('userid') != '') {
+                if ($("#floating-chat-connected-users .item[data-userid='" + $(this).data('userid') + "'] .chat-list-unread-msgs-marker").length > 0) {
+                    current_unread_messages -= parseInt($("#floating-chat-connected-users .item[data-userid='" + $(this).data('userid') + "'] .chat-list-unread-msgs-marker").text());
+                }
+
                 read_private_messages($(this).data('userid'));
 
                 if ($(window).width() <= 768) {
@@ -63,6 +62,10 @@ function chat_togglers () {
                     $(".chat-box[data-userid='" + $(this).data('userid') + "']").show().css('order', '1').find(".chatbox-wrap").show().find(".new-message ").click();
                 }
             } else if ($(this).data('groupid') != '') {
+                if ($("#floating-chat-connected-users .item[data-groupid='" + $(this).data('groupid') + "'] .chat-list-unread-msgs-marker").length > 0) {
+                    current_unread_messages -= parseInt($("#floating-chat-connected-users .item[data-groupid='" + $(this).data('groupid') + "'] .chat-list-unread-msgs-marker").text());
+                }
+
                 read_group_messages($(this).data('groupid'));
 
                 if ($(window).width() <= 768) {
@@ -80,6 +83,10 @@ function chat_togglers () {
                     $(".chat-box[data-groupid='" + $(this).data('groupid') + "']").show().css('order', '1').find(".chatbox-wrap").show();
                 }
             }
+
+            $('body').append('<style>#floating-chat-toggler:after { content: "' + current_unread_messages + '"; } </style>');
+            $(this).find(".chat-list-unread-msgs-marker").text('0');
+            hide_read_markers();
         });
     })
 }
@@ -158,8 +165,8 @@ function open_group_chatbox (groupid) {
 function sendMessages () {
     $.each($(".new-message-input"), function () {
         $(this).unbind("keydown").keydown(function (e) {
-            if (e.which == 13) {
-                if ($(this).html().length > 0) {
+            if (e.which == 13 && !e.shiftKey) {
+                if ($(this).html().trim().length > 0) {
                     data = new FormData();
                     data.append('text', $(this).html());
 
@@ -650,22 +657,24 @@ function hide_read_markers () {
 hide_read_markers();
 
 function read_messages (socket) {
-    $.each($(".new-message-input"), function () {
-        $(this).focus(function () {
-            if ($(this).data('userid') != '') {
-                // Private message
-                read_private_messages($(this).data('userid'));
-                
-                if (socket.connected) {
-                    // Socket read
-                    socket.emit('read', USERID + ';' + $(this).data('userid'));
+    if (isSocketing) {
+        $.each($(".new-message-input"), function () {
+            $(this).focus(function () {
+                if ($(this).data('userid') != '') {
+                    // Private message
+                    read_private_messages($(this).data('userid'));
+                    
+                    if (socket.connected) {
+                        // Socket read
+                        socket.emit('read', USERID + ';' + $(this).data('userid'));
+                    }
+                } else {
+                    // Group message
+                    read_group_messages($(this).data('groupid'));
                 }
-            } else {
-                // Group message
-                read_group_messages($(this).data('groupid'));
-            }
-        })
-    });
+            })
+        });
+    }
 }
 
 function read_private_messages (userid) {

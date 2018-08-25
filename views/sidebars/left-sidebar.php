@@ -59,6 +59,7 @@
                                     data : data,
                                     success: function (response) {
                                         $("#info-complete-card").remove();
+                                        location.reload();
                                     }
                                 });
                             }

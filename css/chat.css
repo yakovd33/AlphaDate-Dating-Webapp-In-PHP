@@ -287,6 +287,8 @@
     background-color: #fff;
     border-top: 1px solid #dddddd;
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 #chat-boxes .chat-box .new-message .new-message-input {
@@ -295,6 +297,8 @@
     display: inline-block;
     font-size: 14px;
     width: 90%;
+    max-height: 100px;
+    overflow-y: auto;
 }
 
 #chat-boxes .chat-box .new-message .new-message-input:empty:before {
@@ -307,7 +311,7 @@
 #chat-boxes .chat-box .new-message .message-additional {
     margin-top: 2px;
     position: absolute;
-    top: 4px;
+    top: 2px;
     left: 10px;
 }
 

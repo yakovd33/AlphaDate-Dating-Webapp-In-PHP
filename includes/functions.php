@@ -98,14 +98,33 @@
         $GLOBALS['link']->query("UPDATE `users` SET `popularity` = `popularity` + {$amount} WHERE `id` = {$userid}");
     }
 
+    function compress_img ($source, $destination, $quality) {
+        $info = getimagesize($source);
+
+        if ($info['mime'] == 'image/jpeg') 
+            $image = imagecreatefromjpeg($source);
+
+        elseif ($info['mime'] == 'image/gif') 
+            $image = imagecreatefromgif($source);
+
+        elseif ($info['mime'] == 'image/png') 
+            $image = imagecreatefrompng($source);
+
+        imagejpeg($image, $destination, $quality);
+
+        return $destination;
+	}
+
     function insert_photo ($file, $uploads_dir, $type = false) {
         // Move to folder
         $tmp_name = $file["tmp_name"];
-        $name = md5(date('Y-m-d H:i:s:u') . time() . rand(0, 10000));
+        $name = md5(time() . rand(0, 10000)) . md5(time() . rand(0, 10000));
         $file_name = $file['name'];
         $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-        if ($file['size'] != 0 && $file['error'] == 0 && $file['size'] < 2000000) {
+        compress_img($file["tmp_name"], $file["tmp_name"], 75);
+
+        if ($file['size'] != 0 && $file['error'] == 0) {
             $allowed_extensions = array('image/png', 'image/jpg', 'image/jpeg');
             if (in_array($file['type'], $allowed_extensions)) {
                 $final_path = "/" . $name . "." . $ext;
@@ -259,7 +278,7 @@
         if($time_delta <= 1) return 'לפני פחות משנייה';
         if($time_delta < (60)) return 'לפני ' . $time_delta . ' שניות';
         if($time_delta < (60*60)) { $minutes = round($time_delta/60); return 'לפני כ' . $minutes . ' דקות'; }
-        if($time_delta < (60*60*16)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ($hours > 1 ? ' שעות' : ''); }
+        if($time_delta < (60*60*16)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ($hours > 1 ? ' שעות' : ' שעות'); }
         if($time_delta < (60*60*24)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ' שעות'; }
         if($time_delta < (time() - strtotime('yesterday'))) return 'אתמול';
         if($time_delta < (60*60*24*6.5)) return 'לפני כ' . round($time_delta/(60*60*24)) . ' ימים';

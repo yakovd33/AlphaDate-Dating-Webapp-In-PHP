@@ -28,7 +28,7 @@
         <div id="hon-not-activated-wrap">
             <div id="hon-pre-join-msg">על מנת להצטרף לאיזור ההיכרויות עלייך להשלים את הפרופיל ולהוסיף לפחות תמונה אחת</div>
 
-            <?php if (get_user_num_hon_pics($_SESSION['user_id']) == 0) : ?>
+            <?php if (get_user_num_hon_pics($_SESSION['user_id']) == 0 && is_cur_user_profile_complete()) : ?>
                 <div id="hot-or-not-image-adder-toggle"></div>
                 <input type="file" id="hot-or-not-image-adder-input" accept="image/x-png,,image/jpeg" style="display: none">
             <?php endif; ?>

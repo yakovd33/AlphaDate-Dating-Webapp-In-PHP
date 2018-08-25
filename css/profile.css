@@ -99,6 +99,11 @@ body {
     /* font-weight: bold; */
     font-size: 1.2em;
     color: #3e3e3e;
+    min-width: 10px;
+}
+
+.profile-information-item .title br {
+    display: none
 }
 
 .profile-information-item .item-content {
@@ -129,10 +134,16 @@ body {
     font-weight: normal;
     margin-left: 5px;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .hobby-item > * {
     display: inline-block;
+}
+
+#hobbies-delete-warning {
+    font-weight: bold;
+    color: orange;
 }
 
 .hobby-item .icon {
@@ -328,6 +339,10 @@ img.profile-pic:not(:nth-child(3n)) {
 }
 
 @media screen and (max-width: 768px) {
+    .editable-icon {
+        opacity: 1;
+    }
+    
     .feed-col {
         padding: 15px;
     }

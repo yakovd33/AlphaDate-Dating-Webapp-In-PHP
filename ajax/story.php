@@ -40,7 +40,13 @@
                             $resp['text'] = $story['text'];
                             $resp['color'] = $story['text_color'];
                             $resp['isBg'] = $story['is_text_with_bg'];
+                            $resp['is_self'] = false;
 
+                            if ($story['user_id'] == $_SESSION['user_id']) {
+                                $resp['is_self'] = true;
+                                $resp['story_views'] = get_story_views_by_id($story['id']);
+                            }
+ 
                             // Set story view
                             if ($story['user_id'] != $_SESSION['user_id']) {
                                 // Check if not already viewed
@@ -71,6 +77,13 @@
                         // array_push($stories, $story);
                         $story_item = [];
                         $story_item['id'] = $story['id'];
+                        $story_item['is_self'] = false;
+
+                        if ($uid == $_SESSION['user_id']) {
+                            // Self story
+                            $story_item['story_views'] = get_story_views_by_id($story['id']);
+                            $story_item['is_self'] = true;
+                        }
 
                         array_push($resp['stories'], $story_item);
                     }

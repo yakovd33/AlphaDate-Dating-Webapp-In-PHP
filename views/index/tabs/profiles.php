@@ -62,6 +62,8 @@
 
     <div class="row">
         <?php while ($profile = $profiles_stmt->fetch()) : ?>
+            <?php $user = get_user_row_by_id($profile['id']); ?>
+
             <div class="col-md-4 profiles-tab-profile-wrap">
                 <div class="profiles-tab-profile-card">
                     <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
@@ -73,7 +75,7 @@
 
                     <div class="textual">
                         <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
-                            <div class="fullname"><?php echo $profile['fullname']; ?></div>
+                            <div class="fullname"><?php echo $profile['fullname']; ?> <sub>(<?php echo $user['age']; ?>)</sub></div>
                         </a>
 
                         <a href="<?php echo $URL; ?>/city/<?php echo $profile['city']; ?>/">

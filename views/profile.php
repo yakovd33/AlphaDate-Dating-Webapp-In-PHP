@@ -50,7 +50,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="profile-card">
-                <div class="pp self">
+                <div class="pp <?php if ((isset($_GET['id']) && $_GET['id'] == $_SESSION['user_id']) || !isset($_GET['id'])) { echo 'self'; } ?>">
                     <img src="<?php echo get_user_pp_by_id($id); ?>">
                     <?php if ($user['gender'] != null) : ?>
                         <div id="gender-marker" class="<?php echo $user['gender']; ?>" style="display: none"></div>
@@ -387,15 +387,15 @@
                         <div class="profile-information-item editable-wrap">
                             <div class="title">תחומי עניין</div>
 
-                            <div class="editable-icon"></div>
-
                             <div class="item-content">
                                 <div id="profile-hobbies">
-                                    <div class="hobby-item" id="new-hobby-btn">
-                                        <div class="title"><i class="fas fa-plus"></i></div>
-                                    </div>
+                                    <?php if ($id == $_SESSION['user_id']) : ?>
+                                        <div class="hobby-item" id="new-hobby-btn">
+                                            <div class="title"><i class="fas fa-plus"></i></div>
+                                        </div>
+                                    <?php endif; ?>
 
-                                    <?php $hobbies_stmt = $GLOBALS['link']->query("SELECT * FROM `users_hobbies` WHERE `user_id` = {$_SESSION['user_id']} AND `active`"); ?>
+                                    <?php $hobbies_stmt = $GLOBALS['link']->query("SELECT * FROM `users_hobbies` WHERE `user_id` = {$id} AND `active`"); ?>
                                     <?php while ($hobby = $hobbies_stmt->fetch()) : ?>
                                         <div class="hobby-item" onclick="delete_hobby(<?php echo $hobby['id']; ?>); $(this).remove();">
                                             <div class="title"><?php echo $hobby['text']; ?></div>
@@ -403,7 +403,9 @@
                                     <?php endwhile; ?>
                                 </div>
 
-                                <p id="hobbies-delete-warning">לחיצה על תחביב תמחק אותו מהרשימה.</p>
+                                <?php if ($id == $_SESSION['user_id']) : ?>
+                                    <p id="hobbies-delete-warning">לחיצה על תחביב תמחק אותו מהרשימה.</p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

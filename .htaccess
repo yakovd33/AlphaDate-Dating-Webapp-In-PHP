@@ -69,3 +69,9 @@ RewriteRule ^(get_group_chatlist_item)(/?)$ ajax/chat.php?type=$1 [NC]
 
 RewriteRule ^(hobby)/(delete)(/?)$ ajax/profile.php?type=delete_hobby [NC]
 RewriteRule ^(hobby)/(new)(/?)$ ajax/profile.php?type=new_hobby [NC]
+
+RewriteRule ^(settings)/(/?)$ index.php?tab=$1 [L]
+
+RewriteRule ^(reset_password)/(/?)$ reset_password.php [L]
+RewriteRule ^(reset)/([0-9A-Za-z]+)(/?)$ reset_password_visual.php?password_reset=$2 [NC]
+RewriteRule ^(change_password)(/?)$ ajax/profile.php?type=$1 [NC]

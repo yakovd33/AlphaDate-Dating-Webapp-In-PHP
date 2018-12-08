@@ -10,28 +10,15 @@
 
     <div class="index-main-col <?php if (isset($_GET['tab'])) { echo $_GET['tab']; } else { echo 'hon'; } ?> <?php if (isset($_GET['tab'])) { echo $_GET['tab']; } ?> <?php if (!isset($_GET['tab']) || ($_GET['tab'] != 'profiles') && ($_GET['tab'] != 'meetings')) { echo 'col-md-5'; } else { echo 'col-md-9'; } ?>">
         <div id="index-tabs">
+            <?php $tabs = [ 'feed', 'profiles', 'flowers', 'matches', 'meetings', 'settings' ]; ?>
             <?php if (!isset($_GET['tab'])) : ?>
                 <?php include 'tabs/hot-or-not.php'; ?>
             <?php else: ?>
-                <?php if ($_GET['tab'] == 'feed') : ?>
-                    <?php include 'tabs/feed.php'; ?>
-                <?php endif; ?>
-
-                <?php if ($_GET['tab'] == 'profiles') : ?>
-                    <?php include 'tabs/profiles.php'; ?>
-                <?php endif; ?>
-
-                <?php if ($_GET['tab'] == 'flowers') : ?>
-                    <?php include 'tabs/flowers.php'; ?>
-                <?php endif; ?>
-
-                <?php if ($_GET['tab'] == 'matches') : ?>
-                    <?php include 'tabs/matches.php'; ?>
-                <?php endif; ?>
-
-                <?php if ($_GET['tab'] == 'meetings') : ?>
-                    <?php include 'tabs/meetings.php'; ?>
-                <?php endif; ?>
+                <?php
+                    if (in_array($_GET['tab'], $tabs)) {
+                        include 'tabs/' . $_GET['tab'] . '.php';
+                    }
+                ?>
             <?php endif; ?>
         </div>
     </div>

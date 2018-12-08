@@ -27,7 +27,7 @@
 
                 <div class="textual">
                     <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
-                        <div class="fullname"><?php echo $profile['fullname']; ?></div>
+                        <div class="fullname"><?php echo $profile['fullname']; ?> <sub>(<?php echo $profile['age']; ?>)</sub></div>
                     </a>
 
                     <a href="<?php echo $URL; ?>/city/<?php echo $profile['city']; ?>/">

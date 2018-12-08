@@ -7,6 +7,10 @@
         return (isset($_SESSION['user_id']) && $_SESSION['user_id'] != 0);
     }
 
+    function in_development () {
+        return true;
+    }
+
     function email_exists ($email) {
         return ($GLOBALS['link']->query("SELECT `email` FROM `users` WHERE `email` = '{$email}'")->rowCount() > 0);       
     }
@@ -166,9 +170,13 @@
     function sort_by_date ($a, $b) {
         return $a['date'] < $b['date'];
     }
+
+    function random_hash () {
+        return md5(time() . rand(0, 99999) . rand(0, 9999));
+    }
     
     function get_login_hash () {
-        $hash = md5(time() . rand(0, 99999) . rand(0, 9999));
+        $hash = random_hash();
         $GLOBALS['link']->query("INSERT INTO `login_hashes`(`user_id`, `hash`) VALUES ({$_SESSION['user_id']}, '{$hash}')");
         return $hash;
     }
@@ -287,7 +295,7 @@
         if($time_delta < (60*60*24*7*3.5)) return 'לפני כ' . round($time_delta/(60*60*24*7)) . ' שבועות';
         if($time_delta < (time() - strtotime('last month'))) return 'חודש שעבר';
         if(round($time_delta/(60*60*24*7*4))  == 1) return 'לפני כחודש';
-        if($time_delta < (60*60*24*7*4*11.5)) return 'about ' . round($time_delta/(60*60*24*7*4)) . ' חודשים';
+        if($time_delta < (60*60*24*7*4*11.5)) return 'לפני כ' . round($time_delta/(60*60*24*7*4)) . ' חודשים';
         if($time_delta < (time() - strtotime('last year'))) return 'שנה שעבר';
         if(round($time_delta/(60*60*24*7*52)) == 1) return 'לפני כשנה';
         if($time_delta >= (60*60*24*7*4*12)) return 'לפני כ' . round($time_delta/(60*60*24*7*52)) . ' שנים'; 
@@ -316,5 +324,36 @@
 
     function has_user_read_last_message ($userid) {
         return ($GLOBALS['link']->query("SELECT * FROM `messages` WHERE ((`from_id` = {$_SESSION['user_id']} OR `from_id` = {$userid}) AND (`to_id` = {$_SESSION['user_id']} OR `to_id` = {$userid})) ORDER BY `date` DESC LIMIT 1")->fetch()['seen']);
+    }
+
+    function get_story_views_by_id ($story_id) {
+        return ($GLOBALS['link']->query("SELECT * FROM `story_views` WHERE `story_id` = {$story_id}")->rowCount());
+    }
+
+    function send_email_to_user ($user_id, $subject, $msg) {
+        $user = get_user_row_by_id($user_id);
+        $email = $user['email'];
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        
+        echo $msg;
+
+        if (!in_development()) {
+            mail($email, $subject, $msg, $headers);
+        }
+    }
+
+    function new_password_reset_token ($user_id) {
+        $token = random_hash();
+        $GLOBALS['link']->query("INSERT INTO `password_reset_tokens`(`user_id`, `token`) VALUES ({$user_id}, '{$token}')");
+
+        return $token;
+    }
+
+    function change_user_password ($user_id, $password) {
+        $password_hashed = passsword_hash($password);
+
+        $GLOBALS['link']->query("UPDATE `users` SET `password_hashed` = '{$password_hashed}' WHERE `id` = {$user_id}");
     }
 ?>

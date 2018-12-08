@@ -9,7 +9,7 @@
                     $id = $_POST['userid'];
 
                     // Check if not already invited in last 30 days
-                    if ($GLOBALS['link']->query("SELECT * FROM `meetings_requests` WHERE `user_one_id` = {$_SESSION['user_id']} AND `user_two_id` = {$id} AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND")->rowCount() == 0) {
+                    if ($GLOBALS['link']->query("SELECT * FROM `meetings_requests` WHERE `user_one_id` = {$_SESSION['user_id']} AND `user_two_id` = {$id} AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH)")->rowCount() == 0) {
                         $GLOBALS['link']->query("INSERT INTO `meetings_requests`(`user_one_id`, `user_two_id`) VALUES ({$_SESSION['user_id']}, {$id})");
                     
                         // Take 5 flowers from inviter

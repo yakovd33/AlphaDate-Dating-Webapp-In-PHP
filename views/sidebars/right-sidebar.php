@@ -11,6 +11,8 @@
             <div class="nickname"><?php echo $CUR_USER['nickname']; ?></div>
         </a>
     </div>
+    
+    <a href="<?php echo $URL; ?>/settings/" id="right-sidebars-profile-card-settings"><i class="fas fa-cog"></i></a>
 </div>
 
 <div id="sidebar-flowers-section">

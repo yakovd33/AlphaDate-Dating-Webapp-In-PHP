@@ -8,4 +8,6 @@
     // Templating engine
     require_once(dirname(__DIR__) . '../templates.php');
     require_once(dirname(__DIR__) . '../vendor/autoload.php');
+
+    $MAX_LOGIN_ATTEMPTS_PER_HALF_HOUR = 5;
 ?>

@@ -22,7 +22,7 @@
             </form>
 
             <form action="" id="forgot-poassword-form">
-                <input type="email" placeholder="אימייל">
+                <input type="email" placeholder="אימייל" id="password-reset-email-input">
                 <input type="submit" value="שחזור סיסמא">
                 <a href="" id="close-forgot-pass-form">ביטול</a>
             </form>

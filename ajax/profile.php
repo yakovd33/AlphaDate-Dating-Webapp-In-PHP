@@ -154,6 +154,21 @@
                 }
 
                 break;
+            case 'change_password' :
+                if (isset($_POST['password'], $_POST['token'])) {
+                    $token = $_POST['token'];
+                    $password = $_POST['password'];
+                    $user_id = $GLOBALS['link']->query("SELECT * FROM `password_reset_tokens` WHERE `token` = '{$token}'")->fetch()['user_id'];
+                    $user = get_user_row_by_id($user_id);
+
+                    if (strlen($password) > 0) {
+                        change_user_password($user_id, $password);
+
+                        // Update login token and setting it as user
+                        $GLOBALS['link']->query("UPDATE `password_reset_tokens` SET `is_used` = 1 WHERE `token` = '{$token}'");
+                        echo 'success';
+                    }
+                }
         }
     }
 ?>

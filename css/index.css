@@ -204,6 +204,67 @@ body {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+.login-msg-wrap {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.login-msg {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Password reset */
+#password-reset-bg {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998;
+    cursor: pointer;
+}
+
+#password-reset-form-wrap {
+    width: 400px;
+    max-width: 95%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #fff;
+    border-radius: 5px;
+    z-index: 9999;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 30px #0c0c0c70;
+}
+
+#password-reset-form-wrap input[type="password"] {
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    padding: 5px 8px;
+    font-size: 0.9rem;
+}
+
+#password-reset-form-wrap input[type="submit"] {
+    background-color: #c0392b;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+#password-change-feedback {
+    margin-bottom: -10px;
+    margin-top: 5px;
+    font-size: 0.8rem;
+}
+
 @media screen and (max-width: 768px) {
     .fullscreen-section {
         height: auto;

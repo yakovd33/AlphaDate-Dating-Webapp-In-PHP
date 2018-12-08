@@ -408,8 +408,11 @@ select.profile-info-edit-input {
 /* Pagination */
 #pagination {
     margin-top: 10px;
-    float: left;
-    direction: ltr;
+    float: right;
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 #pagination .page {
@@ -417,11 +420,17 @@ select.profile-info-edit-input {
     background-color: #ebebeb;
     color: #444;
     border-radius: 5px;
+    margin-left: 8px;
 }
 
 #pagination .page.active {
     background-color: #ad3a2c;
     color: #fff;
+}
+
+.fullname sub {
+    font-size: 0.9rem;
+    vertical-align: super;
 }
 
 @media screen and (max-width: 768px) {

@@ -167,6 +167,7 @@ $.each($("#orientation-selection .orientation-item"), function () {
 
 // Story
 $("#sidebar-story-add-btn").click(function () {
+    $("#new-story-image-input").click();
     $("#popups-bg").fadeIn(150);
 
     setTimeout(function () {
@@ -283,7 +284,13 @@ function open_stories () {
                     $("#story-hourglasses").html('');
 
                     for (i = 0; i < response_json.stories.length; i++) {
-                        $("#story-hourglasses").append('<span class="story-hourglass" data-storyid="' + response_json.stories[i].id + '"><span class="story-hourglass-spent"></span></span>');
+                        story_views = 0;
+
+                        if (response_json.stories[i].is_self) {
+                            story_views = response_json.stories[i].story_views;
+                        }
+
+                        $("#story-hourglasses").append('<span class="story-hourglass" data-storyid="' + response_json.stories[i].id + '" data-isself="' + response_json.stories[i].is_self + '" data-storyviews="' + story_views + '"><span class="story-hourglass-spent"></span></span>');
                     }
 
                     for (i = 0; i < response_json.stories.length; i++) {
@@ -305,6 +312,13 @@ function open_stories () {
                                     
                                     if (response_json.isBg) {
                                         $("#story-pic-text").css('color', '#fff').css('background-color', response_json.color);
+                                    }
+
+                                    if (response_json.is_self) {
+                                        $("#story-num-views-num").text(response_json.story_views);
+                                        $("#story-num-views").show();
+                                    } else {
+                                        $("#story-num-views").hide();
                                     }
                                 }
                             });

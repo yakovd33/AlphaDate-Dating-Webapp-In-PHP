@@ -57,6 +57,8 @@
 
             <div id="story-pic">
                 <div id="story-pic-text"></div>
+
+                <div id="story-num-views"><i class="fas fa-eye"></i> <div id="story-num-views-num"></div></div>
             </div>
         </div>
     </div>

@@ -68,6 +68,7 @@ function next_hon () {
 
             $("#current-hot-or-not-profile").html(html);
             hon_actions();
+            chat_togglers();
         }
     });
 }

@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="css/popups.css">
+<link rel="stylesheet" href="<?php echo $URL; ?>/css/popups.css">
 <div id="popups-wrap">
     <?php if (!is_logged()): ?>
         <?php include 'popups/membership.php'; ?>
     <?php endif; ?>
 </div>
 
-<script src="js/popups.js"></script>
+<script src="<?php echo $URL; ?>/js/popups.js"></script>

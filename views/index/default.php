@@ -22,12 +22,64 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.he.min.js"></script>
     </head>
     <body>
+        <input type="hidden" id="url" value="<?php echo $URL; ?>">
+        <input type="hidden" id="csrf_token" value="<?php echo $_SESSION['csrf_token'] = md5(time() + rand(0, 100)); ?>">
+
+        <script>
+            URL = $("#url").val();
+        </script>
+
         <?php include 'views/popups.php'; ?>
         
+        <?php if (isset($_GET['tried_too_much'])) : ?>
+            <div class="login-msg-wrap">
+                <p class="login-msg">
+                    נחסמת מההתחברות לאחר 5 נסיונות כושלים. אנא נסה שוב בעוד בחצי שעה.
+                </p>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['wrong_login'])) : ?>
+            <div class="login-msg-wrap">
+                <p class="login-msg">
+                    פרטי התחברות שגויים. אנא נסה שוב.
+                </p>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['password_changed'])) : ?>
+            <div class="login-msg-wrap">
+                <p class="login-msg">
+                    סיסמא שונתה בהצלחה. אנא נסה/י להתחבר.
+                </p>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['password_reset'])) : ?>
+            <?php $token = $_GET['password_reset']; ?>
+            <?php if ($GLOBALS['link']->query("SELECT * FROM `password_reset_tokens` WHERE `token` = '{$token}' AND NOT `is_used`")->rowCount() > 0) : ?>
+                <div id="password-reset-bg"></div>
+                <form id="password-reset-form-wrap">
+                    <input type="password" id="password-reset-first-input" placeholder="סיסמא">
+                    <input type="password" id="password-reset-second-input" placeholder="אימות סיסמא">
+                    <input type="hidden" id="password-reset-token" value="<?php echo $_GET['password_reset']; ?>">
+                    <input type="submit" value="שחזר סיסמא">
+
+                    <div id="password-change-feedback"></div>
+                </form>
+            <?php else : ?>
+                <div class="login-msg-wrap">
+                    <p class="login-msg">
+                        קישור לשחזור סיסמא לא קיים/פג תוקף.
+                    </p>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+
         <div id="hero-section" class="section fullscreen-section">
             <div id="hero-nav">
                 <div id="hero-nav-logo">
-                    <img src="img/icon-trans.svg" height="55px" alt="">
+                    <img src="<?php echo $URL; ?>/img/icon-trans.svg" height="55px" alt="">
                 </div>
 
                 <div id="hero-nav-links">
@@ -88,7 +140,7 @@
                 <div class="row">
                     <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
-                            <div class="icon"><img src="img/homepage/features/verified.svg" alt=""></div>
+                            <div class="icon"><img src="<?php echo $URL; ?>/img/homepage/features/verified.svg" alt=""></div>
                             <div class="title">חשבונות מאושרים</div>
                             <div class="text">אצלנו באלפא דייט כל החשבונות עוברים סינון לפני שמגיעים אליכם, ככה שתוכלו להיות בטוחים שעשינו כמיטב יכולתנו להביא לכם את הפרופילים האיכותיים ביותר.</div>
                         </div>
@@ -96,7 +148,7 @@
 
                     <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
-                            <div class="icon"><img src="img/homepage/features/verified.svg" alt=""></div>
+                            <div class="icon"><img src="<?php echo $URL; ?>/img/homepage/features/verified.svg" alt=""></div>
                             <div class="title">חשבונות מאושרים</div>
                             <div class="text">אצלנו באלפא דייט כל החשבונות עוברים סינון לפני שמגיעים אליכם, ככה שתוכלו להיות בטוחים שעשינו כמיטב יכולתנו להביא לכם את הפרופילים האיכותיים ביותר.</div>
                         </div>
@@ -104,7 +156,7 @@
 
                     <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
-                            <div class="icon"><img src="img/homepage/features/success.svg" alt=""></div>
+                            <div class="icon"><img src="<?php echo $URL; ?>/img/homepage/features/success.svg" alt=""></div>
                             <div class="title">חשבונות מאושרים</div>
                             <div class="text">אצלנו באלפא דייט כל החשבונות עוברים סינון לפני שמגיעים אליכם, ככה שתוכלו להיות בטוחים שעשינו כמיטב יכולתנו להביא לכם את הפרופילים האיכותיים ביותר.</div>
                         </div>
@@ -112,7 +164,7 @@
 
                     <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
-                            <div class="icon"><img src="img/homepage/features/events.svg" alt=""></div>
+                            <div class="icon"><img src="<?php echo $URL; ?>/img/homepage/features/events.svg" alt=""></div>
                             <div class="title">חשבונות מאושרים</div>
                             <div class="text">אצלנו באלפא דייט כל החשבונות עוברים סינון לפני שמגיעים אליכם, ככה שתוכלו להיות בטוחים שעשינו כמיטב יכולתנו להביא לכם את הפרופילים האיכותיים ביותר.</div>
                         </div>
@@ -158,7 +210,7 @@
                             <div class="pic"><img src="https://i.imgur.com/QP3b8gb.png" alt=""></div>
                             <div class="textual">
                                 <div class="names">הרצל ודניאלה</div>
-                                <div class="text">” הסקס הכי טוב שהיה לי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
+                                <div class="text">” אהובי הנצחי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
                             </div>
                         </div>
                     </div>
@@ -168,7 +220,7 @@
                             <div class="pic"><img src="https://i.imgur.com/QP3b8gb.png" alt=""></div>
                             <div class="textual">
                                 <div class="names">הרצל ודניאלה</div>
-                                <div class="text">” הסקס הכי טוב שהיה לי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
+                                <div class="text">” אהובי הנצחי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
                             </div>
                         </div>
                     </div>
@@ -178,7 +230,7 @@
                             <div class="pic"><img src="https://i.imgur.com/QP3b8gb.png" alt=""></div>
                             <div class="textual">
                                 <div class="names">הרצל ודניאלה</div>
-                                <div class="text">” הסקס הכי טוב שהיה לי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
+                                <div class="text">” אהובי הנצחי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
                             </div>
                         </div>
                     </div>

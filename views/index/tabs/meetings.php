@@ -37,7 +37,7 @@
 
                 <div class="textual">
                     <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
-                        <div class="fullname"><?php echo $profile['fullname']; ?></div>
+                        <div class="fullname"><?php echo $profile['fullname']; ?> <sub>(<?php echo $profile['age']; ?>)</sub></div>
                     </a>
 
                     <div class="location"><?php echo $profile['city']; ?> | <span class="meeting-request-date">לפני 4 שעות</span></div>

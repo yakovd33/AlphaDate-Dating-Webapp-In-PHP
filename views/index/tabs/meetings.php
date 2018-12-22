@@ -12,6 +12,8 @@
     }
 
     $meetings_query .= get_user_blocked_user_by_col('user_one_id');
+    $meetings_query .= get_banned_user_by_col('user_one_id');
+    $meetings_query .= get_banned_user_by_col('user_two_id');
 
     $meetings_stmt = $GLOBALS['link']->query($meetings_query);
 ?>
@@ -54,6 +56,14 @@
             </div>
         </div>
     <?php endwhile; ?>
+
+    <?php if ($meetings_stmt->rowCount() == 0) : ?>
+        <p style="padding: 15px; color: #555;">אין פגישות להצגה כעת.</p>
+    <?php endif; ?>
+</div>
+
+<div style="text-align: center; margin-top: 50px">
+    <img src="<?php echo $URL; ?>/img/dating-title-icon.png" width="90px">
 </div>
 
 <script src="<?php echo $URL; ?>/js/meetings.js"></script>

@@ -12,6 +12,7 @@
 
     $profiles_query .= " AND `id` <> " . $_SESSION['user_id'];
     $profiles_query .= get_user_blocked_user_by_col('id');
+    $profiles_query .= " AND NOT `banned`";
 
     $order_by = " ORDER BY `popularity`";
     if (isset($_POST['sorting']) && $_POST['sorting'] != 'popularity') {

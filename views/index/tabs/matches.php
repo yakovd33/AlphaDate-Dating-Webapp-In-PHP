@@ -1,6 +1,8 @@
 <?php
     $matches_query = "SELECT * FROM `hot_or_not_matches` WHERE ((`user_one_id` = {$_SESSION['user_id']} AND NOT `user_one_seen`) OR (`user_two_id` = {$_SESSION['user_id']} AND NOT `user_two_seen`)) OR (`user_one_id` = {$_SESSION['user_id']} OR `user_two_id` = {$_SESSION['user_id']} AND `date` > DATE_SUB(NOW(), INTERVAL 1 MONTH))";
     $matches_query .= get_user_blocked_user_by_col('user_one_id');
+    $matches_query .= get_banned_user_by_col('user_one_id');
+    $matches_query .= get_banned_user_by_col('user_two_id');
     $matches_query .= " ORDER BY `date` DESC";
     $matches_stmt = $GLOBALS['link']->query($matches_query);
 

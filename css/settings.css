@@ -12,3 +12,36 @@ a#password-reset-ajax {
     margin-bottom: 4px;
     display: inline-block;
 }
+
+#change-password-wrap {
+    width: 60%;
+    margin-top: 20px;
+}
+
+#change-password-wrap label {
+    margin-bottom: 2px;
+    font-weight: bold;
+    color: #444;
+}
+
+#change-password-wrap input:not([type="submit"]) {
+    margin-bottom: 5px;
+    display: block;
+    width: 100%;
+}
+
+#change-password-wrap > div:not(#password-change-feedback) {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#password-change-feedback {
+    margin-top: 10px;
+    text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+    #change-password-wrap {
+        width: 100%;
+    }
+}

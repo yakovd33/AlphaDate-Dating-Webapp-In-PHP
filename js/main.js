@@ -260,76 +260,78 @@ $("#submit-new-story").click(function () {
 function open_stories () {
     $.each($(".story-list .item"), function () {
         $(this).click(function () {
-            $("#popups-bg").fadeIn(150);
+            $(this).find(".pic svg").addClass('on');
 
-            setTimeout(function () {
-                $("#story-showcase-wrap").fadeIn(150);
-            }, 150);
+            setTimeout(function (element) {
+                $("#story-user-profile-link").attr('href', URL + '/profile/' + $(element).data('userid') + '/');
 
-            $("#story-user-profile-link").attr('href', URL + '/profile/' + $(this).data('userid') + '/');
+                // Get user stories            
+                $.ajax({
+                    url: URL + '/story/get_user_stories/' + $(element).data('userid') + '/',
+                    processData: false,
+                    contentType: false,
+                    method : 'GET',
+                    success: function (response) {
+                        $("#popups-bg").fadeIn(150);
 
-            // Get user stories            
-            $.ajax({
-                url: URL + '/story/get_user_stories/' + $(this).data('userid') + '/',
-                processData: false,
-                contentType: false,
-                method : 'GET',
-                success: function (response) {
-                    console.log(response);
-                    response_json = JSON.parse(response);
+                        setTimeout(function () {
+                            $("#story-showcase-wrap").fadeIn(150);
+                        }, 150);
 
-                    $("#story-showcase-user-dets .fullname").text(response_json.fullname);
-                    $("#story-showcase-user-dets .pp img").attr('src', response_json.pp);
+                        response_json = JSON.parse(response);
 
-                    $("#story-hourglasses").html('');
+                        $("#story-showcase-user-dets .fullname").text(response_json.fullname);
+                        $("#story-showcase-user-dets .pp img").attr('src', response_json.pp);
 
-                    for (i = 0; i < response_json.stories.length; i++) {
-                        story_views = 0;
+                        $("#story-hourglasses").html('');
 
-                        if (response_json.stories[i].is_self) {
-                            story_views = response_json.stories[i].story_views;
+                        for (i = 0; i < response_json.stories.length; i++) {
+                            story_views = 0;
+
+                            if (response_json.stories[i].is_self) {
+                                story_views = response_json.stories[i].story_views;
+                            }
+
+                            $("#story-hourglasses").append('<span class="story-hourglass" data-storyid="' + response_json.stories[i].id + '" data-isself="' + response_json.stories[i].is_self + '" data-storyviews="' + story_views + '"><span class="story-hourglass-spent"></span></span>');
                         }
 
-                        $("#story-hourglasses").append('<span class="story-hourglass" data-storyid="' + response_json.stories[i].id + '" data-isself="' + response_json.stories[i].is_self + '" data-storyviews="' + story_views + '"><span class="story-hourglass-spent"></span></span>');
-                    }
+                        for (i = 0; i < response_json.stories.length; i++) {
+                            setTimeout(function (i, URL, response_json) {
+                                $("#story-hourglasses .story-hourglass").eq(i).addClass("active");
 
-                    for (i = 0; i < response_json.stories.length; i++) {
-                        setTimeout(function (i, URL, response_json) {
-                            $("#story-hourglasses .story-hourglass").eq(i).addClass("active");
+                                $.ajax({
+                                    url: URL + '/story/get/' + $("#story-hourglasses .story-hourglass").eq(i).data('storyid'),
+                                    processData: false,
+                                    contentType: false,
+                                    method : 'GET',
+                                    success: function (response) {
+                                        response_json = JSON.parse(response);
+                                        $("#story-showcase-user-dets .time").text(response_json.time);
+                                        $("#story-pic").css('background-image', 'url(' + 'data:image/png;base64,' + response_json.img + ')');
 
-                            $.ajax({
-                                url: URL + '/story/get/' + $("#story-hourglasses .story-hourglass").eq(i).data('storyid'),
-                                processData: false,
-                                contentType: false,
-                                method : 'GET',
-                                success: function (response) {
-                                    console.log(response);
-                                    response_json = JSON.parse(response);
-                                    $("#story-showcase-user-dets .time").text(response_json.time);
-                                    $("#story-pic").css('background-image', 'url(' + 'data:image/png;base64,' + response_json.img + ')');
+                                        $("#story-pic-text").text(response_json.text);
+                                        
+                                        if (response_json.isBg) {
+                                            $("#story-pic-text").css('color', '#fff').css('background-color', response_json.color);
+                                        }
 
-                                    $("#story-pic-text").text(response_json.text);
-                                    
-                                    if (response_json.isBg) {
-                                        $("#story-pic-text").css('color', '#fff').css('background-color', response_json.color);
+                                        if (response_json.is_self) {
+                                            $("#story-num-views-num").text(response_json.story_views);
+                                            $("#story-num-views").show();
+                                        } else {
+                                            $("#story-num-views").hide();
+                                        }
                                     }
+                                });
+                            }, 10000 * i, i, URL, response_json);
+                        }
 
-                                    if (response_json.is_self) {
-                                        $("#story-num-views-num").text(response_json.story_views);
-                                        $("#story-num-views").show();
-                                    } else {
-                                        $("#story-num-views").hide();
-                                    }
-                                }
-                            });
-                        }, 10000 * i, i, URL, response_json);
+                        setTimeout(function () {
+                            $("#popups-bg").click();
+                        }, 10000 * response_json.stories.length);
                     }
-
-                    setTimeout(function () {
-                        $("#popups-bg").click();
-                    }, 10000 * response_json.stories.length);
-                }
-            });
+                });
+            }, 2000, this);
         });
     });
 }
@@ -341,6 +343,7 @@ $("#popups-bg").click(function () {
 
     setTimeout(function () {
         $("#story-showcase-wrap").fadeOut(150);
+        $(".item svg.on").removeClass('on');
     }, 150);
 });
 
@@ -398,4 +401,45 @@ function delete_hobby (hobby_id) {
             
         }
     });
+}
+
+// Stick sidebar
+function stick_sidebar () {
+    if ($(window).width() >= 1200) {
+        if ($(document).scrollTop() < 70) {
+            $("#right-sidebar-content-wrap").css('position', 'fixed').css('top', 100 - $(document).scrollTop()).css('width', $("#right-sidebar-wrap").width())
+        } else {
+            $("#right-sidebar-content-wrap").css('position', 'fixed').css('top', '30px').css('width', $("#right-sidebar-wrap").width());
+        }
+    } else {
+        $("#right-sidebar-content-wrap").css('position', 'relative').css('top', '0').css('width', 'auto');
+    }
+}
+
+
+$("#right-sidebar-content-wrap").css('top', '30px');
+stick_sidebar();
+
+$(window).scroll(function (e) {
+    stick_sidebar();
+});
+
+$(window).resize(function (e) {
+    stick_sidebar();
+});
+
+function setCaretPosition(ctrl, pos) {
+    // Modern browsers
+    if (ctrl.setSelectionRange) {
+      ctrl.focus();
+      ctrl.setSelectionRange(pos, pos);
+    
+    // IE8 and below
+    } else if (ctrl.createTextRange) {
+      var range = ctrl.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', pos);
+      range.moveStart('character', pos);
+      range.select();
+    }
 }

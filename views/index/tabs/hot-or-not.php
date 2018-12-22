@@ -12,6 +12,7 @@
                         'fullname'=> $hor['fullname'],
                         'age'=> $hor['age'],
                         'city'=> $hor['city'],
+                        'gender' => $hor['gender'],
                         'popularity'=> $hor['popularity'],
                         'num_images'=> $hor['num_images'],
                         'images'=> $hor['images'],

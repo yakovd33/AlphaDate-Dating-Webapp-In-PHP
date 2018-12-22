@@ -13,5 +13,21 @@
         </script>
 
         <script src="<?php echo $URL; ?>/js/main.js"></script>
+
+        <script src="<?php echo $URL; ?>/js/config.js"></script>
+        <script src="<?php echo $URL; ?>/js/util.js"></script>
+        <script src="<?php echo $URL; ?>/js/jquery.emojiarea.js"></script>
+        <script src="<?php echo $URL; ?>/js/emoji-picker.js"></script>
+
+        <script>
+            $(function() {
+                window.emojiPicker = new EmojiPicker({
+                emojiable_selector: '[data-emojiable=true]',
+                assetsPath: URL + '/img/emojis',
+                popupButtonClasses: 'fas fa-smile-o'
+                });
+                window.emojiPicker.discover();
+            });
+        </script>
     </body>
 </html>

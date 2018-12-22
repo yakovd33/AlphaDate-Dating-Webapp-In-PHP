@@ -16,6 +16,11 @@
     $user = get_user_row_by_id($id);
     $age = $GLOBALS['link']->query("SELECT YEAR(CURDATE()) - YEAR(`date_of_birth`) AS `age` FROM `users` WHERE `id` = {$id}")->fetch()['age'];
 
+    if ($user['banned']) {
+        echo '<script>location.href = "' . $URL . '";</script>';
+        die();
+    }
+    
     if ($id != $_SESSION['user_id']) {
         // Add profile view
         //  Check if already viewed today

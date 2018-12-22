@@ -254,6 +254,8 @@
     border-radius: 10px;
     font-size: 13px;
     background-color: #dedede;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 #chat-boxes .chat-box .message {
@@ -272,6 +274,7 @@
     background-color: #c03b2b;
     color: #fff;
     float: right;
+    max-width: 100%;
 }
 
 #chat-boxes .chat-box .message .sent-date {
@@ -299,6 +302,7 @@
     width: 90%;
     max-height: 100px;
     overflow-y: auto;
+    padding: 3px 0;
 }
 
 #chat-boxes .chat-box .new-message .new-message-input:empty:before {

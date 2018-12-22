@@ -3,6 +3,7 @@
     
     $GLOBALS['link'] = new PDO("mysql:host=localhost;dbname=alpha_date;charset=utf8", "root", "");
     $URL = '/AlphaDate';
+    $GLOBALS['url'] = $URL;
     define('LOGGED_INTERVAL', 20); // Hashing complexity
 
     // Templating engine

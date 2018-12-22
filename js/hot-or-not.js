@@ -56,6 +56,7 @@ function next_hon () {
                     fullname: response_parsed.fullname,
                     age: response_parsed.age,
                     city: response_parsed.city,
+                    gender: response_parsed.gender,
                     popularity: response_parsed.popularity,
                     num_images: response_parsed.num_images,
                     images: response_parsed.images,

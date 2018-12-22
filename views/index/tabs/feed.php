@@ -1,6 +1,8 @@
 <?php
     $posts_query = "SELECT *, `hearts` + `comments` AS `hotness` FROM `posts` WHERE 1 ";
     $posts_query .= get_user_blocked_user_by_col('user_id');
+    $posts_query .= get_banned_user_by_col('user_id');
+    $posts_query .= " AND NOT `is_deleted`";
 
     switch ($CUR_USER['feed_sort']) {
         case 'date' :

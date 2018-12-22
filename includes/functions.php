@@ -258,6 +258,17 @@
         return $blocked_str;
     }
 
+    function get_banned_user_by_col ($col) {
+        $banned_stmt =  $GLOBALS['link']->query("SELECT * FROM `users` WHERE `banned`");
+        $banned_str = "";
+
+        while ($user = $banned_stmt->fetch()) {
+            $banned_str .= " AND `$col` <> " . $user['id'];
+        }
+
+        return $banned_str;
+    }
+
     function is_user_blocked ($user_id) {
         return $GLOBALS['link']->query("SELECT * FROM `blocked_users` WHERE `user_id` = {$_SESSION['user_id']} AND `blocked_id` = {$user_id}")->rowCount() > 0;
     }
@@ -355,5 +366,50 @@
         $password_hashed = passsword_hash($password);
 
         $GLOBALS['link']->query("UPDATE `users` SET `password_hashed` = '{$password_hashed}' WHERE `id` = {$user_id}");
+    }
+
+    function emojify_message ($msg) {
+        $msg = htmlspecialchars_decode($msg);
+        // $msg = str_replace('<br>', '<br>', $msg);
+
+        $matches = [];
+        $finished = false;
+        $i = 0;
+        $tokens = [];        
+        $tmp_msg = $msg;
+
+
+        while (!$finished && $i < 10) {
+            $i++;
+
+            preg_match(':([a-zA-Z0-9_]+):', $tmp_msg, $matches);
+
+            foreach ($matches as $match) {
+                $tmp_msg = str_replace(':' . $match . ':', '', $tmp_msg);
+                array_push($tokens, $match);
+            }
+
+            if (count($matches) == 0) {
+                $finished = true;
+            }
+        }
+
+        $tokens = array_unique($tokens);
+
+        foreach ($tokens as $match) {
+            $code = ":$match:";
+            if ($GLOBALS['link']->query("SELECT * FROM `emojis` WHERE `name` = '{$code}'")->rowCount() > 0) {
+                $emoji = $GLOBALS['link']->query("SELECT * FROM `emojis` WHERE `name` = '{$code}'")->fetch();
+                $file = $GLOBALS['url'] . '/' . $emoji['file'];
+                $x = $emoji['x'];
+                $y = $emoji['y'];
+                $background_size = $emoji['background_size'];
+                
+                $html = '<img src="/AlphaDate/img/emojis/blank.gif" class="img" style="display:inline-block;width:25px;height:25px; background:url(\'' . $file . '\') ' . $x .'px ' . $y . 'px no-repeat;background-size:' . $background_size . ';transform: scale(0.75);margin-right: -4px;" alt="' . $code . '">';
+                $msg = str_replace($code, $html, $msg);
+            }
+        }
+
+        return $msg;
     }
 ?>

@@ -2,6 +2,8 @@
     require_once('includes/config.php');
     require_once('includes/functions.php');
 
+    // Only open in cmd window
+
     use Workerman\Worker;
     use PHPSocketIO\SocketIO;
 

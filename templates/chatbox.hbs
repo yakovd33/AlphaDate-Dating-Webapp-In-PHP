@@ -46,7 +46,9 @@
             </div>
 
             <div class="new-message">
-                <div contenteditable="plaintext-only" class="new-message-input" data-userid="{{ userid }}" data-groupid="{{ groupid }}" placeholder="הקלד הודעה..."></div>
+                <div contenteditable="plaintext-only" data-emojiable="true" class="new-message-input" data-userid="{{ userid }}" data-groupid="{{ groupid }}" placeholder="הקלד הודעה..."></div>
+                
+                <div class="original-html-holder" style="display: none"></div>
                 <div class="message-additional">
                     <input type="file" class="message-additional-image" accept="image/x-png,,image/jpeg" data-userid="{{ userid }}" data-groupid="{{ groupid }}" style="display: none;">
                     <div class="message-additional-item trigger-message-additional-image"><i class="fa fa-camera" aria-hidden="true"></i></div>

@@ -22,7 +22,7 @@
 
                     $chat_messages = [];
                     $chat_messages_query = $GLOBALS['link']->query("SELECT * FROM `messages` WHERE (`from_id` = {$_SESSION['user_id']} AND `to_id` = {$id}) OR (`from_id` = {$id} AND `to_id` = {$_SESSION['user_id']}) ORDER BY `id`");
-
+             
                     while ($message = $chat_messages_query->fetch()) {
                         $message_image = false;
 
@@ -32,7 +32,7 @@
 
                         array_push($chat_messages, [
                             'userid' => $message['from_id'],
-                            'text' => $message['message'],
+                            'text' => emojify_message($message['message']),
                             'date' => $message['date'],
                             'isSelf' => ($message['from_id'] == $_SESSION['user_id']),
                             'image' => $message_image,
@@ -82,7 +82,7 @@
                         array_push($chat_messages, [
                             'userid' => $message['from_id'],
                             'fullname' => $message_user['fullname'],
-                            'text' => $message['message'],
+                            'text' => emojify_message($message['message']),
                             'date' => $message['date'],
                             'isSelf' => ($message['from_id'] == $_SESSION['user_id']),
                             'image' => $message_image,
@@ -124,7 +124,13 @@
                         $is_group = true;
                     }
 
-                    $text = $_POST['text'];
+                    $text = $_POST['text']; 
+                    $text = str_replace("&lt;br /&gt;","\n",$text);
+                    $text = str_replace("&lt;br&gt;",'\n',$text);
+                    $text = htmlentities($text);
+                    $text = preg_replace("/\s|&amp;nbsp;/",' ',$text);
+                    $text = preg_replace("/\s|&nbsp;/",' ',$text);
+                    $text = preg_replace("/\s|&amp;/",' ',$text);
 
                     // Prevents empty messages and messages sent to current user
                     if (($is_user && $userid == $_SESSION['user_id'])) {
@@ -152,7 +158,7 @@
                             }
                         }
 
-                        print_r($GLOBALS['link']->errorInfo());
+                        // print_r($GLOBALS['link']->errorInfo());
 
                         $message_id = $GLOBALS['link']->lastInsertId();
                         $message = $GLOBALS['link']->query("SELECT * FROM `messages` WHERE `id` = {$message_id}")->fetch();
@@ -257,7 +263,7 @@
                         // Regular private message
                         array_push($messages, [
                             'userid' => $message['from_id'],
-                            'text' => nl2br($message['message']),
+                            'text' => emojify_message(nl2br($message['message'])),
                             'date' => $message['date'],
                             'isSelf' => false,
                             'image' => $message_image,
@@ -270,7 +276,7 @@
                             'groupid' => $message['group_id'],
                             'group_userid' => $sender['id'],
                             'fullname' => $sender['fullname'],
-                            'text' => $message['message'],
+                            'text' => emojify_message($message['message']),
                             'date' => $message['date'],
                             'isSelf' => false,
                             'image' => $message_image,

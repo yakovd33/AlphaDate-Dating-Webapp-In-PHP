@@ -47,3 +47,7 @@
         }
     }
 ?>
+
+<script>
+    setTimeout(chatbox_options, 1000);
+</script>

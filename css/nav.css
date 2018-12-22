@@ -142,10 +142,16 @@
         box-shadow: 1px 1px 3px #ebebeb;
     }
 
+    #mobile-story .item .pic {
+        height: 70px;
+    }
+
     #mobile-story .item .pic img {
         height: 55px;
         width: 55px;
         border-radius: 50%;
+        margin-top: -6px;
+        margin-left: 1px;
     }
 
     #mobiles-stories-list {
@@ -157,6 +163,7 @@
     #mobiles-stories-list .item {
         padding-left: 15px;
         text-align: center;
+        min-width: 80px;
     }
 
     #mobiles-stories-list .item .fullname {
@@ -164,5 +171,6 @@
         text-align: center;
         font-size: 0.6em;
         margin-top: 5px;
+        margin-right: 10px;
     }
 }

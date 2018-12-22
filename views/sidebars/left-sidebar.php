@@ -111,7 +111,7 @@
             </div>
 
             <?php
-                $recent_stories_users_stmt = $GLOBALS['link']->query("SELECT DISTINCT `user_id` AS `uid` FROM `stories` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) AND `user_id` <> {$_SESSION['user_id']} " . get_user_blocked_user_by_col('user_id'));
+                $recent_stories_users_stmt = $GLOBALS['link']->query("SELECT DISTINCT `user_id` AS `uid` FROM `stories` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) AND `user_id` <> {$_SESSION['user_id']} " . get_user_blocked_user_by_col('user_id') . get_banned_user_by_col('user_id'));
 
                 // Sort stories by date
                 $users_last_stories = [];
@@ -149,7 +149,18 @@
                 <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
                 
                 <div class="item" data-userid="<?php echo $_SESSION['user_id']; ?>">
-                    <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                    <div class="pic">
+                        <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
+                        <svg viewbox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="gradient<?php echo $uid; ?>-s" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#d15042" />
+                                <stop offset="100%" stop-color="#94352b" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" stroke="url(#gradient<?php echo $uid; ?>-s)" cy="50" r="40"/>
+                        </svg>
+                    </div>
                     <div class="textual">
                         <div class="fullname">הסטורי שלי</div>
                     </div>
@@ -162,7 +173,19 @@
                 <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
 
                 <div class="item" data-userid="<?php echo $uid; ?>">
-                    <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                    <div class="pic">
+                        <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
+                        <svg viewbox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="gradient<?php echo $uid; ?>-s" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#d15042" />
+                                <stop offset="100%" stop-color="#94352b" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" stroke="url(#gradient<?php echo $uid; ?>-s)" cy="50" r="40"/>
+                        </svg>
+                    </div>
+
                     <div class="textual">
                         <div class="fullname"><?php echo $story_user['fullname']; ?></div>
                         <div class="time"><?php echo friendly_time($user_last_story['date']); ?></div>
@@ -180,7 +203,19 @@
                 <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
 
                 <div class="item" data-userid="<?php echo $uid; ?>">
-                    <div class="pic"><img src="<?php echo get_user_pp_by_id($uid); ?>" alt=""></div>
+                    <div class="pic">
+                        <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
+                        <svg viewbox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="gradient<?php echo $uid; ?>-s" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#d4d4d4" />
+                                <stop offset="100%" stop-color="#9f9f9f" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" stroke="url(#gradient<?php echo $uid; ?>-s)" cy="50" r="40"/>
+                        </svg>
+                    </div>
+
                     <div class="textual">
                         <div class="fullname"><?php echo $story_user['fullname']; ?></div>
                         <div class="time"><?php echo friendly_time($user_last_story['date']); ?></div>

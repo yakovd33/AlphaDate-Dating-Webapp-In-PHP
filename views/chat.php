@@ -19,7 +19,7 @@
 
         <div id="floating-chat-connected-users">
             <?php
-                $recent_chats = $GLOBALS['link']->query("(SELECT users.* FROM `users` INNER JOIN `messages` ON (`users`.`id` = `messages`.`from_id` OR `users`.`id` = `messages`.`to_id`) AND (`messages`.`from_id` = {$_SESSION['user_id']} OR `messages`.`to_id` = {$_SESSION['user_id']}) AND `users`.`id` <> {$_SESSION['user_id']} GROUP BY `users`.`id`)");
+                $recent_chats = $GLOBALS['link']->query("(SELECT users.* FROM `users` INNER JOIN `messages` ON (`users`.`id` = `messages`.`from_id` OR `users`.`id` = `messages`.`to_id`) AND (`messages`.`from_id` = {$_SESSION['user_id']} OR `messages`.`to_id` = {$_SESSION['user_id']}) AND `users`.`id` <> {$_SESSION['user_id']} " . get_banned_user_by_col('from_id') . get_banned_user_by_col('to_id') . " GROUP BY `users`.`id`)");
                 $recent_chat_groups = $GLOBALS['link']->query("SELECT `group_id` FROM `messages` WHERE 1 " . get_user_chatgroup_list_by_col('group_id') . " GROUP BY `group_id`");
 
                 $total_chats = [];
@@ -124,7 +124,7 @@
                         $sender = get_user_row_by_id($message['from_id']);
                         $message_final = [
                             'userid' => $message['from_id'],
-                            'text' => nl2br($message['message']),
+                            'text' => emojify_message(nl2br($message['message'])),
                             'date' => $message['date'],
                             'isSelf' => ($message['from_id'] == $_SESSION['user_id']),
                             'image' => $message_image,
@@ -223,4 +223,15 @@
 
         <div class="chat-list-unread-msgs-marker">{{ unread_messages }}</div>
     </div>
+</script>
+
+<script>
+    setTimeout(() => {
+        window.emojiPicker = new EmojiPicker({
+        emojiable_selector: '[data-emojiable=true]',
+        assetsPath: URL + '/img/emojis',
+        popupButtonClasses: 'fas fa-smile-o'
+        });
+        window.emojiPicker.discover();
+    }, 1000);
 </script>

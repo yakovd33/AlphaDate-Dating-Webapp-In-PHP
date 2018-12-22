@@ -107,14 +107,13 @@ function open_chatbox (userid) {
                 $("#chat-boxes .chat-box:last-child").remove();
             }
 
-            console.log(response);
             response_parsed = JSON.parse(response);
             var source = $("#chatbox-template").html();
             var template = Handlebars.compile(source);
-            console.log(response_parsed.messages);
             var context = { userid: response_parsed.userid, fullname: response_parsed.fullname, messages: response_parsed.messages, isFolded: false, isLogged: response_parsed.isLogged, style: 'display: none' };
             var html = template(context);
             $("#chat-boxes").prepend(html);
+            
             chatbox_options();
 
             $(".chat-box[data-userid='" + response_parsed.userid + "']").slideDown(250);
@@ -151,6 +150,7 @@ function open_group_chatbox (groupid) {
             var context = { groupid: response_parsed.groupid, group_name: response_parsed.name, messages: response_parsed.messages, isFolded: false, isLogged: false, style: 'display: none' };
             var html = template(context);
             $("#chat-boxes").prepend(html);
+
             chatbox_options();
 
             $(".chat-box[data-groupid='" + response_parsed.groupid + "']").slideDown(250);
@@ -163,20 +163,38 @@ function open_group_chatbox (groupid) {
 
 // Send message
 function sendMessages () {
-    $.each($(".new-message-input"), function () {
-        $(this).unbind("keydown").keydown(function (e) {
-            if (e.which == 13 && !e.shiftKey) {
-                if ($(this).html().trim().length > 0) {
-                    data = new FormData();
-                    data.append('text', $(this).html());
+    $.each($(".emoji-wysiwyg-editor"), function () {
+        element = $(this).parent().find(".new-message-input[data-type='original-input']");
 
-                    if ($(this).attr('data-userid') != "") {
-                        data.append('userid', $(this).data('userid'));
+        $(this).unbind("keydown").keydown(function (e) {
+            console.log(e);
+            if (e.which == 13 && !e.shiftKey) {
+                console.log('send');
+
+                original_html = $(this).html();
+                
+                $.each($(this).find("img"), function () {
+                    $(this).removeAttr('style').removeAttr('src').removeAttr('data-x').removeAttr('data-y');
+                });
+
+                html = $(this).html();
+                $(this).parent().find(".original-html-holder").html(original_html);
+
+                while (html.search('<img class="img" alt="') >= 0) {
+                    html = html.replace('<img class="img" alt="', '').replace('">', '');
+                }
+                
+                if (html.trim().length > 0) {
+                    data = new FormData();
+                    data.append('text', html);
+
+                    if ($(element).attr('data-userid') != "") {
+                        data.append('userid', $(element).data('userid'));
 
                         // Hide chat read indicator
-                        $(".chat-box[data-userid='" + $(this).data('userid') + "'] .read-indicator").removeClass("read");
-                    } else if ($(this).attr('data-groupid') != "") {
-                        data.append('groupid', $(this).data('groupid'));
+                        $(".chat-box[data-userid='" + $(element).data('userid') + "'] .read-indicator").removeClass("read");
+                    } else if ($(element).attr('data-groupid') != "") {
+                        data.append('groupid', $(element).data('groupid'));
                     }
                     
                     $.ajax({
@@ -192,22 +210,22 @@ function sendMessages () {
                             var source = $("#chat-message-template").html();
                             var template = Handlebars.compile(source);
                             var context = { message: {
-                                text: $(this).html(),
+                                text: $(this).parent().find(".original-html-holder").html(),
                                 isSelf: true,
                                 time: 'עכשיו'
                             } };
                             var html = template(context);
-                            $(this).parent().parent().find(".chat-content-wrap .messages").append(html);
+                            $(element).parent().parent().find(".chat-content-wrap .messages").append(html);
 
                             $(this).html('');
 
-                            $(this).parent().parent().find(".chat-content-wrap").scrollTop($(this).parent().parent().find(".chat-content-wrap").prop('scrollHeight'));
+                            $(element).parent().parent().find(".chat-content-wrap").scrollTop($(element).parent().parent().find(".chat-content-wrap").prop('scrollHeight'));
                         }
                     });
                 }           
             }
         })
-    })
+    });
 }
 
 // Close chatbox
@@ -294,7 +312,6 @@ function message_listen () {
         // Listens for messages every 22 seconds if there aren't open chatboxes
         
         if ((($(".chat-box").length > 0 && listen_seconds % 5 == 0) || ($(".chat-box").length == 0 && listen_seconds % 22 == 0)) && listen_seconds != 0) {
-            console.log(listen_seconds);
             $.ajax({
                 url: URL + '/messages_listen/',
                 processData: false,
@@ -502,11 +519,24 @@ function chatbox_options () {
             $(this).find(".new-message-input").focus();
         });
     });
+
+    $.each($(".emoji-selection-trigger"), function () {
+        $(this).unbind("click").click(function () {
+            // if ($(".chat-box").hasClass("emoji"));
+            // $([0]).toggleClass("emoji");
+
+            if ($(this).parent().parent().parent().find(".emoji-menu").css('display') != 'block') {
+                $(this).parent().parent().find(".emoji-picker-icon").click();
+            } else {
+                $(this).parent().parent().parent().find(".emoji-menu").fadeOut();
+            }
+        })
+    })
 }
 
 // For fullscreen chat
 if (!is_fullscreen_chat) {
-    chatbox_options();
+    setTimeout(chatbox_options, 1000);
 }
 
 // Typing...

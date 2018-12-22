@@ -32,39 +32,39 @@ $("#forgot-poassword-form").submit(function (e) {
     });
 });
 
-$("#password-reset-form-wrap").submit(function (e) {
-    e.preventDefault();
+// $("#password-reset-form-wrap").submit(function (e) {
+//     e.preventDefault();
 
 
-    if ($("#password-reset-first-input").val().length > 0 && $("#password-reset-second-input").val().length > 0) {
-        if ($("#password-reset-first-input").val() == $("#password-reset-second-input").val()) {
-            data = new FormData();
-            data.append('password', $("#password-reset-first-input").val());
-            data.append('token', $("#password-reset-token").val());
+//     if ($("#password-reset-first-input").val().length > 0 && $("#password-reset-second-input").val().length > 0) {
+//         if ($("#password-reset-first-input").val() == $("#password-reset-second-input").val()) {
+//             data = new FormData();
+//             data.append('password', $("#password-reset-first-input").val());
+//             data.append('token', $("#password-reset-token").val());
             
-            $.ajax({
-                url: URL + '/change_password/',
-                processData: false,
-                contentType: false,
-                method : 'POST',
-                data : data,
-                success: function (response) {
-                    console.log(response);
+//             $.ajax({
+//                 url: URL + '/change_password/',
+//                 processData: false,
+//                 contentType: false,
+//                 method : 'POST',
+//                 data : data,
+//                 success: function (response) {
+//                     console.log(response);
 
-                    if (response == 'success') {
-                        location.href = URL + '/?password_changed';
-                    }
-                }
-            });
-        } else {
-            $("#password-change-feedback").text('על הסיסמאות להיות זהות.');
-        }
-    } else {
-        $("#password-change-feedback").text('יש לוודא שאין שדות ריקים.');
-    }
-});
+//                     if (response == 'success') {
+//                         location.href = URL + '/?password_changed';
+//                     }
+//                 }
+//             });
+//         } else {
+//             $("#password-change-feedback").text('על הסיסמאות להיות זהות.');
+//         }
+//     } else {
+//         $("#password-change-feedback").text('יש לוודא שאין שדות ריקים.');
+//     }
+// });
 
-$("#password-reset-bg").click(function () {
-    $("#password-reset-form-wrap").hide();
-    $(this).hide();
-});
+// $("#password-reset-bg").click(function () {
+//     $("#password-reset-form-wrap").hide();
+//     $(this).hide();
+// });

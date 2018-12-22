@@ -25,6 +25,7 @@
             $hon_query .= " AND `id` <> " . $_SESSION['user_id'];
             $hon_query .= " AND `is_in_hot_or_not`";
             $hon_query .= get_user_blocked_user_by_col('id');
+            $hon_query .= get_banned_user_by_col('id');
 
             $hon_query .= " ORDER BY `popularity` DESC";
 
@@ -128,6 +129,7 @@
                 $user_info['age'] = $final_user['age'];
                 $user_info['city'] = $final_user['city'];
                 $user_info['popularity'] = get_user_popularity($final_user['id']);
+                $user_info['gender'] = ($final_user['gender'] == 'male' ? 'גבר' : 'אישה');
                 $user_info['num_images'] = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$final_user['id']}")->rowCount();
                 $user_info['images'] = get_user_hon_pics($final_user['id']);
 
@@ -149,6 +151,7 @@
                 $user_info['age'] = $final_user['age'];
                 $user_info['city'] = $final_user['city'];
                 $user_info['popularity'] = get_user_popularity($final_user['id']);
+                $user_info['gender'] = ($final_user['gender'] == 'male' ? 'גבר' : 'אישה');
                 $user_info['num_images'] = $pics_count;
                 $user_info['images'] = get_user_hon_pics($final_user['id']);
             } else {

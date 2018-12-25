@@ -60,7 +60,7 @@
 
     <div id="hon-pics-selector-order-message">*סדר התמונות ייבחר אוטומטית לפי התמונות שיביאו לכם הכי הרבה התאמות</div>
 
-    <button id="add-image" class="cute-btn" style="float: right; <?php if (get_user_num_hon_pics($_SESSION['user_id']) >= 6) { echo 'display: none;'; } ?>"><i style="margin-left: 5px;" class="fas fa-camera"></i> הוסף תמונה</button>
+    <button id="add-image" class="cute-btn" style="float: right; <?php if (get_user_num_hon_pics($_SESSION['user_id']) >= 6) { echo 'display: none;'; } ?>"><i style="margin-left: 5px;" class="fas fa-camera"></i> <?php echo genderize_text('הוסף'); ?> תמונה</button>
     <button id="close-hon-pics-selector" class="cute-btn mr-auto" style="background: #fff; color: #c03b2b; display: block;">סגור</button>
     <input type="file" accept="image/x-png,,image/jpeg" id="hon-pic-selector-new-pic">
 </div>

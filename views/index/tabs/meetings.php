@@ -34,6 +34,10 @@
                     <div class="pp" style="background-image: url(<?php echo get_user_pp_by_id($profile['id']); ?>);">
                         <img src="<?php echo get_user_pp_by_id($profile['id']); ?>" style="visibility: hidden">
                         <div class="send-message-btn chatbox-trigger" data-userid="<?php echo $profile['id']; ?>"><i class="fas fa-comment-alt"></i></div>
+
+                        <?php if ($_GET['type'] == 'memories') : ?>
+                            <div class="set-date-btn" data-userid="<?php echo $profile['id']; ?>"><i class="fas fa-clock"></i></div>
+                        <?php endif; ?>
                     </div>
                 </a>
 

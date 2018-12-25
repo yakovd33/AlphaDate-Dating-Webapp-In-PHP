@@ -137,7 +137,7 @@
 
                     <div id="feed-posts">
                         <?php
-                            $posts_query = "SELECT * FROM `posts` WHERE `user_id` = {$id} AND NOT `is_anonymous` ORDER BY `date` DESC LIMIT " . get_setting('posts_per_page');
+                            $posts_query = "SELECT * FROM `posts` WHERE `user_id` = {$id} AND NOT `is_anonymous` AND NOT `is_deleted` ORDER BY `date` DESC LIMIT " . get_setting('posts_per_page');
                             $posts_stmt = $GLOBALS['link']->query($posts_query);
                         ?>
 
@@ -160,10 +160,17 @@
                                     'hearted' => $GLOBALS['link']->query("SELECT * FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0,
                                     'isPic' => $post['image_id'] == null ? 'noPic' : 'yesPic',
                                     'image' => $post['image_id'] == null ? '' : $URL . '/' . get_image_path_by_id($post['image_id']),
+                                    'self' => $post['user_id'] == $_SESSION['user_id'] ? 'self' : ''
                                 ]);
                             }
                         ?>
+
+                        <?php if ($posts_stmt->rowCount() == 0) : ?>
+                            <p style="color: #999">אין לפרופיל זה פעילות להצגה.</p>
+                        <?php endif; ?>
                     </div>
+
+                    <div id="feed-loader"></div>
 
                     <script id="post-template" type="text/x-handlebars-template">
                         <?php include 'templates/post.hbs'; ?>

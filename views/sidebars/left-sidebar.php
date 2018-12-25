@@ -73,6 +73,10 @@
 <?php endif; ?>
 
 <div class="card" id="main-sidebar-profile-card">
+    <?php if (is_premium()) : ?>
+        <div id="user-is-premium"></div>
+    <?php endif; ?>
+
     <div id="main-sidebar-profile-card-visual">
         <div id="main-sidebar-profile-card-pp"><img src="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>" alt=""></div>
         <div id="main-sidebar-profile-card-textuals">
@@ -107,7 +111,7 @@
         <div id="sidebar-story-items-list" class="story-list">
             <div id="sidebar-story-add-btn">
                 <div class="icon"><i class="fas fa-plus"></i></div>
-                <div class="text">הוסף לסטורי שלך</div>
+                <div class="text"><?php echo genderize_text('הוסף'); ?> לסטורי שלך</div>
             </div>
 
             <?php
@@ -226,7 +230,7 @@
     </div>
 
     <div id="sidebar-credit">
-        <a href="<?php echo $URL; ?>/contact/" class="footer-link">צור קשר</a>
+        <a href="<?php echo $URL; ?>/contact/" class="footer-link"><?php echo genderize_text('צור'); ?> קשר</a>
         <a href="<?php echo $URL; ?>/about/" class="footer-link">אודות</a>
         <a href="<?php echo $URL; ?>/terms/" class="footer-link">תנאי שימוש</a>
         <a href="<?php echo $URL; ?>/contact/" class="footer-link">תכנית שותפים</a>

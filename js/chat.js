@@ -520,18 +520,31 @@ function chatbox_options () {
         });
     });
 
+    $(function() {
+        window.emojiPicker = new EmojiPicker({
+        emojiable_selector: '[data-emojiable=true]',
+        assetsPath: URL + '/img/emojis',
+        popupButtonClasses: 'fas fa-smile-o'
+        });
+        window.emojiPicker.discover();
+    });
+
     $.each($(".emoji-selection-trigger"), function () {
         $(this).unbind("click").click(function () {
             // if ($(".chat-box").hasClass("emoji"));
             // $([0]).toggleClass("emoji");
+
+            console.log($(this).parent().parent().find(".emoji-wysiwyg-editor"));
+
+            setCursorToEnd($(this).parent().parent().find(".emoji-wysiwyg-editor"));
 
             if ($(this).parent().parent().parent().find(".emoji-menu").css('display') != 'block') {
                 $(this).parent().parent().find(".emoji-picker-icon").click();
             } else {
                 $(this).parent().parent().parent().find(".emoji-menu").fadeOut();
             }
-        })
-    })
+        });
+    });
 }
 
 // For fullscreen chat
@@ -642,7 +655,7 @@ $.each($("#new-group-popup-members-select-list .member"), function () {
 
 $("#new-group-popup").submit(function (e) {
     e.preventDefault();
-
+    
     if ($("#new-group-name").val().length > 0 && $("input[name='group_members[]']:checked").length > 1) {
         $.post(URL + '/new_group/', $(this).serialize(), function (group_id) {
             $("#popups-bg").click();

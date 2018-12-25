@@ -7,6 +7,11 @@
         return (isset($_SESSION['user_id']) && $_SESSION['user_id'] != 0);
     }
 
+    function is_premium () {
+        $user = get_user_row_by_id($_SESSION['user_id']);
+        return ($user['is_premium']);
+    }
+
     function in_development () {
         return true;
     }
@@ -56,25 +61,24 @@
                 switch ($male_form) {
                     case 'כתוב' :
                         return 'כתבי';
-                        break;
                     case 'שלח' :
                         return 'שלחי';
-                        break;
                     case 'חסום' :
                         return 'חסמי';
-                        break;
-
                     case 'רווק' :
                         return 'רווקה';
-                        break;
-
                     case 'גרוש' :
                         return 'גרושה';
-                        break;
-
                     case 'אלמן' :
                         return 'אלמנה';
-                        break;
+                    case 'קנה' :
+                        return 'קני';
+                    case 'הוסף' :
+                        return 'הוסיפי';
+                    case 'צור' :
+                        return 'צרי';
+                    case 'יצר' :
+                        return 'יצרה';
                 }
             } else {
                 return $male_form;
@@ -411,5 +415,9 @@
         }
 
         return $msg;
+    }
+
+    function js_redirect($url) {
+        echo '<script>location.href = "' . $url . '"</script>';
     }
 ?>

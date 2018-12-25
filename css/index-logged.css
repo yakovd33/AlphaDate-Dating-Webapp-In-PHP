@@ -221,7 +221,7 @@ div#current-hot-or-not-location {
 }
 
 #current-hot-or-not-heart {
-    background-image: url("../img/icons/heart.svg");
+    /* background-image: url("../img/icons/heart.svg"); */
     border-color: #C03B2B;
     background-position: 50% calc(50% + 2px);
     background-size: 50%;
@@ -232,7 +232,7 @@ div#current-hot-or-not-location {
     background-image: url("../img/icons/pass.svg");
     border-color: #D8D8D9;
     background-color: #fff;
-    background-size: 50%;
+    background-size: 30%;
 }
 
 .current-hot-or-not-option-small {
@@ -393,6 +393,31 @@ div#current-hot-or-not-location {
     color: #ad3a2c;
     font-weight: bold;
 }
+
+/* Like animation */
+#current-hot-or-not-heart {
+    cursor: pointer;
+    background-image: url('../img/heart.png');
+    background-size: cover;
+    background-position: 0 3px;
+}
+  
+#current-hot-or-not-heart:hover{
+    animation-name: like;
+    animation-duration: .8s;
+    animation-timing-function: steps(28);
+    animation-fill-mode: forwards;
+    background-position: 0 3px;
+}
+
+@keyframes like {
+    0%{
+      background-position: 0 3px;
+    }
+    100% {
+      background-position: right 3px;
+    }
+  }
 
 @media screen and (min-width: 768px) {
     .index-main-col:not(.profiles) {

@@ -13,7 +13,7 @@
                     $resp['posts'] = [];
 
                     if (!isset($_POST['userid'])) {
-                        $posts_query = "SELECT * FROM `posts` WHERE 1 ";
+                        $posts_query = "SELECT *, `hearts` + `comments` AS `hotness` FROM `posts` WHERE 1 ";
                         $posts_query .= get_user_blocked_user_by_col('user_id');
                         $posts_query .= get_banned_user_by_col('user_id');
                         $posts_query .= " AND NOT `is_deleted`";
@@ -57,7 +57,8 @@
                             'num_hearts' => $num_hearts,
                             'num_comments' => $num_comments,
                             'hearted' => $GLOBALS['link']->query("SELECT * FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0,
-                            'user_pic' => get_user_pp_by_id($post['user_id'])
+                            'user_pic' => get_user_pp_by_id($post['user_id']),
+                            'self' => $post['user_id'] == $_SESSION['user_id'] ? 'self' : ''
                         ]);
                     }
 

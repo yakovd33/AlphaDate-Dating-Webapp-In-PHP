@@ -43,3 +43,28 @@
 .meeting-filter-link.active {
     color: #c03b2b;
 }
+
+.set-date-btn {
+    position: absolute;
+    top: 100%;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #c03b2bf5;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    margin-top: -20px;
+    left: 60px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;   
+}
+
+.set-date-btn:hover {
+    background-color: #ad3a2c;
+}
+
+.profiles-tab-profile-card .textual {
+    padding-top: 17px;
+}

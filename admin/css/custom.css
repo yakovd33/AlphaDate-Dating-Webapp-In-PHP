@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/earlyaccess/opensanshebrew.css");
+
+body {
+    font-family: 'Open Sans Hebrew', sans-serif;
+    text-align: right;
+}
+
+.sidebar .sidebar-inner .sidebar-logo a .logo {
+    text-align: center;
+    padding-top: 16px;
+}
+
+.sidebar {
+    display: none;
+}
+
+.header .header-container .nav-left {
+    direction: rtl;
+    display: flex;
+}
+
+.table td, .table th {
+    text-align: right;
+}
+
+#mainContent {
+    padding: 0 100px;
+}
+
+.dataTables_info {
+    display: none;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: left !important;
+    direction: rtl !important;
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+    background-position: center left;
+}

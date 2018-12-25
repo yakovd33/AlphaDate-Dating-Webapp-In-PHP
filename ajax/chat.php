@@ -300,7 +300,10 @@
                         $GLOBALS['link']->query("INSERT INTO `chat_groups`(`name`, `user_id`) VALUES ('{$name}', {$_SESSION['user_id']})");
                         echo $group_id = $GLOBALS['link']->lastInsertId();
 
-                        $GLOBALS['link']->query("INSERT INTO `messages`(`from_id`, `message`, `group_id`) VALUES ({$_SESSION['user_id']}, 'יצר את הקבוצה', {$group_id})");
+
+                        
+                        $create_message_text = genderize_text('יצר') . ' את הקבוצה';
+                        $GLOBALS['link']->query("INSERT INTO `messages`(`from_id`, `message`, `group_id`) VALUES ({$_SESSION['user_id']}, '{$create_message_text}', {$group_id})");
                         $message_id = $GLOBALS['link']->lastInsertId();
 
                         // Add group members

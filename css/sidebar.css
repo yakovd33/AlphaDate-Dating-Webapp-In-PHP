@@ -1,3 +1,7 @@
+#main-sidebar-profile-card {
+    position: relative;
+}
+
 #main-sidebar-profile-card-pp img {
     height: 65px;
     width: 65px;
@@ -185,6 +189,33 @@
     height: 32px;
     line-height: 32px;
     margin-top: 1px;
+    position: relative;
+}
+
+#right-sidebar-links .link.premium-link {
+    opacity: 0.5;
+}
+
+#right-sidebar-links .link.premium-link:after {
+    content: "";
+    background-image: url("../img/premium-icon.png");
+    height: 20px;
+    width: 20px;
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#user-is-premium {
+    background-image: url("../img/premium-icon.png");
+    height: 20px;
+    width: 20px;
+    background-size: cover;
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
 
 #right-sidebar-links .link.active {
@@ -385,7 +416,7 @@
     padding: 10px;
     border-radius: 5px;
     background-color: #fff;
-    position: absolute;
+    position: fixed;
     width: 280px;
     z-index: 9999;
     display: none;
@@ -393,6 +424,7 @@
     left: -50%;
     margin-left: -33px;
     transform: translateX(25%);
+    z-index: 9999999;
 }
 
 #change-prefrences-bar-arrow {
@@ -1053,5 +1085,11 @@
 
     #new-story-pic img {
         max-height: 55vh;
+    }
+
+    #change-prefrences-bar {
+        position: fixed;
+        left: 50% !important;
+        top: 50% !important; 
     }
 }

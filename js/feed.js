@@ -66,7 +66,7 @@ $("#post-upload-form").submit(function (e) {
                     num_comments: 0,
                     hearted: false,
                     user_pic: user_pic,
-                    anonymous: anonymous
+                    anonymous: anonymous,
                 };
 
                 if ($("#new-post-pic-input")[0].files.length > 0) {
@@ -184,84 +184,87 @@ posts_comments();
 // Lazyload
 $(window).scroll(function () {  
     if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-        if (!hasFeedEnded) {
-            feedPage++;
+        setTimeout(function () {
+            if (!hasFeedEnded) {
+                feedPage++;
 
-            if (isMainFeed) {
-                $.ajax({
-                    url: URL + '/get-main-feed-page/' + feedPage,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        console.log(response);
-                        
-                        response_json = JSON.parse(response);
+                if (isMainFeed) {
+                    $.ajax({
+                        url: URL + '/get-main-feed-page/' + feedPage,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            console.log(response);
+                            
+                            response_json = JSON.parse(response);
 
-                        if (response_json.posts.length < postsPerPage) {
-                            // No more posts
-                            hasFeedEnded = false;
+                            if (response_json.posts.length < postsPerPage) {
+                                // No more posts
+                                hasFeedEnded = false;
+                            }
+
+                            for (i = 0; i < response_json.posts.length; i++) {
+                                console.log(response_json.posts[i].postid);
+                                var template = Handlebars.compile($('#post-template').html());
+                                var context = {
+                                    postid: response_json.posts[i].postid,
+                                    userid: response_json.posts[i].userid,
+                                    fullname: response_json.posts[i].fullname,
+                                    text: response_json.posts[i].text,
+                                    time: response_json.posts[i].time,
+                                    num_hearts: response_json.posts[i].num_hearts,
+                                    num_comments: response_json.posts[i].num_comments,
+                                    hearted: response_json.posts[i].hearted,
+                                    user_pic: response_json.posts[i].user_pic,
+                                    self: response_json.posts[i].self
+                                };
+                                var html = template(context);
+                                $("#feed-posts").append(html);
+                            }
                         }
+                    });
+                } else if (isProfileFeed) {
+                    data = new FormData();
+                    data.append('userid', profileid);
 
-                        for (i = 0; i < response_json.posts.length; i++) {
-                            console.log(response_json.posts[i].postid);
-                            var template = Handlebars.compile($('#post-template').html());
-                            var context = {
-                                postid: response_json.posts[i].postid,
-                                userid: response_json.posts[i].userid,
-                                fullname: response_json.posts[i].fullname,
-                                text: response_json.posts[i].text,
-                                time: response_json.posts[i].time,
-                                num_hearts: response_json.posts[i].num_hearts,
-                                num_comments: response_json.posts[i].num_comments,
-                                hearted: response_json.posts[i].hearted,
-                                user_pic: response_json.posts[i].user_pic
-                            };
-                            var html = template(context);
-                            $("#feed-posts").append(html);
+                    $.ajax({
+                        url: URL + '/get-main-feed-page/' + feedPage,
+                        processData: false,
+                        contentType: false,
+                        data: data,
+                        method: 'POST',
+                        success: function (response) {
+                            console.log(response);
+                            
+                            response_json = JSON.parse(response);
+
+                            if (response_json.posts.length < postsPerPage) {
+                                // No more posts
+                                hasFeedEnded = false;
+                            }
+
+                            for (i = 0; i < response_json.posts.length; i++) {
+                                console.log(response_json.posts[i].postid);
+                                var template = Handlebars.compile($('#post-template').html());
+                                var context = {
+                                    postid: response_json.posts[i].postid,
+                                    userid: response_json.posts[i].userid,
+                                    fullname: response_json.posts[i].fullname,
+                                    text: response_json.posts[i].text,
+                                    time: response_json.posts[i].time,
+                                    num_hearts: response_json.posts[i].num_hearts,
+                                    num_comments: response_json.posts[i].num_comments,
+                                    hearted: response_json.posts[i].hearted,
+                                    user_pic: response_json.posts[i].user_pic
+                                };
+                                var html = template(context);
+                                $("#feed-posts").append(html);
+                            }
                         }
-                    }
-                });
-            } else if (isProfileFeed) {
-                data = new FormData();
-                data.append('userid', profileid);
-
-                $.ajax({
-                    url: URL + '/get-main-feed-page/' + feedPage,
-                    processData: false,
-                    contentType: false,
-                    data: data,
-                    method: 'POST',
-                    success: function (response) {
-                        console.log(response);
-                        
-                        response_json = JSON.parse(response);
-
-                        if (response_json.posts.length < postsPerPage) {
-                            // No more posts
-                            hasFeedEnded = false;
-                        }
-
-                        for (i = 0; i < response_json.posts.length; i++) {
-                            console.log(response_json.posts[i].postid);
-                            var template = Handlebars.compile($('#post-template').html());
-                            var context = {
-                                postid: response_json.posts[i].postid,
-                                userid: response_json.posts[i].userid,
-                                fullname: response_json.posts[i].fullname,
-                                text: response_json.posts[i].text,
-                                time: response_json.posts[i].time,
-                                num_hearts: response_json.posts[i].num_hearts,
-                                num_comments: response_json.posts[i].num_comments,
-                                hearted: response_json.posts[i].hearted,
-                                user_pic: response_json.posts[i].user_pic
-                            };
-                            var html = template(context);
-                            $("#feed-posts").append(html);
-                        }
-                    }
-                });
+                    });
+                }
             }
-        }
+        }, 1500);
     }
 });
 
@@ -310,3 +313,61 @@ $("#new-post-pic-input").change(function () {
         }
     }
 });
+
+// Post options
+function toggle_post_options (postid) {
+    $(".post-card[data-id='" + postid + "'] .post-edit-menu").toggle(); 
+}
+
+function edit_post (postid) {
+    card = $(".post-card[data-id='" + postid + "']");
+
+    card.find(".pic").hide();
+    card.find(".post-actions").hide();
+    card.find(".post-edit-menu").hide();
+    card.find(".post-content .text").addClass("editable");
+    fldLength = card.find(".post-content .text").html().length;
+    card.find(".post-content .text").attr('contenteditable', 'plaintext-only').focus();
+    card.find(".post-update-text-btn").show();
+    setCursorToEnd(card.find(".post-content .text")[0]);
+}
+
+function update_post (postid) {
+    card = $(".post-card[data-id='" + postid + "']");
+
+    if (card.find(".post-content .text").html().length > 0) {
+        card.find(".pic").show();
+        card.find(".post-actions").show();
+        card.find(".post-content .text").removeClass("editable");
+        card.find(".post-update-text-btn").hide();
+        card.find(".post-content .text").removeAttr('contenteditable');
+
+        data = new FormData();
+        data.append('text', card.find(".post-content .text").html());
+        
+        $.ajax({
+            url: URL + '/post/update/' + postid + '/',
+            processData: false,
+            contentType: false,
+            method : 'POST',
+            data : data,
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
+}
+
+function delete_post (postid) {
+    $(".post-card[data-id='" + postid + "']").fadeOut();
+    
+    $.ajax({
+        url: URL + '/post/delete/' + postid + '/',
+        processData: false,
+        contentType: false,
+        method : 'POST',
+        success: function (response) {
+            console.log(response);
+        }
+    });
+}

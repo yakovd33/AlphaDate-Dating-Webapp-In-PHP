@@ -95,6 +95,31 @@
                 }
 
                 break;
+            case 'delete' :
+                // Post delete
+                if (isset($_GET['post_id'])) {
+                    $post_id = $_GET['post_id'];
+                    $GLOBALS['link']->query("UPDATE `posts` SET `is_deleted` = 1 WHERE `id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}");
+                }
+                break;
+            case 'update' :
+                if (isset($_GET['post_id'], $_POST['text'])) {
+                    $post_id = $_GET['post_id'];
+                    $text = htmlentities($_POST['text']);
+                    
+                    // Save old version
+                    $old_version_stmt = $GLOBALS['link']->query("SELECT * FROM `posts` WHERE `id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}");
+                    if ($old_version_stmt->rowCount() > 0) {
+                        $old_version = $old_version_stmt->fetch()['text'];
+
+                        if ($text != $old_version) {
+                            $GLOBALS['link']->query("INSERT INTO `posts_versions`(`post_id`, `text`) VALUES ({$post_id}, '{$old_version}')");
+                            $GLOBALS['link']->query("UPDATE `posts` SET `text` = '{$text}' WHERE `id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}");
+                        }
+                    }
+                }
+
+                break;
         }
     }
 ?>

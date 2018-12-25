@@ -8,7 +8,7 @@ RewriteRule ^(signin|join|logout|profile)(/?)$ index.php?page=$1 [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(feed|flowers|geo|friends-of-friends|profiles|matches|meetings)(/?)$ index.php?tab=$1 [L]
+RewriteRule ^(feed|flowers|geo|friends-of-friends|profiles|matches|meetings|premium)(/?)$ index.php?tab=$1 [L]
 RewriteRule ^(profiles)/([0-9]+)(/?)$ index.php?tab=$1&pagination=$2 [L]
 
 RewriteRule ^(profile)/([0-9]+)(/?)$ index.php?page=$1&id=$2 [L]
@@ -29,6 +29,8 @@ RewriteRule ^(messages_listen)(/?)$ ajax/chat.php?type=$1 [L,NC]
 RewriteRule ^(post)/(heart)/([0-9]+)(/?)$ ajax/post.php?type=$2&post_id=$3 [L,NC]
 RewriteRule ^(post)/(comment)(/?)$ ajax/post.php?type=$2&post_id=$3 [L,NC]
 RewriteRule ^(post)/(get_comments)(/?)$ ajax/post.php?type=$2&post_id=$3 [L,NC]
+RewriteRule ^(post)/(delete)/([0-9]+)(/?)$ ajax/post.php?type=$2&post_id=$3 [L,NC]
+RewriteRule ^(post)/(update)/([0-9]+)(/?)$ ajax/post.php?type=$2&post_id=$3 [L,NC]
 
 RewriteRule ^(send_flower)(/?)$ ajax/profile.php?type=$1 [L,NC]
 RewriteRule ^(upload_hon_pic)(/?)$ ajax/hon.php?type=$1 [L,NC]

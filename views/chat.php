@@ -194,7 +194,7 @@
         <?php endforeach; ?>
     </div>
 
-    <button class="cute-btn" style="float: left" type="submit">צור קבוצה</button>
+    <button class="cute-btn" style="float: left" type="submit"><?php echo genderize_text('צור'); ?> קבוצה</button>
     <div class="clearfix"></div>
 </form>
 

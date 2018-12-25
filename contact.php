@@ -26,7 +26,7 @@
 <?php include 'views/header.php'; ?>
     <link rel="stylesheet" href="<?php echo $URL; ?>/css/contact.css">
 
-    <h1 id="contact-form-title">צור קשר</h1>
+    <h1 id="contact-form-title"><?php echo genderize_text('צור'); ?> קשר</h1>
     <form class="cf" method="POST">
         <div class="halfs-group">
             <div class="half left cf">

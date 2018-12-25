@@ -73,6 +73,7 @@
                 'user_pic' => $post_userpic,
                 'anonymous' => $is_anonymous,
                 'isPic' => $post['image_id'] == null ? 'noPic' : 'yesPic',
+                'self' => $post['user_id'] == $_SESSION['user_id'] ? 'self' : ''
             ];
 
             if ($post['image_id']) {
@@ -83,6 +84,8 @@
         }
     ?>
 </div>
+
+<div id="feed-loader"></div>
 
 <script id="post-template" type="text/x-handlebars-template">
     <?php include 'templates/post.hbs'; ?>

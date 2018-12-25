@@ -1,4 +1,4 @@
-<div class="card post-card">
+<div class="card post-card {{ self }}" data-id="{{ postid }}">
     <div class="user-dets">
         <div class="post-card-pp">
             <a href="/AlphaDate/profile/{{ userid }}"><img src="{{ user_pic }}" class="{{ anonymous }}"></a>
@@ -10,14 +10,34 @@
                 <div class="time">{{ time }}</div>
             </a>
         </div>
+
+        <div class="post-edit-actions-toggle" onclick="toggle_post_options({{ postid }})">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="post-edit-menu">
+            <li class="post-edit" onclick="edit_post({{ postid }})" data-id="{{ postid }}">
+                <div class="icon"><i class="fas fa-pencil-alt"></i></div>
+                <div class="text">עריכה</div>
+            </li>
+
+            <li class="post-delete" onclick="delete_post({{ postid }})" data-id="{{ postid }}">
+                <div class="icon"><i class="fas fa-trash-alt"></i></div>
+                <div class="text">מחיקה</div>
+            </li>
+        </ul>
     </div>
 
     <div class="post-content">
-        <div class="text">{{#safe text }}{{/safe}}</div>
+        <div class="text" placeholder="שתף את העוקבים שלך...">{{#safe text }}{{/safe}}</div>
 
         <div class="pic">
             <img src="{{ image }}" class="{{ isPic }}">
         </div>
+
+        <a class="post-update-text-btn cute-btn" onclick="update_post({{ postid }})">עדכון</a>
     </div>
 
     <div class="post-actions">

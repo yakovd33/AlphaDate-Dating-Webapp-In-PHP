@@ -58,6 +58,7 @@ function next_hon () {
                     city: response_parsed.city,
                     gender: response_parsed.gender,
                     popularity: response_parsed.popularity,
+                    pp: response_parsed.pp,
                     num_images: response_parsed.num_images,
                     images: response_parsed.images,
                 };

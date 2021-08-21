@@ -64,6 +64,7 @@
             $args = [
                 'postid' => $post['id'],
                 'userid' => $post_userid,
+                'profile_hash' => $poster['profile_hash'],
                 'fullname' => $post_fullname,
                 'text' => nl2br($post['text']),
                 'time' => friendly_time($post['date']),

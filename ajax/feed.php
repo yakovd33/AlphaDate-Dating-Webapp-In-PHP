@@ -51,6 +51,7 @@
                         array_push($resp['posts'], [
                             'postid' => $post_id,
                             'userid' => $post['user_id'],
+                            'profile_hash' => $poster['profile_hash'],
                             'fullname' => $poster['fullname'],
                             'text' => nl2br($post['text']),
                             'time' => friendly_time($post['date']),

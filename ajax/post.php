@@ -21,12 +21,14 @@
                 }
 
                 if (!empty($text) || $photo) {
-                    if (isset($_POST['is_anonymous']) && $_POST['is_anonymous'] == 'true') {
-                        $anonymous = 1;
+                    if (get_user_row_by_id($_SESSION['user_id'])['is_premium']) {
+                        if (isset($_POST['is_anonymous']) && $_POST['is_anonymous'] == 'true') {
+                            $anonymous = 1;
 
-                        if (isset($_POST['anonymous_nickname'])) {
-                            if (!empty($_POST['anonymous_nickname'])) {
-                                $anonymous_nickname = addslashes(htmlentities($_POST['anonymous_nickname']));
+                            if (isset($_POST['anonymous_nickname'])) {
+                                if (!empty($_POST['anonymous_nickname'])) {
+                                    $anonymous_nickname = addslashes(htmlentities($_POST['anonymous_nickname']));
+                                }
                             }
                         }
                     }

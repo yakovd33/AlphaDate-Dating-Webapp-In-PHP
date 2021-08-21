@@ -52,6 +52,7 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 998;
+    padding: 0;
 }
 
 #empty-nav-logout-btn {
@@ -172,5 +173,9 @@
         font-size: 0.6em;
         margin-top: 5px;
         margin-right: 10px;
+    }
+
+    #empty-nav-logout-btn {
+        margin-left: 15px;
     }
 }

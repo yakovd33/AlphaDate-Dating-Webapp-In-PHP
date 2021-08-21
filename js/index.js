@@ -68,3 +68,23 @@ $("#forgot-poassword-form").submit(function (e) {
 //     $("#password-reset-form-wrap").hide();
 //     $(this).hide();
 // });
+
+$("#join-btn").click(function () {
+    $("#hero-signup-card-content").hide(200);
+    $("#signup-fields").show(200);
+})
+
+// Ajax signup
+$("#signup-form-2").submit(function (e) {
+    e.preventDefault();
+
+    $.post($(this).attr('action'), $(this).serialize(), function(response) {
+        console.log(response);
+        
+        if (response != 'success') {
+            $("#signup-form-feedback-2").show().text(response);
+        } else {
+            location.reload();
+        }
+    });
+});

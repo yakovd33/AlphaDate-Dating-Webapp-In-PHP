@@ -1,19 +1,25 @@
 <div id="current-hot-or-not-profile-top">
     <div class="textual">
-        <div>
-            <div id="current-hot-or-not-name-and-age">
-                <a href="/profile/{{ userid }}"><span id="current-hot-or-not-profile-name">{{ fullname }}</span></a>
-                <span id="current-hot-or-not-profile-age">, {{ age }}</span>
-            </div>
-
-            <div id="current-hot-or-not-location">
-                {{ gender }} | {{ city }}
-            </div>
+        <div id="current-hot-or-not-profile-top-pp">
+            <img src="{{ pp }}">
         </div>
 
-        <div id="approval-rates">
-            <img src="img/icons/flame.svg" alt="">
-            {{ popularity }}%
+        <div class="inner">
+            <div>
+                <div id="current-hot-or-not-name-and-age">
+                    <a href="/profile/{{ userid }}/{{ profile_hash }}"><span id="current-hot-or-not-profile-name">{{ fullname }}</span></a>
+                    <span id="current-hot-or-not-profile-age">, {{ age }}</span>
+                </div>
+
+                <div id="current-hot-or-not-location">
+                    {{ gender }} | {{ city }}
+                </div>
+            </div>
+
+            <div id="approval-rates">
+                <img src="img/icons/flame.svg" alt="">
+                {{ popularity }}%
+            </div>
         </div>
     </div>
 </div>

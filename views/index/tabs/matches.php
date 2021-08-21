@@ -20,7 +20,7 @@
         <?php $profile = get_user_row_by_id($match_user_id); ?>
         <div class="profiles-tab-profile-wrap">
             <div class="profiles-tab-profile-card">
-                <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
+                <a href="<?php echo $URL; ?>/profile/<?php echo $profile['profile_hash']; ?>/">
                     <div class="pp" style="background-image: url(<?php echo get_user_pp_by_id($profile['id']); ?>);">
                             <img src="<?php echo get_user_pp_by_id($profile['id']); ?>" style="visibility: hidden">
                         <div class="send-message-btn chatbox-trigger" data-userid="<?php echo $profile['id']; ?>"><i class="fas fa-comment-alt"></i></div>

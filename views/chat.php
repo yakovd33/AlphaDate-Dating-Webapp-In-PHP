@@ -52,6 +52,8 @@
                         $user_id = $chat['from_id'] != $_SESSION['user_id'] ? $chat['from_id'] : $chat['to_id'];
                         $chat_user = get_user_row_by_id($user_id);
                     }
+
+                    $last_msg = strlen($chat['message']) > 30 ? mb_substr($chat['message'], 0, 30)."..." : $chat['message'];
                 ?>
 
                 <div class="item chatbox-trigger" data-userid="<?php if ($is_user) { echo $chat_user['id']; } ?>" data-groupid="<?php if ($is_group) { echo $group['id']; } ?>">
@@ -73,9 +75,7 @@
                             <?php endif; ?>
                         </div>
 
-                        <?php if ($is_user) : ?>
-                            <div class="distance"><?php echo $chat_user['city']; ?></div>
-                        <?php endif; ?>
+                        <div class="distance"><?php echo $last_msg; ?></div>
                     </div>
 
                     <div class="chat-list-unread-msgs-marker">
@@ -140,6 +140,7 @@
                     if ($chatbox['to_id']) {
                         $chatbox_args = [
                             'userid' => $chatbox['to_id'],
+                            'profile_hash' => $to_user['profile_hash'],
                             'fullname' => $to_user['fullname'],
                             'messages' => $chat_messages,
                             'isFolded' => $chatbox['is_folded'],
@@ -218,7 +219,7 @@
                                     
         <div class="textual">
             <div class="fullname">{{ fullname }}</div>
-            <div class="distance">{{ city }}</div>
+            <div class="distance">{{ last_msg }}</div>
         </div>
 
         <div class="chat-list-unread-msgs-marker">{{ unread_messages }}</div>

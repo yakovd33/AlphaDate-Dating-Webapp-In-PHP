@@ -34,7 +34,7 @@
     <div id="right-sidebar-links">
         <a href="<?php echo $URL; ?>" class="link <?php if ($tab == 'hot-or-not') { echo 'active'; } ?>"><span><img src="<?php echo $URL; ?>/img/meetings-icon.png">היכרויות</span> <span class="nav-link-filter-icon" id="hot-or-not-nav-link-options"></span></a>
         <a href="<?php echo $URL; ?>/feed/" class="link <?php if ($tab == 'feed') { echo 'active'; } ?>"><span><img src="<?php echo $URL; ?>/img/feed-icon.png">הפיד</span></a>
-        <a href="<?php echo $URL; ?>/profiles/" class="link <?php if (!is_premium()) { echo 'premium-link'; } ?> <?php if ($tab == 'profiles') { echo 'active'; } ?>" <?php if (!is_premium()) { echo 'onclick="event.preventDefault()"'; } ?>><span><img src="<?php echo $URL; ?>/img/profiles-icon.png">פרופילים</span></a>
+        <a href="<?php echo $URL; ?><?php if (!is_premium()) { echo '/premium/'; } else { echo '/profiles/'; } ?>" class="link <?php if (!is_premium()) { echo 'premium-link'; } ?> <?php if ($tab == 'profiles') { echo 'active'; } ?>"><span><img src="<?php echo $URL; ?>/img/profiles-icon.png">פרופילים</span></a>
         <a href="<?php echo $URL; ?>/flowers/" class="link <?php if ($tab == 'flowers') { echo 'active'; } ?>"><span><img src="<?php echo $URL; ?>/img/flowers-icon.png">פרחים</span></a>
         <a href="<?php echo $URL; ?>/matches/" class="link <?php echo $URL; ?>/matches/ <?php if ($tab == 'matches') { echo 'active'; } ?>"><span><img src="<?php echo $URL; ?>/img/matches-icon.png">התאמות</span> <?php if (get_user_unseen_matches_num() > 0) : ?> <span class="rigt-sidebar-item-num"><?php echo get_user_unseen_matches_num(); ?></span> <?php endif; ?></a>
         <a href="<?php echo $URL; ?>/meetings/" class="link <?php echo $URL; ?>/meetings/ <?php if ($tab == 'meetings') { echo 'active'; } ?>"><span><img src="<?php echo $URL; ?>/img/dating-icon.png">פגישות  </span> <?php if (get_user_unseen_meetings_requests_num() > 0) : ?> <span class="rigt-sidebar-item-num"><?php echo get_user_unseen_meetings_requests_num(); ?></span> <?php endif; ?></a>
@@ -42,16 +42,19 @@
 
 
     <div id="right-sidebar-paid-heads">
-        <?php $paid_heads = $GLOBALS['link']->query("SELECT * FROM `paid_heads` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) ORDER BY `date` DESC LIMIT 10"); ?>
+        <?php
+            // $paid_heads = $GLOBALS['link']->query("SELECT * FROM `paid_heads` WHERE `date` > DATE_SUB(NOW(), INTERVAL 1 DAY) ORDER BY `date` DESC LIMIT 10");
+            $paid_heads = $GLOBALS['link']->query("SELECT * FROM `users` WHERE `is_premium` ORDER BY RAND() LIMIT 7");
+        ?>
         
         <div class="head" id="add-head">
             
         </div>
 
         <?php while ($head = $paid_heads->fetch()) : ?>
-            <a href="<?php echo $URL; ?>/profile/<?php echo $head['user_id']; ?>">
+            <a href="<?php echo $URL; ?>/profile/<?php echo $head['id']; ?>/<?php echo $head['profile_hash']; ?>/">
                 <div class="head">
-                    <img src="<?php echo get_user_pp_by_id($head['user_id']); ?>">
+                    <img src="<?php echo get_user_pp_by_id($head['id']); ?>">
                 </div>
             </a>
         <?php endwhile; ?>

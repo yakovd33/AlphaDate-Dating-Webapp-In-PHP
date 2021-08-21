@@ -51,8 +51,6 @@ body {
     background-color: #fff;
     padding: 15px 30px;
     border-radius: 35px;
-    display: flex;
-    justify-content: space-between;
     margin-top: 30px;
     text-align: right;
     width: 80%;
@@ -60,7 +58,16 @@ body {
     bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+#hero-signup-card-content {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+#signup-with-facebook-btn {
+    text-align: center;
 }
 
 #hero-signup-card input[type="submit"] {
@@ -84,6 +91,10 @@ body {
     padding-left: 45px;
     padding-right: 15px;
     background: url("../img/homepage/icons/select-icon.png") #ebebeb no-repeat 15px !important;
+}
+
+#signup-fields {
+    display: none;
 }
 
 /* Features section */
@@ -294,6 +305,7 @@ body {
 
     #hero-section {
         min-height: 320px;
+        background-size: cover;
     }
 
     #nav-hero-login-link {
@@ -314,5 +326,13 @@ body {
         position: absolute;
         top: 30px;
         left: 30px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    #hero-section {
+        background-position: calc(100% + 207px) calc(100% + 73px);
+        background-size: 800px;
+        background-repeat: no-repeat;
     }
 }

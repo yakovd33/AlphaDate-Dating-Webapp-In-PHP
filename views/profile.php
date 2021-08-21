@@ -3,8 +3,14 @@
         header("Location: " . $URL);
     }
 
-    if (isset($_GET['id'])) {
+    if (isset($_GET['id'], $_GET['profile_hash'])) {
         $id = $_GET['id'];
+        $profile_hash = $_GET['profile_hash'];
+
+        if ($GLOBALS['link']->query("SELECT * FROM `users` WHERE `id` = {$id} AND `profile_hash` = '{$profile_hash}'")->rowCount() == 0) {
+            echo '<script>location.href = "' . $URL . '";</script>';
+            die();
+        }
     } else {
         $id = $CUR_USER['id'];
     }
@@ -151,6 +157,7 @@
                                 echo $handlebars->render("post", [
                                     'postid' => $post['id'],
                                     'userid' => $post['user_id'],
+                                    'profile_hash' => $poster['profile_hash'],
                                     'fullname' => $poster['fullname'],
                                     'text' => nl2br($post['text']),
                                     'time' => friendly_time($post['date']),

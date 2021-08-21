@@ -268,7 +268,7 @@ function open_stories () {
             $(this).find(".pic svg").addClass('on');
 
             setTimeout(function (element) {
-                $("#story-user-profile-link").attr('href', URL + '/profile/' + $(element).data('userid') + '/');
+                $("#story-user-profile-link").attr('href', URL + '/profile/' + $(element).data('userid') + '/' + $(element).data('profilehash') + '/');
 
                 // Get user stories            
                 $.ajax({
@@ -461,4 +461,12 @@ function setCursorToEnd(ele) {
     sel.removeAllRanges();
     sel.addRange(range);
     ele.focus();
+}
+
+if (!is_premium) {
+    tippy(".premium-link", {
+        content: "אפשרות זו זמינה למשתמשי פרימיום בלבד",
+        placement: "bottom-start",
+        arrow: true
+    });
 }

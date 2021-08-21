@@ -26,8 +26,10 @@
         <link rel="stylesheet" href="<?php echo $URL; ?>/css/emoji.css">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.js"></script>
+        <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
+        <script src="https://unpkg.com/tippy.js@4"></script>
     </head>
-    <body>
+    <body class="<?php echo $CUR_USER['is_premium'] ? 'premium' : 'not-premium'; ?>">
     <!-- <div style="width: 300px; height: 472px !important; background: #fcb555; z-index: 999; position: fixed; bottom: -200px; left: -200px; transform: rotate(130deg);"><div class="text"></div></div> -->
         <?php if (is_logged()) : ?>
             <input type="hidden" id="url" value="<?php echo $URL; ?>">
@@ -36,32 +38,24 @@
             <input type="hidden" id="fullname" value="<?php echo $CUR_USER['fullname']; ?>">
             <input type="hidden" id="pp" value="<?php echo get_user_pp_by_id($CUR_USER['id']); ?>">
             <input type="hidden" id="csrf_token" value="<?php echo $_SESSION['csrf_token'] = md5(time() + rand(0, 100)); ?>">
+            <input type="hidden" id="is_premium" value=<?php echo $CUR_USER['is_premium'] ? 'true' : 'false'; ?>>
+            <input type="hidden" id="profile_hash" value="<?php echo $CUR_USER['profile_hash']; ?>">
         <?php endif; ?>
 
         <script>
             URL = $("#url").val();
             USERID = $("#userid").val();
             FULLNAME = $("#fullname").val();
+            PROFILE_HASH = $('#profile_hash').val();
             PP = $("#pp").val();
             isMobileFloatingChat = <?php echo $CUR_USER['mobile_floating_stories']; ?>;
             current_unread_messages = <?php echo get_num_unread_messages(); ?>;
+            is_premium = ($("#is_premium").val() == 'true') ? true : false;
         </script>
 
         <div id="popups-bg"></div>
 
-        <div id="empty-nav">
-            <a href="<?php echo $URL; ?>"><div id="empty-nav-logo"></div></a>
-
-            <div class="container" id="empty-nav-logout-btn-wrap">
-                <a href="<?php echo $URL; ?>/logout/"><div id="empty-nav-logout-btn"></div></a>
-            </div>
-
-            <div id="empty-nav-mobile-menu-toggler">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <?php include 'nav.php'; ?>
 
         <div id="mobile-story">
             <?php
@@ -107,7 +101,7 @@
                     <?php $story_user = get_user_row_by_id($uid); ?>
                     <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
                     
-                    <div class="item" data-userid="<?php echo $_SESSION['user_id']; ?>">
+                    <div class="item" data-userid="<?php echo $_SESSION['user_id']; ?>" data-profilehash="<?php echo $CUR_USER['profile_hash']; ?>">
                         <div class="pic">
                             <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
                             <svg viewbox="0 0 100 100">
@@ -130,7 +124,7 @@
                     <?php $story_user = get_user_row_by_id($uid); ?>
                     <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
 
-                    <div class="item" data-userid="<?php echo $uid; ?>">
+                    <div class="item" data-userid="<?php echo $uid; ?>" data-profilehash="<?php echo $story_user['profile_hash']; ?>">
                         <div class="pic">
                             <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
                             <svg viewbox="0 0 100 100">
@@ -152,7 +146,7 @@
                     <?php $story_user = get_user_row_by_id($uid); ?>
                     <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
 
-                    <div class="item" data-userid="<?php echo $uid; ?>">
+                    <div class="item" data-userid="<?php echo $uid; ?>" data-profilehash="<?php echo $story_user['profile_hash']; ?>">
                         <div class="pic">
                             <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
                             <svg viewbox="0 0 100 100">

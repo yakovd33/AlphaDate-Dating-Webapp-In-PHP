@@ -122,7 +122,7 @@
             if (count($current_users) > 0) {
                 $final_user = $current_users[0];
 
-                // Required_info: name, age, city, popularity, num_images, images
+                // Required_info: name, age, city, popularity, num_images, images, profile pic
                 $user_info = [];
                 $user_info['userid'] = $final_user['id'];
                 $user_info['fullname'] = $final_user['fullname'];
@@ -132,6 +132,7 @@
                 $user_info['gender'] = ($final_user['gender'] == 'male' ? 'גבר' : 'אישה');
                 $user_info['num_images'] = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$final_user['id']}")->rowCount();
                 $user_info['images'] = get_user_hon_pics($final_user['id']);
+                $user_info['pp'] = get_user_pp_by_id($final_user['id']);
 
                 // Insert HON to db
                 $GLOBALS['link']->query("INSERT INTO `hot_or_not_voted`(`voter_id`, `voted_id`) VALUES ({$_SESSION['user_id']}, {$final_user['id']})");
@@ -154,6 +155,7 @@
                 $user_info['gender'] = ($final_user['gender'] == 'male' ? 'גבר' : 'אישה');
                 $user_info['num_images'] = $pics_count;
                 $user_info['images'] = get_user_hon_pics($final_user['id']);
+                $user_info['pp'] = get_user_pp_by_id($final_user['id']);
             } else {
                 // Remove open card
                 $GLOBALS['link']->query("DELETE FROM `hot_or_not_voted` WHERE `voter_id` = {$_SESSION['user_id']} AND NOT `is_hearted` AND NOT `is_rejected`");

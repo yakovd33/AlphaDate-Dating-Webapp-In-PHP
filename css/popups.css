@@ -141,7 +141,7 @@ a#forgot-pass-link {
 }
 
 /* Signup form */
-#signup-form {
+#signup-form, #signup-form-2 {
     max-width: 665px;
     margin: auto;
     max-height: 500px;
@@ -165,17 +165,21 @@ a#forgot-pass-link {
     border-bottom: 1px solid #ebebeb;
 }
 
-#signup-form input {
+#signup-form input, #signup-form-2 input {
     display: block;
     width: 100%;
     margin-top: 20px;
 }
 
-#signup-form input[type="text"], #signup-form input[type="email"], #signup-form input[type="password"] {
+#signup-form input[type="text"], #signup-form input[type="email"], #signup-form input[type="password"], #signup-form-2 input[type="text"], #signup-form-2 input[type="email"], #signup-form-2 input[type="password"] {
     border: none;
     background-color: #d8d8d8;
     padding: 15px 20px;
     font-size: 20px;
+}
+
+#dob-row input {
+    margin-top: 0;
 }
 
 #signup-form input[type="submit"] {
@@ -230,7 +234,7 @@ a#forgot-pass-link {
     display: none;
 }
 
-#signup-form-feedback {
+#signup-form-feedback, #signup-form-feedback-2 {
     display: none;
     margin-top: 10px;
     bottom: -10px;
@@ -238,6 +242,19 @@ a#forgot-pass-link {
 
 #dob-datepicker {
     display: inline-block;
+}
+
+.register-select {
+    width: 100%;
+    background: #d8d8d8;
+    border: none;
+    padding: 6px 9px;
+    color: #444;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 15px;
+    background: url(../img/homepage/icons/select-icon.png) #ebebeb no-repeat 15px !important;
 }
 
 @media screen and (max-width: 1367px) {
@@ -259,7 +276,7 @@ a#forgot-pass-link {
         font-size: 20px;
     }
 
-    #signup-form input[type="text"], #signup-form input[type="email"], #signup-form input[type="password"] {
+    #signup-form input[type="text"], #signup-form input[type="email"], #signup-form input[type="password"], #signup-form-2 input[type="text"], #signup-form-2 input[type="email"], #signup-form-2 input[type="password"] {
         font-size: 15px;
         padding: 10px 15px;
     }
@@ -328,5 +345,11 @@ a#forgot-pass-link {
 @media screen and (max-width: 768px) {
     #membreship-popup-tabs .tab.active {
         padding: 15px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #membreship-popup-tabs-togglers {
+        display: none;
     }
 }

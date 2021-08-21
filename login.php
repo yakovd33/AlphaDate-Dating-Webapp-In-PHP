@@ -1,8 +1,8 @@
 <?php
     if (isset($_POST['email'], $_POST['password'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $user_id = get_user_id_by_email($email);
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $user_id = get_user_id_by_email($email);
         $redirect = $URL;
 
         // Add login attempt row

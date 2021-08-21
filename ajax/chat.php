@@ -19,6 +19,7 @@
                     $resp['userid'] = $id;
                     $resp['pp'] = get_user_pp_by_id($id);
                     $resp['fullname'] = $user['fullname'];
+                    $resp['profile_hash'] = $user['profile_hash'];
 
                     $chat_messages = [];
                     $chat_messages_query = $GLOBALS['link']->query("SELECT * FROM `messages` WHERE (`from_id` = {$_SESSION['user_id']} AND `to_id` = {$id}) OR (`from_id` = {$id} AND `to_id` = {$_SESSION['user_id']}) ORDER BY `id`");

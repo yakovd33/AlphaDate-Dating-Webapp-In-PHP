@@ -36,7 +36,12 @@ $("#signup-form").submit(function (e) {
     e.preventDefault();
 
     $.post($(this).attr('action'), $(this).serialize(), function(response) {
-        $("#signup-form-feedback").show().text(response);
         console.log(response);
+        
+        if (response != 'success') {
+            $("#signup-form-feedback").show().text(response);
+        } else {
+            location.reload();
+        }
     });
 });

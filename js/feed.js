@@ -7,12 +7,22 @@ $("#new-post-input-card-content").focus(function () {
 
 // Post anonymous icon
 $("#new-post-anonymous").click(function () {
-    $(this).parent().find("#main-right-sidebar-profile-card-textuals .nickname").toggle();
-    $(this).parent().find("#main-right-sidebar-profile-card-textuals .fullname").toggle();
-    $(this).parent().find("#main-right-sidebar-profile-card-textuals .fullname.anonymous").focus();
-    $(this).parent().find(".new-post-pic").toggle();
-    $("#new-post-is-anonymous").prop('checked', !$("#new-post-is-anonymous").prop('checked'));
+    if (is_premium) {
+        $(this).parent().find("#main-right-sidebar-profile-card-textuals .nickname").toggle();
+        $(this).parent().find("#main-right-sidebar-profile-card-textuals .fullname").toggle();
+        $(this).parent().find("#main-right-sidebar-profile-card-textuals .fullname.anonymous").focus();
+        $(this).parent().find(".new-post-pic").toggle();
+        $("#new-post-is-anonymous").prop('checked', !$("#new-post-is-anonymous").prop('checked'));
+    }
 });
+
+if (!is_premium) {
+    tippy("#new-post-anonymous", {
+        content: "פרסום פוסטים אנונימיים מאופשר רק למשתמשי פרימיום",
+        placement: "top-start",
+        arrow: true
+    });
+}
 
 // Post upload
 $("#post-upload-form").submit(function (e) {
@@ -59,6 +69,7 @@ $("#post-upload-form").submit(function (e) {
                 var context = {
                     postid: parsed_response.postid,
                     userid: USERID,
+                    profile_hash: PROFILE_HASH,
                     fullname: new_post_fullname,
                     time: 'עכשיו',
                     text: $("#new-post-input-card-content").val().replace(/\r?\n/g, '<br>'),
@@ -209,6 +220,7 @@ $(window).scroll(function () {
                                 var context = {
                                     postid: response_json.posts[i].postid,
                                     userid: response_json.posts[i].userid,
+                                    profile_hash: response_json.posts[i].profile_hash,
                                     fullname: response_json.posts[i].fullname,
                                     text: response_json.posts[i].text,
                                     time: response_json.posts[i].time,

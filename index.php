@@ -36,19 +36,23 @@
                 }
             ?>
 
-            <?php include 'views/header.php'; ?>
-            
-            <?php
-                switch ($_GET['page']) {
-                    case 'profile' :
-                        include 'views/profile.php';
-                        break;
-                    case 'conversation' :
-                        include 'views/chatbox.php';
-                        break;
-                }
-            ?>
+            <?php if ($_GET['page'] != 'premium') : ?>
+                <?php include 'views/header.php'; ?>
+                
+                <?php
+                    switch ($_GET['page']) {
+                        case 'profile' :
+                            include 'views/profile.php';
+                            break;
+                        case 'conversation' :
+                            include 'views/chatbox.php';
+                            break;
+                    }
+                ?>
 
-            <?php include 'views/footer.php'; ?>
+                <?php include 'views/footer.php'; ?>
+            <?php else : ?>
+                <?php include 'views/premium.php'; ?>
+            <?php endif; ?>
         <?php endif; ?>
 <?php endif; ?>

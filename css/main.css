@@ -488,6 +488,11 @@ select.profile-info-edit-input {
     cursor: pointer;
 }
 
+body.not-premium #new-post-anonymous {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .new-post-pic.anonymous {
     display: none;
     padding: 10px;
@@ -567,6 +572,10 @@ select.profile-info-edit-input {
 
 #right-sidebar-content-wrap {
     z-index: 99999;
+}
+
+.tippy-popper {
+    z-index: 9999999999 !important;
 }
 
 @media screen and (max-width: 768px) {

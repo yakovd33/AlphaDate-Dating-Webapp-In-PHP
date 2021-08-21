@@ -110,7 +110,7 @@ function open_chatbox (userid) {
             response_parsed = JSON.parse(response);
             var source = $("#chatbox-template").html();
             var template = Handlebars.compile(source);
-            var context = { userid: response_parsed.userid, fullname: response_parsed.fullname, messages: response_parsed.messages, isFolded: false, isLogged: response_parsed.isLogged, style: 'display: none' };
+            var context = { userid: response_parsed.userid, profile_hash: response_parsed.profile_hash, fullname: response_parsed.fullname, messages: response_parsed.messages, isFolded: false, isLogged: response_parsed.isLogged, style: 'display: none' };
             var html = template(context);
             $("#chat-boxes").prepend(html);
             
@@ -500,6 +500,12 @@ function fold_on_esc () {
     })
 }
 
+function emoji_support () {
+    $.each($(".emoji-wysiwyg-editor"), function () {
+        $(this).attr('data-userid', $(this).parent().find(".new-message-input").data('userid'))
+    });
+}
+
 function chatbox_options () {
     chat_togglers();
     sendMessages();
@@ -513,7 +519,7 @@ function chatbox_options () {
         typing_option(window.socket);
         socketing();
     }
-    
+
     $.each($(".new-message"), function () {
         $(this).unbind("click").click(function () {
             $(this).find(".new-message-input").focus();
@@ -536,8 +542,6 @@ function chatbox_options () {
 
             console.log($(this).parent().parent().find(".emoji-wysiwyg-editor"));
 
-            setCursorToEnd($(this).parent().parent().find(".emoji-wysiwyg-editor"));
-
             if ($(this).parent().parent().parent().find(".emoji-menu").css('display') != 'block') {
                 $(this).parent().parent().find(".emoji-picker-icon").click();
             } else {
@@ -545,6 +549,8 @@ function chatbox_options () {
             }
         });
     });
+    
+    setTimeout(emoji_support, 1000);
 }
 
 // For fullscreen chat
@@ -706,7 +712,8 @@ function read_messages (socket) {
                 if ($(this).data('userid') != '') {
                     // Private message
                     read_private_messages($(this).data('userid'));
-                    
+                    console.log($(this).data('userid') + 'eeee');
+
                     if (socket.connected) {
                         // Socket read
                         socket.emit('read', USERID + ';' + $(this).data('userid'));

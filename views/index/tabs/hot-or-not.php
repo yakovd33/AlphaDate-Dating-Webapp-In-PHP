@@ -16,6 +16,7 @@
                         'popularity'=> $hor['popularity'],
                         'num_images'=> $hor['num_images'],
                         'images'=> $hor['images'],
+                        'pp'=> $hor['pp'],
                     ]);
                 } else {
                     echo '<div class="hor-title">לא נמצאו עוד משתמשים התואמים את הנתונים שהזנת.<br>נסה שנית מאוחר יותר</div>';

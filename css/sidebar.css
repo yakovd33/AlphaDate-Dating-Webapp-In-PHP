@@ -21,6 +21,15 @@
     color: #c0392b;
 }
 
+#right-sidebars-profile-card-settings i {
+    transition: 1s ease-in;
+    transform-origin: 50% 50%;
+}
+
+#right-sidebars-profile-card-settings:hover i {
+    transform: rotate(360deg);
+}
+
 #main-sidebar-profile-card-textuals {
     margin-right: 10px;
 }
@@ -190,6 +199,11 @@
     line-height: 32px;
     margin-top: 1px;
     position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+#right-sidebar-links .link:hover {
+    opacity: 0.6;
 }
 
 #right-sidebar-links .link.premium-link {
@@ -371,6 +385,7 @@
     width: 50px;
     overflow: hidden;
     margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 #right-sidebar-paid-heads .head img {

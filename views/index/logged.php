@@ -23,7 +23,8 @@
         </div>
     </div>
 
-    <?php if (!isset($_GET['tab']) || ($_GET['tab'] != 'profiles' && $_GET['tab'] != 'meetings')) : ?>
+    <?php $no_left_sidebar_tabs = [ 'profiles', 'meetings' ]; ?>
+    <?php if (!isset($_GET['tab']) || !in_array($_GET['tab'], $no_left_sidebar_tabs)) : ?>
         <div class="col-md-4">
             <?php if (!isset($_GET['tab']) || (isset($_GET['tab']) && $_GET['tab'] != 'profiles' && $_GET['tab'] != 'meetings')) : ?>
                 <?php include 'views/sidebars/left-sidebar.php'; ?>

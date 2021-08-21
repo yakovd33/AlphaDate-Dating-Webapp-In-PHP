@@ -74,7 +74,7 @@
 
 <div class="card" id="main-sidebar-profile-card">
     <?php if (is_premium()) : ?>
-        <div id="user-is-premium"></div>
+        <a href="<?php echo $URL; ?>/premium/" id="user-is-premium"></a>
     <?php endif; ?>
 
     <div id="main-sidebar-profile-card-visual">
@@ -152,7 +152,7 @@
                 <?php $story_user = get_user_row_by_id($uid); ?>
                 <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
                 
-                <div class="item" data-userid="<?php echo $_SESSION['user_id']; ?>">
+                <div class="item" data-userid="<?php echo $_SESSION['user_id']; ?>" data-profilehash="<?php echo $CUR_USER['profile_hash']; ?>">
                     <div class="pic">
                         <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
                         <svg viewbox="0 0 100 100">
@@ -176,7 +176,7 @@
                 <?php $story_user = get_user_row_by_id($uid); ?>
                 <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
 
-                <div class="item" data-userid="<?php echo $uid; ?>">
+                <div class="item" data-userid="<?php echo $uid; ?>" data-profilehash="<?php echo $story_user['profile_hash']; ?>">
                     <div class="pic">
                         <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
                         <svg viewbox="0 0 100 100">
@@ -206,7 +206,7 @@
                 <?php $story_user = get_user_row_by_id($uid); ?>
                 <?php $user_last_story = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `user_id` = {$uid} ORDER BY `id` DESC LIMIT 1")->fetch(); ?>
 
-                <div class="item" data-userid="<?php echo $uid; ?>">
+                <div class="item" data-userid="<?php echo $uid; ?>" data-profilehash="<?php echo $story_user['profile_hash']; ?>">
                     <div class="pic">
                         <img src="<?php echo get_user_pp_by_id($uid); ?>" alt="">
                         <svg viewbox="0 0 100 100">

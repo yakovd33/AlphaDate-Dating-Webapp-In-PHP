@@ -1,0 +1,51 @@
+<div id="current-hot-or-not-profile-top">
+    <div class="textual">
+        <div id="current-hot-or-not-profile-top-pp">
+            <img src="{{ pp }}">
+        </div>
+
+        <div class="inner">
+            <div>
+                <div id="current-hot-or-not-name-and-age">
+                    <a href="/profile/{{ userid }}/{{ profile_hash }}"><span id="current-hot-or-not-profile-name">{{ fullname }}</span></a>
+                    <span id="current-hot-or-not-profile-age">, {{ age }}</span>
+                </div>
+
+                <div id="current-hot-or-not-location">
+                    {{ gender }} | {{ city }}
+                </div>
+            </div>
+
+            <div id="approval-rates">
+                <img src="img/icons/flame.svg" alt="">
+                {{ popularity }}%
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="current-hot-or-not-profile-gallery">
+    <div id="current-hot-or-not-profile-gallery-pics">
+        {{#each images}}
+            <div class="current-hot-or-not-profile-gallery-pic-wrap">
+                <div class="current-hot-or-not-profile-gallery-pic-bg" style="background-image: url('{{ this }}')"></div>
+                <!--<img src="img/homepage/girl.jpg" alt="">-->
+                <img src="/AlphaDate/{{ this }}">
+            </div>
+        {{/each}}
+    </div>
+
+    <div id="hon-gallery-right-arrow"></div>
+    <div id="hon-gallery-left-arrow"></div>
+
+    <div id="current-hot-or-not-num-pics">
+        {{ num_images }} <i class="fas fa-camera"></i>
+    </div>
+
+    <div id="current-hot-or-not-options">
+        <div class="current-hot-or-not-option-small send-flower" id="current-hot-or-not-flower" data-userid="{{ userid }}"></div>
+        <div class="current-hot-or-not-option" id="current-hot-or-not-heart"></div>
+        <div class="current-hot-or-not-option" id="current-hot-or-not-pass"></div>
+        <div class="current-hot-or-not-option-small chatbox-trigger" id="current-hot-or-not-chat" data-userid="{{ userid }}"><i class="fas fa-comment-alt"></i></div>
+    </div>
+</div>

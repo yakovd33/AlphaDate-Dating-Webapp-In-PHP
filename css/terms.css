@@ -1,0 +1,16 @@
+body {
+    background-color: #F8F8F8;
+}
+
+#terms-title {
+    font-size: 1.3em;
+}
+
+.terms-list-title {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.terms-list {
+    margin-right: 20px;
+}

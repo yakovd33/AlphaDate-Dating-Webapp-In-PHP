@@ -136,7 +136,8 @@
             $allowed_extensions = array('image/png', 'image/jpg', 'image/jpeg');
             if (in_array($file['type'], $allowed_extensions)) {
                 $final_path = "/" . $name . "." . $ext;
-                $destination = realpath(__DIR__ . '../../uploads/' . $uploads_dir) . '/' . $name . '.' . $ext;
+                $destination = __DIR__ . '/../uploads/' . $uploads_dir . '/' . $name . '.' . $ext;
+                // echo is_writable($destination);
                 move_uploaded_file($tmp_name, $destination);
 
                 // Insert to DB
@@ -330,7 +331,7 @@
     }
 
     function check_csrf () {
-        return (!isset($_POST['csrf_token']) || $_POST['csrf_token'] != $_SESSION['csrf_token']);
+        return (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] != $_SESSION['csrf_token']);
     }
 
     function is_last_message_with_user_self ($userid) {

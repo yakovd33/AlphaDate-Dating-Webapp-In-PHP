@@ -240,4 +240,4 @@
     </div>
 </div>
 
-<?php include dirname(__DIR__) . '../story-essantials.php'; ?>
+<?php include dirname(__DIR__) . '/story-essantials.php'; ?>

@@ -1,7 +1,7 @@
 $("#success-stories-slider").slick({
     arrows: false,
     dots: true,
-    rtl: true,
+    rtl: window.isRTL,
     autoplay: true,
     autoplaySpeed: 3500,
 });

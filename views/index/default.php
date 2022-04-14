@@ -3,7 +3,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="<?php echo $DIRECTION; ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +20,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.he.min.js"></script>
+
+        <?php if ($DIRECTION == 'ltr') : ?>
+            <link rel="stylesheet" href="<?php echo $URL; ?>/css/ltr.css">
+            <script>
+                window.isRTL = false;
+            </script>
+        <?php endif; ?>
     </head>
     <body>
         <input type="hidden" id="url" value="<?php echo $URL; ?>">
@@ -226,7 +233,7 @@
             </div>
         </div>
 
-        <div id="features-section" class="section fullscreen-section">
+        <div id="features-section" class="section">
             <h2 class="section-title">למה לבחור בנו מבין כל האתרים?</h2>
             <div class="container">
                 <div class="row">
@@ -265,7 +272,7 @@
             </div>
         </div>
 
-        <div id="success-stories-and-stats-section" class="section fullscreen-section">
+        <div id="success-stories-and-stats-section" class="section">
             <div id="stats-section">
                 <div class="container">
                     <div class="row">

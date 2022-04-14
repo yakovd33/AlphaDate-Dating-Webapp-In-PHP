@@ -1,0 +1,223 @@
+body {
+    text-align: left;
+}
+
+#nav-hero-login-link {
+    right: 25px;
+    left: auto;
+}
+
+#hero-signup-card {
+    text-align: left;
+}
+
+#success-stories-section {
+    text-align: right;
+}
+
+#main-nav-list .nav-link {
+    text-align: right;
+}
+
+#login-remember-me {
+    text-align: right;
+}
+
+#password-change-feedback {
+    text-align: right;
+}
+
+.username {
+    text-align: right;
+}
+
+#right-sidebar-links .link img {
+    margin-left: 0;
+    margin-right: 12px;
+}
+
+#sidebar-flowers-section {
+    direction: rtl;
+    position: relative;
+}
+
+#sidebar-flowers-section img {
+    right: 9px;
+    position: absolute;
+}
+
+#sidebar-flower-counter {
+    right: 45px;
+    position: absolute;
+    margin-top: 5px;
+}
+
+#right-sidebars-profile-card-settings {
+    left: auto;
+    right: 0;
+}
+
+#main-right-sidebar-profile-card-textuals {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+#user-is-premium {
+    right: 10px;
+    left: auto;
+}
+
+#main-sidebar-profile-card-textuals {
+    margin-left: 10px;
+}
+
+#sidebar-story-add-btn .text {
+    margin-left: 10px;
+}
+
+#current-hot-or-not-profile-top .textual .inner {
+    padding-left: 20px;
+}
+
+#floating-chat-toggler:after {
+    right: auto;
+    left: 65px;
+}
+
+#floating-chat-connected-users .item .pic, #new-group-popup-members-select-list .member .pp img {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+#chat-boxes .chat-box .new-message .message-additional {
+    left: auto;
+    right: 10px;
+}
+
+.post-card-textuals {
+    margin-right: 0;
+    margin-left: 7px;
+}
+
+.new-comment-input {
+    float: right;
+}
+
+.trigger-comment-additional-image {
+    left: auto;
+    right: 10px;
+}
+
+.comment-wrap .textual {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+#new-post-bottom .mr-auto {
+    margin-left: auto;
+    margin-right: 0 !important;
+}
+
+#new-post-anonymous {
+    left: auto;
+    right: 10px;
+}
+
+.post-edit-menu {
+    left: auto;
+    right: -15px;
+}
+
+.post-edit-actions-toggle {
+    left: auto;
+    right: 5px;
+}
+
+.post-edit-menu li .icon {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+.post-edit-menu li {
+    flex-direction: row-reverse;
+}
+
+.post-edit-menu li .icon {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+.post-edit-menu:after, .post-edit-menu:before {
+    left: auto;
+    right: 30px;
+}
+
+.editable-icon {
+    left: auto !important;
+    right: 0;
+}
+
+select.profile-info-edit-input {
+    background-position-x: 95% !important;
+}
+
+.profiles-tab-profile-card .pp .send-message-btn {
+    left: auto !important;
+    right: 10px;
+}
+
+#profiles-sorting-wrap {
+    flex-direction: row-reverse;
+}
+
+.rigt-sidebar-item-num {
+    float: right;
+    margin-left: 0;
+    margin-right: 8px;
+    margin-top: 5px;
+}
+
+.personal-info-item .title {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+#age-interest-select-wrap {
+    flex-direction: row-reverse;
+}
+
+.orientation-item:nth-child(1) {
+    border-radius: 30px 0 0 30px;
+}
+
+.orientation-item:nth-child(3) {
+    border-radius: 0 30px 30px 0;
+}
+
+#new-story-text-colors .color {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+#story-showcase-user-dets {
+    display: flex;
+}
+
+#story-showcase-user-dets .fullname {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+#story-showcase-user-dets .time {
+    margin-left: auto;
+}
+
+#story-hourglasses .story-hourglass:not(:last-child) {
+    margin-left: 0;
+    margin-right: 8px;
+}
+
+#story-num-views-num {
+    margin-right: 0;
+    margin-left: 5px;
+}

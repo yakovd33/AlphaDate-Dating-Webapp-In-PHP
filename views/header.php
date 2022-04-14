@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="<?php echo $DIRECTION; ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +28,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.js"></script>
         <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
         <script src="https://unpkg.com/tippy.js@4"></script>
+
+        <?php if ($DIRECTION == 'ltr') : ?>
+            <link rel="stylesheet" href="<?php echo $URL; ?>/css/ltr.css">
+            <script>
+                window.isRTL = false;
+            </script>
+        <?php endif; ?>
     </head>
     <body class="<?php echo $CUR_USER['is_premium'] ? 'premium' : 'not-premium'; ?>">
     <!-- <div style="width: 300px; height: 472px !important; background: #fcb555; z-index: 999; position: fixed; bottom: -200px; left: -200px; transform: rotate(130deg);"><div class="text"></div></div> -->

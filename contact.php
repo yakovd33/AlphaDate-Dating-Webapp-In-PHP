@@ -21,26 +21,33 @@
 
         header("Location: " . $URL);
     }
+
+    require_once('includes/language.php');
 ?>
 
 <?php include 'views/header.php'; ?>
     <link rel="stylesheet" href="<?php echo $URL; ?>/css/contact.css">
 
-    <h1 id="contact-form-title"><?php echo genderize_text('צור'); ?> קשר</h1>
+    <?php if (is_logged()): ?>
+        <h1 id="contact-form-title"><?php echo $translate['contact'][$CUR_USER['gender']]; ?></h1>
+    <?php else: ?>
+        <h1 id="contact-form-title"><?php echo $translate['contact']['male']; ?></h1>
+    <?php endif; ?>
+
     <form class="cf" method="POST">
         <div class="halfs-group">
             <div class="half left cf">
-                <input type="text" name="name" id="input-name" placeholder="שם">
+                <input type="text" name="name" id="input-name" placeholder="<?php echo $translate['fullname']; ?>">
             </div>
             
             <div class="half right cf">
-                <input type="text" name="contact" id="input-name" placeholder="אימייל/מספר טלפון">
+                <input type="text" name="contact" id="input-name" placeholder="<?php echo $translate['contact_phone']; ?>">
             </div>
         </div>
 
         <div class="cf">
-            <textarea name="message" type="text" id="input-message" placeholder="הודעה"></textarea>
+            <textarea name="message" type="text" id="input-message" placeholder="<?php echo $translate['message']; ?>"></textarea>
         </div>  
-        <input type="submit" value="שלח" id="input-submit">
+        <input type="submit" value="<?php echo $translate['send']; ?>" id="input-submit">
     </form>
 <?php include 'views/footer.php'; ?>

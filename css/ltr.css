@@ -39,6 +39,7 @@ body {
 #sidebar-flowers-section {
     direction: rtl;
     position: relative;
+    margin-bottom: 40px;
 }
 
 #sidebar-flowers-section img {
@@ -220,4 +221,29 @@ select.profile-info-edit-input {
 #story-num-views-num {
     margin-right: 0;
     margin-left: 5px;
+}
+
+#right-sidebar-links .link.premium-link:after {
+    left: auto;
+    right: 0;
+}
+
+#profile-actions .profile-action-wrap .right-side {
+    left: -1px;
+    right: auto;
+}
+
+#profile-actions .profile-action-wrap:hover .text {
+    left: 40px;
+    right: auto;
+}
+
+#empty-nav-logout-btn {
+    float: right;
+    margin-right: 10px;
+}
+
+#empty-nav-mobile-menu-toggler.toggled > span:nth-child(3) {
+    margin-right: auto;
+    margin-left: -100px;
 }

@@ -2,6 +2,12 @@
     function get_hon () {
         $CUR_USER = get_user_row_by_id($_SESSION['user_id']);
 
+        global $translate;
+        // global $CUR_USER;
+        if (!$translate) {
+            require_once('../languages/' . $CUR_USER['language'] . '.php');
+        }
+
         // Check if user has a hor item already
         $open_item_stmt = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_voted` WHERE `voter_id` = {$_SESSION['user_id']} AND NOT `is_hearted` AND NOT `is_rejected`");
         if ($open_item_stmt->rowCount() == 0) {
@@ -129,7 +135,7 @@
                 $user_info['age'] = $final_user['age'];
                 $user_info['city'] = $final_user['city'];
                 $user_info['popularity'] = get_user_popularity($final_user['id']);
-                $user_info['gender'] = ($final_user['gender'] == 'male' ? 'גבר' : 'אישה');
+                $user_info['gender'] = $translate[$final_user['gender']];
                 $user_info['num_images'] = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$final_user['id']}")->rowCount();
                 $user_info['images'] = get_user_hon_pics($final_user['id']);
                 $user_info['pp'] = get_user_pp_by_id($final_user['id']);
@@ -152,7 +158,7 @@
                 $user_info['age'] = $final_user['age'];
                 $user_info['city'] = $final_user['city'];
                 $user_info['popularity'] = get_user_popularity($final_user['id']);
-                $user_info['gender'] = ($final_user['gender'] == 'male' ? 'גבר' : 'אישה');
+                $user_info['gender'] = $translate[$final_user['gender']];
                 $user_info['num_images'] = $pics_count;
                 $user_info['images'] = get_user_hon_pics($final_user['id']);
                 $user_info['pp'] = get_user_pp_by_id($final_user['id']);
@@ -172,8 +178,9 @@
         $user_pics_stmt = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$user_id}");
         $images = [];
 
+        global $URL;
         while ($image = $user_pics_stmt->fetch()) {
-            array_push($images, get_image_path_by_id($image['image_id']));
+            array_push($images, './' . $URL . '/' . get_image_path_by_id($image['image_id']));
         }
 
         return $images;
@@ -190,6 +197,7 @@
 
     function heart () {
         $cur_hon = get_current_hon();
+        $CUR_USER = get_user_row_by_id($_SESSION['user_id']);
 
         if ($cur_hon) {
             // Update is_hearted

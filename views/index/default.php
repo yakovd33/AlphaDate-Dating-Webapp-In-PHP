@@ -1,5 +1,6 @@
 <?php
     require_once(dirname(__DIR__) . '../../facebook-login.php');
+    $profile_count = $GLOBALS['link']->query("SELECT * FROM `users`")->rowCount();
 ?>
 
 <!DOCTYPE html>
@@ -93,13 +94,18 @@
                     <a href="#" class="link"></a>
                 </div>
 
-                <a href="#" id="nav-hero-login-link">התחברות/הרשמה</a>
+                <a href="#" id="nav-hero-login-link"><?php echo $translate['login_join']; ?></a>
+                <?php if ($language == 'en'): ?>
+                    <a href="<?php echo $URL; ?>/?language=he" id="nav-hero-language-link">Hebrew/עברית</a>
+                <?php else: ?>
+                    <a href="<?php echo $URL; ?>/?language=en" id="nav-hero-language-link">English</a>
+                <?php endif; ?>
             </div>
 
             <div class="container">
                 <div id="hero-signup-card" class="container">
                     <div id="hero-signup-card-content">
-                        <div class="hero-signup-card-title">אני</div>
+                        <div class="hero-signup-card-title"><?php echo $translate['i_am']; ?></div>
                         <div id="hero-signup-card-gender-chooser">
                             <select class="form-control" name="" id="">
                                 <option value="male">זכר</option>
@@ -107,14 +113,14 @@
                             </select>
                         </div>
 
-                        <div class="hero-signup-card-title">בגיל</div>
+                        <div class="hero-signup-card-title"><?php echo $translate['in_age']; ?></div>
                         <div id="hero-signup-card-age-chooser">
                             <select name="" id="" class="form-control">
                                 <option value="18">18</option>
                             </select>
                         </div>
 
-                        <div class="hero-signup-card-title">מתעניין ב</div>
+                        <div class="hero-signup-card-title"><?php echo $translate['interested_in']['male']; ?></div>
                         <div id="hero-signup-card-prefrences-chooser">
                             <select class="form-control" name="" id="">
                                 <option value="men">גברים</option>
@@ -123,21 +129,21 @@
                             </select>
                         </div>
 
-                        <div class="hero-signup-card-title">בגילאים</div>
+                        <div class="hero-signup-card-title"><?php echo $translate['by_ages']; ?></div>
                         <div id="hero-signup-card-prefrences-chooser">
                             <select class="form-control" name="" id="">
                                 <option value="18">18</option>
                             </select>
                         </div>
 
-                        <div class="hero-signup-card-title">עד</div>
+                        <div class="hero-signup-card-title"><?php echo $translate['to']; ?></div>
                         <div id="hero-signup-card-prefrences-chooser">
                             <select class="form-control" name="" id="">
                                 <option value="">35</option>
                             </select>
                         </div>
 
-                        <input type="submit" value="הצטרפות" id="join-btn">
+                        <input type="submit" value="<?php echo $translate['join']; ?>" id="join-btn">
                     </div>
 
                     <div id="signup-fields">
@@ -145,28 +151,28 @@
                             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                             
                             <div id="facebook-signup-btn-wrap">
-                                <div id="signup-with-facebook-btn">הרשם באמצעות פייסבוק</div>
+                                <div id="signup-with-facebook-btn"><?php echo $translate['join_with_facebook']; ?></div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col">
-                                    <input type="email" name="email" placeholder="אימייל">
+                                    <input type="email" name="email" placeholder="<?php echo $translate['email']; ?>">
                                 </div>
                                 
                                 <div class="col">
-                                    <input type="password" name="password" placeholder="סיסמא">
+                                    <input type="password" name="password" placeholder="<?php echo $translate['password']; ?>">
                                 </div>
                             </div>
 
-                            <input type="text" name="fullname" placeholder="שם מלא">
+                            <input type="text" name="fullname" placeholder="<?php echo $translate['fullname']; ?>">
 
                             <!-- <input id="dob-datepicker" name="date_of_birth" type="text" placeholder="תאריך לידה"> -->
 
-                            <label style="display: block; margin-top: 5px; margin-bottom: 3px; text-align: right; font-weight: bold">תאריך לידה</label>
+                            <label style="display: block; margin-top: 5px; margin-bottom: 3px; text-align: right; font-weight: bold"><?php echo $translate['birth_date']; ?></label>
                             <div class="form-row" id="dob-row">
                                 <div class="col">
                                     <select name="year" class="register-select" id="">
-                                        <option>שנה</option>
+                                        <option><?php echo $translate['year']; ?></option>
                                         <?php for ($i = date("Y") - 100; $i < date("Y") - 18; $i++) : ?>
                                             <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                         <?php endfor; ?>
@@ -176,7 +182,7 @@
                                 
                                 <div class="col">
                                     <select name="month" class="register-select" id="">
-                                        <option>חודש</option>
+                                        <option><?php echo $translate['month']; ?></option>
                                         <option value="1">ינואר</option>
                                         <option value="2">פברואר</option>
                                         <option value="3">מרץ</option>
@@ -195,7 +201,7 @@
 
                                 <div class="col">
                                     <select name="day" class="register-select" id="">
-                                        <option>יום</option>
+                                        <option><?php echo $translate['day']; ?></option>
                                         <?php for ($i = 0; $i < 31; $i++) : ?>
                                             <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                         <?php endfor; ?>
@@ -220,13 +226,13 @@
                             </script> -->
 
                             <select name="gender" id="" class="form-control" style="margin-top: 15px;">
-                                <option value="male">זכר</option>
-                                <option value="female">נקבה</option>
+                                <option value="male"><?php echo $translate['male']; ?></option>
+                                <option value="female"><?php echo $translate['female']; ?></option>
                             </select>
 
                             <div id="signup-form-feedback-2"></div>
                             
-                            <input type="submit" value="הרשמו לאלפא דייט">
+                            <input type="submit" value="<?php echo $translate['join_alphadate']; ?>">
                         </form>
                     </div>
                 </div>
@@ -234,38 +240,38 @@
         </div>
 
         <div id="features-section" class="section">
-            <h2 class="section-title">למה לבחור בנו מבין כל האתרים?</h2>
+            <h2 class="section-title"><?php echo $translate['why_choose_us']; ?></h2>
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
                             <div class="icon"><img src="<?php echo $URL; ?>/img/homepage/features/verified.svg" alt=""></div>
-                            <div class="title">חשבונות מאושרים</div>
-                            <div class="text">אצלנו באלפא דייט כל החשבונות עוברים סינון לפני שמגיעים אליכם, ככה שתוכלו להיות בטוחים שעשינו כמיטב יכולתנו להביא לכם את הפרופילים האיכותיים ביותר.</div>
+                            <div class="title"><?php echo $translate['approved_accounts']; ?></div>
+                            <div class="text"><?php echo $translate['approved_accounts_text']; ?></div>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
                             <div class="icon"><img src="<?php echo $URL; ?>/img/homepage/features/verified.svg" alt=""></div>
-                            <div class="title">חשבונות מאושרים</div>
-                            <div class="text">אצלנו באלפא דייט כל החשבונות עוברים סינון לפני שמגיעים אליכם, ככה שתוכלו להיות בטוחים שעשינו כמיטב יכולתנו להביא לכם את הפרופילים האיכותיים ביותר.</div>
+                            <div class="title"><?php echo $translate['approved_accounts']; ?></div>
+                            <div class="text"><?php echo $translate['approved_accounts_text']; ?></div>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
                             <div class="icon"><img src="<?php echo $URL; ?>/img/homepage/features/success.svg" alt=""></div>
-                            <div class="title">חשבונות מאושרים</div>
-                            <div class="text">אצלנו באלפא דייט כל החשבונות עוברים סינון לפני שמגיעים אליכם, ככה שתוכלו להיות בטוחים שעשינו כמיטב יכולתנו להביא לכם את הפרופילים האיכותיים ביותר.</div>
+                            <div class="title"><?php echo $translate['approved_accounts']; ?></div>
+                            <div class="text"><?php echo $translate['approved_accounts_text']; ?></div>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-6 features-section-features-wrap">
                         <div class="feature">
                             <div class="icon"><img src="<?php echo $URL; ?>/img/homepage/features/events.svg" alt=""></div>
-                            <div class="title">חשבונות מאושרים</div>
-                            <div class="text">אצלנו באלפא דייט כל החשבונות עוברים סינון לפני שמגיעים אליכם, ככה שתוכלו להיות בטוחים שעשינו כמיטב יכולתנו להביא לכם את הפרופילים האיכותיים ביותר.</div>
+                            <div class="title"><?php echo $translate['approved_accounts']; ?></div>
+                            <div class="text"><?php echo $translate['approved_accounts_text']; ?></div>
                         </div>
                     </div>
                 </div>
@@ -279,21 +285,21 @@
                         <div class="stat-item col-md-4">
                             <div class="icon"><i class="fas fa-transgender" style="font-size: 48px;"></i></div>
                             <div class="textual">
-                                <div class="dets">באתר קיימים 4576 פרופילים פעילים</div>
+                                <div class="dets"><?php echo str_replace('X', $profile_count, $translate['website_users_count_flex']); ?></div>
                             </div>
                         </div>
 
                         <div class="stat-item col-md-4">
                             <div class="icon"><i class="fas fa-transgender" style="font-size: 48px;"></i></div>
                             <div class="textual">
-                                <div class="dets">באתר קיימים 4576 פרופילים פעילים</div>
+                                <div class="dets"><?php echo str_replace('X', $profile_count, $translate['website_users_count_flex']); ?></div>
                             </div>
                         </div>
 
                         <div class="stat-item col-md-4">
                             <div class="icon"><i class="fas fa-transgender" style="font-size: 48px;"></i></div>
                             <div class="textual">
-                                <div class="dets">באתר קיימים 4576 פרופילים פעילים</div>
+                                <div class="dets"><?php echo str_replace('X', $profile_count, $translate['website_users_count_flex']); ?></div>
                             </div>
                         </div>
                     </div>
@@ -301,15 +307,15 @@
             </div>
 
             <div id="success-stories-section">
-                <h2 class="section-title">סיפורי הצלחה</h2>
+                <h2 class="section-title"><?php echo $translate['success_stories']; ?></h2>
 
                 <div id="success-stories-slider">
                     <div class="success-story-item-wrap">
                         <div class="success-story-item">
                             <div class="pic"><img src="https://i.imgur.com/QP3b8gb.png" alt=""></div>
                             <div class="textual">
-                                <div class="names">הרצל ודניאלה</div>
-                                <div class="text">” אהובי הנצחי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
+                                <div class="names"><?php echo $translate['first_success_story_name']; ?></div>
+                                <div class="text"><?php echo $translate['first_success_story_text']; ?></div>
                             </div>
                         </div>
                     </div>
@@ -318,8 +324,8 @@
                         <div class="success-story-item">
                             <div class="pic"><img src="https://i.imgur.com/QP3b8gb.png" alt=""></div>
                             <div class="textual">
-                                <div class="names">הרצל ודניאלה</div>
-                                <div class="text">” אהובי הנצחי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
+                                <div class="names"><?php echo $translate['first_success_story_name']; ?></div>
+                                <div class="text"><?php echo $translate['first_success_story_text']; ?></div>
                             </div>
                         </div>
                     </div>
@@ -328,8 +334,8 @@
                         <div class="success-story-item">
                             <div class="pic"><img src="https://i.imgur.com/QP3b8gb.png" alt=""></div>
                             <div class="textual">
-                                <div class="names">הרצל ודניאלה</div>
-                                <div class="text">” אהובי הנצחי. אין תחושה יותר טובה מלהתעורר אליה כל בוקר. ”</div>
+                                <div class="names"><?php echo $translate['first_success_story_name']; ?></div>
+                                <div class="text"><?php echo $translate['first_success_story_text']; ?></div>
                             </div>
                         </div>
                     </div>
@@ -338,7 +344,7 @@
         </div>
 
         <div id="join-us-section" class="section">
-            <a href="#" id="join-us-section-join-btn">הצטרפו עכשיו</a>
+            <a href="#" id="join-us-section-join-btn"><?php echo $translate['join_now']; ?></a>
         </div>
 
         <!-- <fb:login-button></fb:login-button> -->

@@ -10,21 +10,21 @@
         <div class="tab active" data-tab="login">
             <form action="<?php echo $URL; ?>/signin/" method="post" id="login-form">
                 <div id="facebook-login-btn-wrap">
-                    <a href="<?php echo $login_url; ?>"><div id="login-with-facebook-btn">התחבר באמצעות פייסבוק</div></a>
+                    <a href="<?php echo $login_url; ?>"><div id="login-with-facebook-btn"><?php echo $translate['login_with_facebook']; ?></div></a>
                 </div>
 
-                <input type="email" name="email" placeholder="אימייל">
-                <input type="password" name="password" placeholder="סיסמא">
+                <input type="email" name="email" placeholder="<?php echo $translate['email']; ?>">
+                <input type="password" name="password" placeholder="<?php echo $translate['password']; ?>">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                <a href="#" id="forgot-pass-btn">שכחתי סיסמא</a>
+                <a href="#" id="forgot-pass-btn"><?php echo $translate['forgot_password']; ?></a>
 
-                <input type="submit" value="התחברו לאלפא דייט">
+                <input type="submit" value="<?php echo $translate['login_to_alphadate']; ?>">
             </form>
 
             <form action="" id="forgot-poassword-form">
-                <input type="email" placeholder="אימייל" id="password-reset-email-input">
-                <input type="submit" value="שחזור סיסמא">
-                <a href="" id="close-forgot-pass-form">ביטול</a>
+                <input type="email" placeholder="<?php echo $translate['email']; ?>" id="password-reset-email-input">
+                <input type="submit" value="<?php echo $translate['reset_password']; ?>">
+                <a href="" id="close-forgot-pass-form"><?php echo $translate['cancel']; ?></a>
             </form>
         </div>
 
@@ -33,20 +33,20 @@
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 
                 <div id="facebook-signup-btn-wrap">
-                    <div id="signup-with-facebook-btn">הרשם באמצעות פייסבוק</div>
+                    <div id="signup-with-facebook-btn"><?php echo $translate['join_with_facebook']; ?></div>
                 </div>
 
                 <div class="form-row">
                     <div class="col">
-                        <input type="email" name="email" placeholder="אימייל">
+                        <input type="email" name="email" placeholder="<?php echo $translate['email']; ?>">
                     </div>
                     
                     <div class="col">
-                        <input type="password" name="password" placeholder="סיסמא">
+                        <input type="password" name="password" placeholder="<?php echo $translate['password']; ?>">
                     </div>
                 </div>
 
-                <input type="text" name="fullname" placeholder="שם מלא">
+                <input type="text" name="fullname" placeholder="<?php echo $translate['fullname']; ?>">
 
                 <!-- <input id="dob-datepicker" name="date_of_birth" type="text" placeholder="תאריך לידה"> -->
 
@@ -54,7 +54,7 @@
                 <div class="form-row" id="dob-row">
                     <div class="col">
                         <select name="year" class="register-select" id="">
-                            <option>שנה</option>
+                            <option><?php echo $translate['year']; ?></option>
                             <?php for ($i = date("Y") - 100; $i < date("Y") - 18; $i++) : ?>
                                 <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                             <?php endfor; ?>
@@ -64,7 +64,7 @@
                     
                     <div class="col">
                         <select name="month" class="register-select" id="">
-                            <option>חודש</option>
+                            <option><?php echo $translate['month']; ?></option>
                             <option value="1">ינואר</option>
                             <option value="2">פברואר</option>
                             <option value="3">מרץ</option>
@@ -83,7 +83,7 @@
 
                     <div class="col">
                         <select name="day" class="register-select" id="">
-                            <option>יום</option>
+                            <option><?php echo $translate['day']; ?></option>
                             <?php for ($i = 0; $i < 31; $i++) : ?>
                                 <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                             <?php endfor; ?>
@@ -108,13 +108,13 @@
                 </script> -->
 
                 <select name="gender" id="" class="form-control" style="margin-top: 15px;">
-                    <option value="male">זכר</option>
-                    <option value="female">נקבה</option>
+                    <option value="male"><?php echo $translate['male']; ?></option>
+                    <option value="female"><?php echo $translate['female']; ?></option>
                 </select>
 
                 <div id="signup-form-feedback"></div>
                 
-                <input type="submit" value="הרשמו לאלפא דייט">
+                <input type="submit" value="<?php echo $translate['join_alphadate']; ?>">
             </form>
         </div>
     </div>

@@ -1,12 +1,12 @@
 <div id="new-story-adder-wrap">
     <div id="new-story-pic">
-        <div id="new-story-pic-disclamer">*תמונות עלולות להיראות מתוחות במצב תצוגה מקדימה</div>
+        <div id="new-story-pic-disclamer"><?php echo $translate['stretch_disclamer']; ?></div>
         <div id="new-story-pic-text"></div>
     </div>
 
     <div id="new-story-text-wrap">
         <div id="new-story-text">
-            <input type="text" id="new-story-text-input" placeholder="טקסט סטורי">
+            <input type="text" id="new-story-text-input" placeholder="<?php echo $translate['text_story']; ?>">
             <input type="color" id="new-story-text-color-input" value="#ffffff">
         </div>
 
@@ -27,15 +27,15 @@
             </div>
         </div>
 
-        <div id="choose-text-type">טקסט עם רקע</div>
+        <div id="choose-text-type"><?php echo $translate['text_with_bg']; ?></div>
         <div class="clearfix"></div>
         <input type="checkbox" id="new-story-text-type-checkbox">
     </div>
 
-   <button class="cute-btn" id="new-story-choose-pic">בחר תמונה</button>
+   <button class="cute-btn" id="new-story-choose-pic"><?php echo $translate['choose_photo'][$CUR_USER['gender']]; ?></button>
    <input type="file" id="new-story-image-input" accept="image/x-png,,image/jpeg" style="display: none">
 
-   <button id="submit-new-story" class="cute-btn">העלה</button>
+   <button id="submit-new-story" class="cute-btn"><?php echo $translate['upload'][$CUR_USER['gender']]; ?></button>
 </div>
 
 <div id="story-showcase-wrap">

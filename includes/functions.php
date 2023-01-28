@@ -164,16 +164,16 @@
 
     function sortByPoints($a, $b) {
         if ($a['points'] != $b['points']) {
-            return $a['points'] < $b['points'];
+            return $a['points'] <=> $b['points'];
         } elseif ($a['popularity'] != $b['popularity']) {
-            return $a['popularity'] < $b['popularity'];
+            return $a['popularity'] <=> $b['popularity'];
         } else {
             return $a['is_paid_user'];
         }
     }
 
     function sort_by_date ($a, $b) {
-        return $a['date'] < $b['date'];
+        return $b['date'] <=> $a['date'];
     }
 
     function random_hash () {
@@ -224,7 +224,12 @@
     }
 
     function get_image_path_by_id ($id) {
-        return 'uploads/' . $GLOBALS['link']->query("SELECT `path` FROM `images` WHERE `id` = {$id}")->fetch()['path'];
+        $stmt = $GLOBALS['link']->query("SELECT `path` FROM `images` WHERE `id` = {$id}");
+        if ($stmt->rowCount()) {
+            return 'uploads/' . $stmt->fetch()['path'];
+        } else {
+            return '';
+        }
     }
 
     function d_log ($msg) {
@@ -295,26 +300,45 @@
         return $ret;
     }
 
-    function friendly_time ($timestamp) {
+    function friendly_time ($timestamp, $language) {
         $current_timestamp = $GLOBALS['link']->query("SELECT NOW() AS `timestamp`")->fetch()['timestamp'];
         $time_delta = strtotime($current_timestamp) - strtotime($timestamp);
         
-        if($time_delta <= 1) return 'לפני פחות משנייה';
-        if($time_delta < (60)) return 'לפני ' . $time_delta . ' שניות';
-        if($time_delta < (60*60)) { $minutes = round($time_delta/60); return 'לפני כ' . $minutes . ' דקות'; }
-        if($time_delta < (60*60*16)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ($hours > 1 ? ' שעות' : ' שעות'); }
-        if($time_delta < (60*60*24)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ' שעות'; }
-        if($time_delta < (time() - strtotime('yesterday'))) return 'אתמול';
-        if($time_delta < (60*60*24*6.5)) return 'לפני כ' . round($time_delta/(60*60*24)) . ' ימים';
-        if($time_delta < (time() - strtotime('last week'))) return 'שבוע שעבר';
-        if(round($time_delta/(60*60*24*7))  == 1) return 'לפני כשבוע';
-        if($time_delta < (60*60*24*7*3.5)) return 'לפני כ' . round($time_delta/(60*60*24*7)) . ' שבועות';
-        if($time_delta < (time() - strtotime('last month'))) return 'חודש שעבר';
-        if(round($time_delta/(60*60*24*7*4))  == 1) return 'לפני כחודש';
-        if($time_delta < (60*60*24*7*4*11.5)) return 'לפני כ' . round($time_delta/(60*60*24*7*4)) . ' חודשים';
-        if($time_delta < (time() - strtotime('last year'))) return 'שנה שעבר';
-        if(round($time_delta/(60*60*24*7*52)) == 1) return 'לפני כשנה';
-        if($time_delta >= (60*60*24*7*4*12)) return 'לפני כ' . round($time_delta/(60*60*24*7*52)) . ' שנים'; 
+        if ($language == 'he') {
+            if($time_delta <= 1) return 'לפני פחות משנייה';
+            if($time_delta < (60)) return 'לפני ' . $time_delta . ' שניות';
+            if($time_delta < (60*60)) { $minutes = round($time_delta/60); return 'לפני כ' . $minutes . ' דקות'; }
+            if($time_delta < (60*60*16)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ($hours > 1 ? ' שעות' : ' שעות'); }
+            if($time_delta < (60*60*24)) { $hours = round($time_delta/(60*60)); return 'לפני כ' . $hours . ' שעות'; }
+            if($time_delta < (time() - strtotime('yesterday'))) return 'אתמול';
+            if($time_delta < (60*60*24*6.5)) return 'לפני כ' . round($time_delta/(60*60*24)) . ' ימים';
+            if($time_delta < (time() - strtotime('last week'))) return 'שבוע שעבר';
+            if(round($time_delta/(60*60*24*7))  == 1) return 'לפני כשבוע';
+            if($time_delta < (60*60*24*7*3.5)) return 'לפני כ' . round($time_delta/(60*60*24*7)) . ' שבועות';
+            if($time_delta < (time() - strtotime('last month'))) return 'חודש שעבר';
+            if(round($time_delta/(60*60*24*7*4))  == 1) return 'לפני כחודש';
+            if($time_delta < (60*60*24*7*4*11.5)) return 'לפני כ' . round($time_delta/(60*60*24*7*4)) . ' חודשים';
+            if($time_delta < (time() - strtotime('last year'))) return 'שנה שעבר';
+            if(round($time_delta/(60*60*24*7*52)) == 1) return 'לפני כשנה';
+            if($time_delta >= (60*60*24*7*4*12)) return 'לפני כ' . round($time_delta/(60*60*24*7*52)) . ' שנים'; 
+        } else if ($language == 'en') {
+            if($time_delta <= 1) return 'Less than a second ago';
+            if($time_delta < (60)) return $time_delta . ' seconds ago';
+            if($time_delta < (60*60)) { $minutes = round($time_delta/60); return $minutes . ' minutes ago'; }
+            if($time_delta < (60*60*16)) { $hours = round($time_delta/(60*60)); return $hours . ($hours > 1 ? ' hours ago' : ' hour ago'); }
+            if($time_delta < (60*60*24)) { $hours = round($time_delta/(60*60)); return $hours . ' hours ago'; }
+            if($time_delta < (time() - strtotime('yesterday'))) return 'אתמול';
+            if($time_delta < (60*60*24*6.5)) return round($time_delta/(60*60*24)) . ' days ago';
+            if($time_delta < (time() - strtotime('last week'))) return 'Last week';
+            if(round($time_delta/(60*60*24*7))  == 1) return 'A week ago';
+            if($time_delta < (60*60*24*7*3.5)) return round($time_delta/(60*60*24*7)) . ' weeks ago';
+            if($time_delta < (time() - strtotime('last month'))) return 'Last month';
+            if(round($time_delta/(60*60*24*7*4))  == 1) return 'A month ago';
+            if($time_delta < (60*60*24*7*4*11.5)) return round($time_delta/(60*60*24*7*4)) . ' months ago';
+            if($time_delta < (time() - strtotime('last year'))) return 'Last year';
+            if(round($time_delta/(60*60*24*7*52)) == 1) return 'A year ago';
+            if($time_delta >= (60*60*24*7*4*12)) return round($time_delta/(60*60*24*7*52)) . ' years ago';
+        }
         return false;
     }
 
@@ -334,12 +358,18 @@
         return (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] != $_SESSION['csrf_token']);
     }
 
+    function get_last_message_with_user ($userid) {
+        return $GLOBALS['link']->query("SELECT * FROM `messages` WHERE (`from_id` = {$_SESSION['user_id']} OR `from_id` = {$userid}) AND (`to_id` = {$_SESSION['user_id']} OR `to_id` = {$userid}) ORDER BY `date` DESC LIMIT 1")->fetch();
+    }
+
     function is_last_message_with_user_self ($userid) {
-        return ($GLOBALS['link']->query("SELECT * FROM `messages` WHERE (`from_id` = {$_SESSION['user_id']} OR `from_id` = {$userid}) AND (`to_id` = {$_SESSION['user_id']} OR `to_id` = {$userid}) ORDER BY `date` DESC LIMIT 1")->fetch()['from_id'] == $_SESSION['user_id']);   
+        $last_message = get_last_message_with_user($userid);
+        return ($last_message && $last_message['from_id'] == $_SESSION['user_id']);   
     }
 
     function has_user_read_last_message ($userid) {
-        return ($GLOBALS['link']->query("SELECT * FROM `messages` WHERE ((`from_id` = {$_SESSION['user_id']} OR `from_id` = {$userid}) AND (`to_id` = {$_SESSION['user_id']} OR `to_id` = {$userid})) ORDER BY `date` DESC LIMIT 1")->fetch()['seen']);
+        $last_message = get_last_message_with_user($userid);
+        return ($last_message && $last_message['seen']);
     }
 
     function get_story_views_by_id ($story_id) {
@@ -410,7 +440,8 @@
                 $y = $emoji['y'];
                 $background_size = $emoji['background_size'];
                 
-                $html = '<img src="/AlphaDate/img/emojis/blank.gif" class="img" style="display:inline-block;width:25px;height:25px; background:url(\'' . $file . '\') ' . $x .'px ' . $y . 'px no-repeat;background-size:' . $background_size . ';transform: scale(0.75);margin-right: -4px;" alt="' . $code . '">';
+                $html = '<img src="
+                /img/emojis/blank.gif" class="img" style="display:inline-block;width:25px;height:25px; background:url(\'' . $file . '\') ' . $x .'px ' . $y . 'px no-repeat;background-size:' . $background_size . ';transform: scale(0.75);margin-right: -4px;" alt="' . $code . '">';
                 $msg = str_replace($code, $html, $msg);
             }
         }

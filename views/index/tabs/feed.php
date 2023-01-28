@@ -22,7 +22,9 @@
     echo $handlebars->render("new_post", [
         'fullname' => $CUR_USER['fullname'],
         'nickname' => $CUR_USER['nickname'],
-        'user_pic' => get_user_pp_by_id($CUR_USER['id'])
+        'user_pic' => get_user_pp_by_id($CUR_USER['id']),
+        'post_now_text' => $translate['post_now'][$CUR_USER['gender']],
+        'share_with_your_followers_text' => $translate['share_with_your_followers'][$CUR_USER['gender']]
     ]);
 ?>
 
@@ -35,10 +37,10 @@
 </script>
 
 <div id="feed-sorting-wrap">
-    מיין לפי:
-    <a href="#" class="feed-sorting-option <?php if ($CUR_USER['feed_sort'] == 'date') { echo 'active'; } ?>" data-sort="date">זמן</a> |
-    <a href="#" class="feed-sorting-option <?php if ($CUR_USER['feed_sort'] == 'hot') { echo 'active'; } ?>" data-sort="hot">הכי חם</a> |
-    <a href="#" class="feed-sorting-option <?php if ($CUR_USER['feed_sort'] == 'is_anonymous') { echo 'active'; } ?>" data-sort="is_anonymous">אנונימי</a>
+    <?php echo $translate['sort_by']; ?>:
+    <a href="#" class="feed-sorting-option <?php if ($CUR_USER['feed_sort'] == 'date') { echo 'active'; } ?>" data-sort="date"><?php echo $translate['time']; ?></a> |
+    <a href="#" class="feed-sorting-option <?php if ($CUR_USER['feed_sort'] == 'hot') { echo 'active'; } ?>" data-sort="hot"><?php echo $translate['hot']; ?></a> |
+    <a href="#" class="feed-sorting-option <?php if ($CUR_USER['feed_sort'] == 'is_anonymous') { echo 'active'; } ?>" data-sort="is_anonymous"><?php echo $translate['anonymous']; ?></a>
 </div>
 
 <div id="feed-posts">
@@ -67,14 +69,16 @@
                 'profile_hash' => $poster['profile_hash'],
                 'fullname' => $post_fullname,
                 'text' => nl2br($post['text']),
-                'time' => friendly_time($post['date']),
+                'time' => friendly_time($post['date'], $CUR_USER['language']),
                 'num_hearts' => $num_hearts,
                 'num_comments' => $num_comments,
                 'hearted' => $GLOBALS['link']->query("SELECT * FROM `posts_hearts` WHERE `post_id` = {$post_id} AND `user_id` = {$_SESSION['user_id']}")->rowCount() > 0,
                 'user_pic' => $post_userpic,
                 'anonymous' => $is_anonymous,
                 'isPic' => $post['image_id'] == null ? 'noPic' : 'yesPic',
-                'self' => $post['user_id'] == $_SESSION['user_id'] ? 'self' : ''
+                'self' => $post['user_id'] == $_SESSION['user_id'] ? 'self' : '',
+                'write_a_comment_text' => $translate['write_a_comment'][$CUR_USER['gender']],
+                'update_action_text' => $translate['update'][$CUR_USER['gender']]
             ];
 
             if ($post['image_id']) {

@@ -7,10 +7,7 @@
         $_SESSION['user_id'] = $GLOBALS['link']->query("SELECT `user_id` FROM `login_hashes` WHERE `hash` = '{$hash}'")->fetch()['user_id'];
     }
 
-    if (is_logged()) {
-        $CUR_USER = get_user_row_by_id($_SESSION['user_id']);
-        update_last_seen();
-    }
+    require_once('includes/language.php');
 ?>
 
 <?php if (!isset($_GET['page'])) : ?>

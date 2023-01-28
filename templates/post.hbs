@@ -1,11 +1,11 @@
 <div class="card post-card {{ self }}" data-id="{{ postid }}">
     <div class="user-dets">
         <div class="post-card-pp">
-            <a href="/AlphaDate/profile/{{ userid }}"><img src="{{ user_pic }}" class="{{ anonymous }}"></a>
+            <a href="/profile/{{ userid }}"><img src="{{ user_pic }}" class="{{ anonymous }}"></a>
         </div>
 
         <div class="post-card-textuals">
-            <a href="/AlphaDate/profile/{{ userid }}/{{ profile_hash }}">
+            <a href="/profile/{{ userid }}/{{ profile_hash }}">
                 <div class="fullname">{{ fullname }}</div>
                 <div class="time">{{ time }}</div>
             </a>
@@ -37,7 +37,7 @@
             <img src="{{ image }}" class="{{ isPic }}">
         </div>
 
-        <a class="post-update-text-btn cute-btn" onclick="update_post({{ postid }})">עדכון</a>
+        <a class="post-update-text-btn cute-btn" onclick="update_post({{ postid }})">{{update_action_text}}</a>
     </div>
 
     <div class="post-actions">
@@ -52,7 +52,7 @@
             </div>
         
             <form class="new-comment-input">
-                <div contenteditable="plaintext-only" placeholder="כתוב תגובה..." class="comment-text-input" data-postid="{{ postid }}"></div>
+                <div contenteditable="plaintext-only" placeholder="{{write_a_comment_text}}" class="comment-text-input" data-postid="{{ postid }}"></div>
                 
                 <input type="file" class="comment-additional-image">
                 <div class="trigger-comment-additional-image">

@@ -1,9 +1,6 @@
 <?php
     session_start();
     $IS_DEV = true;
-
-    $LANGUAGE = 'en';
-    $DIRECTION = 'ltr';
     
     if ($IS_DEV) {
         $GLOBALS['link'] = new PDO("mysql:host=localhost;dbname=alpha_date;charset=utf8", "root", "root");

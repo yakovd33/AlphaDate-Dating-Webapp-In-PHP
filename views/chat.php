@@ -2,7 +2,7 @@
     <div id="floating-chat">
         <div id="floating-chat-toggler" data-num="<?php echo get_num_unread_messages(); ?>">
             <span id="chat-toggler-text">
-                צ'אט
+                <?php echo $translate['chat']; ?>
                 <!-- <span id="chat-num-connected">(<?php //echo get_num_connected_followed(); ?>)</span> -->
             </span>
 
@@ -144,7 +144,9 @@
                             'fullname' => $to_user['fullname'],
                             'messages' => $chat_messages,
                             'isFolded' => $chatbox['is_folded'],
-                            'isLogged' => is_user_logged($to_user['id'])
+                            'isLogged' => is_user_logged($to_user['id']),
+                            'chat_load_more' => $translate['chat_load_more'][$CUR_USER['gender']],
+                            'type_a_message_text' => $translate['type_a_message'][$CUR_USER['gender']]
                         ];
 
                         if (is_last_message_with_user_self($chatbox['to_id']) && has_user_read_last_message($chatbox['to_id'])) {
@@ -160,7 +162,9 @@
                             'group_name' => $group['name'],
                             'messages' => $chat_messages,
                             'isFolded' => $chatbox['is_folded'],
-                            'isLogged' => false
+                            'isLogged' => false,
+                            'chat_load_more' => $translate['chat_load_more'][$CUR_USER['gender']],
+                            'type_a_message_text' => $translate['type_a_message'][$CUR_USER['gender']]
                         ]);
                     }
 
@@ -173,9 +177,9 @@
 </div>
 
 <form id="new-group-popup">
-    <input type="text" class="cute-input" name="group_name" id="new-group-name" placeholder="שם הקבוצה">
+    <input type="text" class="cute-input" name="group_name" id="new-group-name" placeholder="<?php echo $translate['group_name']; ?>">
 
-    <label class="new-group-popup-label">בחירת חברים</label>
+    <label class="new-group-popup-label"><?php echo $translate['choose_members']; ?></label>
 
     <div id="new-group-popup-members-select-list">
         <?php foreach ($total_chats as $chat) : ?>
@@ -195,7 +199,7 @@
         <?php endforeach; ?>
     </div>
 
-    <button class="cute-btn" style="float: left" type="submit"><?php echo genderize_text('צור'); ?> קבוצה</button>
+    <button class="cute-btn" style="float: left" type="submit"><?php echo $translate['create_group'][$CUR_USER['gender']]; ?></button>
     <div class="clearfix"></div>
 </form>
 

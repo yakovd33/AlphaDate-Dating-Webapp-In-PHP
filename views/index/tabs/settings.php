@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="<?php echo $URL; ?>/css/settings.css">
 
-<a href="#" id="password-reset-ajax">שחזור סיסמא (אימייל יישלח לכתובת הרשומה)</a>
+<a href="#" id="password-reset-ajax"><?php echo $translate['reset_password']; ?></a>
 <div id="password-reset-feedback" style="display: none">אימייל לשחזור סיסמא נשלח אלייך לכתובת <?php echo $CUR_USER['email']; ?></div>
 
 <!-- <form id="change-password-wrap">

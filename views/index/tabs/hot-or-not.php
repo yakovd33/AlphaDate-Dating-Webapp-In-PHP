@@ -19,7 +19,7 @@
                         'pp'=> $hor['pp'],
                     ]);
                 } else {
-                    echo '<div class="hor-title">לא נמצאו עוד משתמשים התואמים את הנתונים שהזנת.<br>נסה שנית מאוחר יותר</div>';
+                    echo '<div class="hor-title">' . $translate['no_hon_title'] . '</div>';
                     echo '<img src="' . $URL . '/img/icons/sad-love.png" height="120px" style="display: block; margin: 30px auto auto auto;">';
                 }
             }
@@ -28,7 +28,7 @@
 
     <?php if (!$CUR_USER['is_in_hot_or_not']) : ?>
         <div id="hon-not-activated-wrap">
-            <div id="hon-pre-join-msg">על מנת להצטרף לאיזור ההיכרויות עלייך להשלים את הפרופיל ולהוסיף לפחות תמונה אחת</div>
+            <div id="hon-pre-join-msg"><?php echo $translate['steps_for_hot_or_not']; ?></div>
 
             <?php if (get_user_num_hon_pics($_SESSION['user_id']) == 0 && is_cur_user_profile_complete()) : ?>
                 <div id="hot-or-not-image-adder-toggle"></div>
@@ -43,11 +43,11 @@
 </div>
 
 <?php if ($CUR_USER['is_in_hot_or_not']) : ?>
-    <button class="cute-btn" id="hon-pics-selector-trigger"><i class="fas fa-camera"></i> בחר תמונות שיוצגו</button>
+    <button class="cute-btn" id="hon-pics-selector-trigger"><i class="fas fa-camera"></i> <?php echo $translate['choose_photos'][$CUR_USER['gender']]; ?></button>
 <?php endif; ?>
 
 <div id="hon-pics-selector">
-    <div id="hon-image-deletion-msg">לחיצה על תמונה תמחק אותה</div>
+    <div id="hon-image-deletion-msg"><?php echo $translate['clicking_on_photo_deletes']; ?></div>
 
     <?php
         $user_hon_pics_stmt = $GLOBALS['link']->query("SELECT * FROM `hot_or_not_pics` WHERE `user_id` = {$_SESSION['user_id']}");
@@ -59,10 +59,10 @@
         <?php endwhile; ?>
     </div>
 
-    <div id="hon-pics-selector-order-message">*סדר התמונות ייבחר אוטומטית לפי התמונות שיביאו לכם הכי הרבה התאמות</div>
+    <div id="hon-pics-selector-order-message"><?php echo $translate['photos_order']; ?></div>
 
-    <button id="add-image" class="cute-btn" style="float: right; <?php if (get_user_num_hon_pics($_SESSION['user_id']) >= 6) { echo 'display: none;'; } ?>"><i style="margin-left: 5px;" class="fas fa-camera"></i> <?php echo genderize_text('הוסף'); ?> תמונה</button>
-    <button id="close-hon-pics-selector" class="cute-btn mr-auto" style="background: #fff; color: #c03b2b; display: block;">סגור</button>
+    <button id="add-image" class="cute-btn" style="float: right; <?php if (get_user_num_hon_pics($_SESSION['user_id']) >= 6) { echo 'display: none;'; } ?>"><i style="margin-left: 5px;" class="fas fa-camera"></i> <?php echo $translate['add_photos'][$CUR_USER['gender']]; ?></button>
+    <button id="close-hon-pics-selector" class="cute-btn mr-auto" style="background: #fff; color: #c03b2b; display: block;"><?php echo $translate['close'][$CUR_USER['gender']]; ?></button>
     <input type="file" accept="image/x-png,,image/jpeg" id="hon-pic-selector-new-pic">
 </div>
 

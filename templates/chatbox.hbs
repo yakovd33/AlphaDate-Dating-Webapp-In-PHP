@@ -5,7 +5,7 @@
                 <span class="logged-indicator"></span>
             {{/if}}
 
-            <a href="/AlphaDate/profile/{{ userid }}/{{ profile_hash }}">{{ fullname }}</a>
+            <a href="/profile/{{ userid }}/{{ profile_hash }}">{{ fullname }}</a>
 
             {{ group_name }}
         </div>
@@ -24,7 +24,7 @@
     <div class="chatbox-wrap" style="{{#if isFolded}} display: none {{/if}}">
         <div class="chat-content-container">
             <div class="chat-content-wrap">
-                <a href="#" class="load-more-btn">טען עוד...</a>
+                <a href="#" class="load-more-btn">{{chat_load_more}}</a>
 
                 <div class="messages">
                     {{#each this.messages}}
@@ -46,7 +46,7 @@
             </div>
 
             <div class="new-message">
-                <div contenteditable="plaintext-only" data-emojiable="true" class="new-message-input" data-userid="{{ userid }}" data-groupid="{{ groupid }}" placeholder="הקלד הודעה..."></div>
+                <div contenteditable="plaintext-only" data-emojiable="true" class="new-message-input" data-userid="{{ userid }}" data-groupid="{{ groupid }}" placeholder="{{type_a_message_text}}"></div>
                 
                 <div class="original-html-holder" style="display: none"></div>
                 <div class="message-additional">

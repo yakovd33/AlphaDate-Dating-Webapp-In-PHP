@@ -18,7 +18,7 @@
                 <h2 class="pricing-header"><?php echo $package['name']; ?></h2>
                 <div class="pricing-description"><?php echo $package['description']; ?></div>
                 <ul class="pricing-features">
-                    <li class="pricing-features-item"><?php echo $package['flowers']; ?> פרחים</li>
+                    <li class="pricing-features-item"><?php echo $package['flowers']; ?> <?php echo $translate['flowers']; ?></li>
                     <li class="pricing-features-item"><?php echo $package['show_ads'] ? 'יש פרסומות' : 'אין פרסומות'; ?></li>
                     <li class="pricing-features-item">+<?php echo $package['exposure_percentage_increase']; ?>% חשיפה</li>
                     <li class="pricing-features-item"><?php echo $package['are_likes_restricred'] ? 'יש הגבלת לייקים' : 'אין הגבלת לייקים'; ?></li>

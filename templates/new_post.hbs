@@ -2,14 +2,14 @@
     <form id="post-upload-form">
         <div id="main-right-sidebar-profile-card-visual-post-input">
             <div id="main-right-sidebar-profile-card-pp">
-                <a href="/AlphaDate/profile/">
+                <a href="/profile/">
                     <img src="{{ user_pic }}" class="new-post-pic">
-                    <img src="/AlphaDate/img/anonymous.png" class="new-post-pic anonymous">
+                    <img src="/img/anonymous.png" class="new-post-pic anonymous">
                 </a>
             </div>
 
             <div id="main-right-sidebar-profile-card-textuals">
-                <a href="/AlphaDate/profile/">
+                <a href="/profile/">
                     <div class="fullname regular">{{ fullname }}</div>
                     <div class="nickname">{{ nickname }}</div>
                 </a>
@@ -21,9 +21,9 @@
             <input type="checkbox" id="new-post-is-anonymous">
         </div>
 
-        <textarea placeholder="שתף את העוקבים שלך..." id="new-post-input-card-content"></textarea>
+        <textarea placeholder="{{share_with_your_followers_text}}" id="new-post-input-card-content"></textarea>
         <div id="new-post-pic-wrap">
-
+            
         </div>
 
         <div id="new-post-bottom">
@@ -33,7 +33,7 @@
             </div>
 
             <div id="new-post-submition-wrap" class="mr-auto">
-                <input type="submit" value="פרסם">
+                <input type="submit" value="{{post_now_text}}">
             </div>
         </div>
     </form>

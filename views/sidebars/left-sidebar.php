@@ -30,7 +30,7 @@
             </script>
         <?php endif; ?>
 
-        <button id="initial-info-update-btn" class="cute-btn">עדכן</button>
+        <button id="initial-info-update-btn" class="cute-btn"><?php echo $translate['update'][$CUR_USER['gender']]; ?></button>
 
         <script>
             $("#initial-info-update-btn").click(function () {
@@ -93,12 +93,12 @@
 
         <div class="item">
             <div class="number"><?php echo $CUR_USER['flowers']; ?></div>
-            <div class="text">פרחים</div>
+            <div class="text"><?php echo $translate['flowers']; ?></div>
         </div>
 
         <div class="item">
             <div class="number"><?php echo $CUR_USER['meetings']; ?></div>
-            <div class="text">פגישות</div>
+            <div class="text"><?php echo $translate['dates']; ?></div>
         </div>
     </div>
 </div>
@@ -111,7 +111,7 @@
         <div id="sidebar-story-items-list" class="story-list">
             <div id="sidebar-story-add-btn">
                 <div class="icon"><i class="fas fa-plus"></i></div>
-                <div class="text"><?php echo genderize_text('הוסף'); ?> לסטורי שלך</div>
+                <div class="text"><?php echo $translate['add_to_story'][$CUR_USER['gender']]; ?></div>
             </div>
 
             <?php
@@ -166,7 +166,7 @@
                         </svg>
                     </div>
                     <div class="textual">
-                        <div class="fullname">הסטורי שלי</div>
+                        <div class="fullname"><?php echo $translate['my_story']; ?></div>
                     </div>
                 </div>
             <?php endwhile; ?>
@@ -192,7 +192,7 @@
 
                     <div class="textual">
                         <div class="fullname"><?php echo $story_user['fullname']; ?></div>
-                        <div class="time"><?php echo friendly_time($user_last_story['date']); ?></div>
+                        <div class="time"><?php echo friendly_time($user_last_story['date'], $CUR_USER['language']); ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -222,7 +222,7 @@
 
                     <div class="textual">
                         <div class="fullname"><?php echo $story_user['fullname']; ?></div>
-                        <div class="time"><?php echo friendly_time($user_last_story['date']); ?></div>
+                        <div class="time"><?php echo friendly_time($user_last_story['date'], $CUR_USER['language']); ?></div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -230,12 +230,21 @@
     </div>
 
     <div id="sidebar-credit">
-        <a href="<?php echo $URL; ?>/contact/" class="footer-link"><?php echo genderize_text('צור'); ?> קשר</a>
-        <a href="<?php echo $URL; ?>/about/" class="footer-link">אודות</a>
-        <a href="<?php echo $URL; ?>/terms/" class="footer-link">תנאי שימוש</a>
-        <a href="<?php echo $URL; ?>/contact/" class="footer-link">תכנית שותפים</a>
+        <a href="<?php echo $URL; ?>/contact/" class="footer-link"><?php echo $translate['contact_us'][$CUR_USER['gender']]; ?></a>
+        <a href="<?php echo $URL; ?>/about/" class="footer-link"><?php echo $translate['about_us']; ?></a>
+        <a href="<?php echo $URL; ?>/terms/" class="footer-link"><?php echo $translate['terms_of_service']; ?></a>
+        <a href="<?php echo $URL; ?>/contact/" class="footer-link"><?php echo $translate['affiliate']; ?></a>
+        <?php if ($language == 'en'): ?>
+            <a href="<?php echo $URL; ?>/?language=he" class="footer-link">
+                Hebrew/עברית
+            </a>
+        <?php else: ?>
+            <a href="<?php echo $URL; ?>/?language=en" class="footer-link">
+                English
+            </a>
+        <?php endif; ?>
         <div>
-            כל הזכויות שמורות לאלפא דייט 2018 ©
+            <?php echo $translate['credit']; ?>
         </div>
     </div>
 </div>

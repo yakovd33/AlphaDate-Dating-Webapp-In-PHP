@@ -310,6 +310,7 @@ function open_stories () {
                                     contentType: false,
                                     method : 'GET',
                                     success: function (response) {
+                                        console.log(response);
                                         response_json = JSON.parse(response);
                                         $("#story-showcase-user-dets .time").text(response_json.time);
                                         $("#story-pic").css('background-image', 'url(' + 'data:image/png;base64,' + response_json.img + ')');

@@ -15,10 +15,10 @@
         <?php $sender = get_user_row_by_id($flower['from_id']); ?>
         <div class="flower-wrap card">
             <div class="text">
-                קיבלת פרח מאת <a href="<?php echo $URL; ?>/profile/<?php echo $sender['id']; ?>/"><?php echo $sender['fullname']; ?></a>
+                <?php echo $translate['youve_got_a_flower_from']; ?> <a href="<?php echo $URL; ?>/profile/<?php echo $sender['id']; ?>/"><?php echo $sender['fullname']; ?></a>
             </div>
 
-            <div class="date"><?php echo friendly_time($flower['date']); ?></div>
+            <div class="date"><?php echo friendly_time($flower['date'], $CUR_USER['language']); ?></div>
         </div>
     <?php endwhile; ?>
 </div>

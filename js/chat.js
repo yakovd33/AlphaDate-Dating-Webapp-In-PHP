@@ -2,7 +2,7 @@ blop = new Audio(URL + '/audio/blop.mp3');
 fullscreen_chat_id = false;
 
 // Socket.IO
-isSocketing = false;
+isSocketing = true;
 
 if (isSocketing) {
     window.socket = io.connect('http://'+document.domain+':2021', { query: "userid=" + USERID });
@@ -667,7 +667,7 @@ $("#new-group-popup").submit(function (e) {
             $("#popups-bg").click();
 
             // Add group to chat list
-            $("#floating-chat-connected-users").prepend('<div class="item chatbox-trigger" data-groupid="' + group_id + '"> <div class="pic"><img src="/AlphaDate/img/icons/group-icon.png" alt=""></div> <div class="textual"> <div class="fullname"> ' + $("#new-group-name").val() + ' </div> </div> </div>');
+            $("#floating-chat-connected-users").prepend('<div class="item chatbox-trigger" data-groupid="' + group_id + '"> <div class="pic"><img src="/img/icons/group-icon.png" alt=""></div> <div class="textual"> <div class="fullname"> ' + $("#new-group-name").val() + ' </div> </div> </div>');
             chatbox_options();
             open_group_chatbox(group_id);
         });

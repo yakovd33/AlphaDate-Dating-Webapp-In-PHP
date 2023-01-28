@@ -49,16 +49,16 @@
     <div id="profiles-tab">
         <form id="profiles-sorting-wrap" method="POST">
             <select class="pretty-select" name="sorting" id="profiles-sort-by" onchange="$(this).parent().submit();">
-                <option value="popularity">מיין לפי</option>
-                <option value="popularity" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'popularity') { echo 'selected="selected"'; } ?>>פופולאריות</option>
-                <option value="age" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'age') { echo 'selected="selected"'; } ?>>גיל: נמוך לגבוה</option>
-                <option value="age-desc" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'age-desc') { echo 'selected="selected"'; } ?>>גיל: גבוה לנמוך</option>
+                <option value="popularity"><?php echo $translate['sort_by']; ?></option>
+                <option value="popularity" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'popularity') { echo 'selected="selected"'; } ?>><?php echo $translate['popularity']; ?></option>
+                <option value="age" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'age') { echo 'selected="selected"'; } ?>><?php echo $translate['age_low']; ?></option>
+                <option value="age-desc" <?php if (isset($_POST['sorting']) && $_POST['sorting'] == 'age-desc') { echo 'selected="selected"'; } ?>><?php echo $translate['age_high']; ?></option>
             </select>
 
             <div class="mr-auto" id="profiles-choose-type">
-                <a href="<?php echo $URL; ?>/profiles/" class="<?php if (!isset($_GET['all'])) { echo 'active'; } ?>">ההעדפות שלי</a>
+                <a href="<?php echo $URL; ?>/profiles/" class="<?php if (!isset($_GET['all'])) { echo 'active'; } ?>"><?php echo $translate['my_prefrences']; ?></a>
                 | 
-                <a href="<?php echo $URL; ?>/profiles/all/" class="<?php if (isset($_GET['all'])) { echo 'active'; } ?>">כל הפרופילים</a>
+                <a href="<?php echo $URL; ?>/profiles/all/" class="<?php if (isset($_GET['all'])) { echo 'active'; } ?>"><?php echo $translate['all_profiles']; ?></a>
             </div>
         </form>
 
@@ -85,7 +85,7 @@
                             </a>
 
                             <a href="<?php echo $URL; ?>/profile/<?php echo $profile['id']; ?>/">
-                                <strong class="about-me-label">קצת עליי:</strong>
+                                <strong class="about-me-label"><?php echo $translate['about_me']; ?>:</strong>
                                 <p class="about-me">
                                     <?php echo strlen($profile['about_me']) > 100 ? mb_substr($profile['about_me'], 0, 100)."..." : $profile['about_me']; ?>
                                 </p>

@@ -11,8 +11,8 @@
     $GLOBALS['link']->query("UPDATE `hot_or_not_matches` SET `user_two_seen` = 1 WHERE `user_two_id` = {$_SESSION['user_id']} AND NOT `user_two_seen`");
 ?>
 
-<a href="#" class="matches-type-link <?php if (!isset($_GET['all'])) { echo 'active'; } ?>">התאמות חדשות</a> |
-<a href="#" class="matches-type-link <?php if (isset($_GET['all'])) { echo 'active'; } ?>">כל ההתאמות</a>
+<a href="#" class="matches-type-link <?php if (!isset($_GET['all'])) { echo 'active'; } ?>"><?php echo $translate['new_matches']; ?></a> |
+<a href="#" class="matches-type-link <?php if (isset($_GET['all'])) { echo 'active'; } ?>"><?php echo $translate['all_matches']; ?></a>
 
 <div id="matches-wrap">
     <?php while ($match = $matches_stmt->fetch()) : ?>

@@ -1,21 +1,21 @@
 {{#if message includeZero=true}}
     <div class="message {{#if message.isSelf}} self {{/if}}">
         <div class="message-content-text" {{#if message.image}} style="display: none" {{/if}}>
-            <div class="group-user-fullname"><a href="/AlphaDate/profile/{{ message.userid }}">{{ message.fullname }}</a></div>
+            <div class="group-user-fullname"><a href="/profile/{{ message.userid }}">{{ message.fullname }}</a></div>
             {{{ message.text }}}
         </div>
 
-        {{#if message.image}} <img src="/alphaDate/{{ message.image }}" class="message-image"> {{/if}}
+        {{#if message.image}} <img src="/{{ message.image }}" class="message-image"> {{/if}}
         <div class="sent-date">{{ message.date }}</div>
     </div>
 {{else}}
     <div class="message {{#if this.isSelf}} self {{/if}}">
         <div class="message-content-text" {{#if this.image}} style="display: none" {{/if}}>
-            <div class="group-user-fullname"><a href="/AlphaDate/profile/{{ this.userid }}">{{ this.fullname }}</a></div>
+            <div class="group-user-fullname"><a href="/profile/{{ this.userid }}">{{ this.fullname }}</a></div>
             {{{ this.text }}}
         </div>
 
-        {{#if this.image}} <img src="/alphaDate/{{ this.image }}" class="message-image"> {{/if}}
+        {{#if this.image}} <img src="/{{ this.image }}" class="message-image"> {{/if}}
         <div class="sent-date">{{ this.date }}</div>
     </div>
 {{/if}}

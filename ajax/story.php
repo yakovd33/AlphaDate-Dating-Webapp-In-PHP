@@ -25,6 +25,8 @@
             case 'get' :
                 if ($_GET['storyid']) {
                     $story_id = $_GET['storyid'];
+                    $CUR_USER = get_user_row_by_id($_SESSION['user_id']);
+                    
 
                     // Check if story exists
                     $story_stmt = $GLOBALS['link']->query("SELECT * FROM `stories` WHERE `id` = {$story_id} AND `date` > DATE_SUB(NOW(), INTERVAL 1 DAY)");
@@ -35,7 +37,7 @@
                         // Check if user is not blocked from seeing this story
                         if ($GLOBALS['link']->query("SELECT * FROM `blocked_users` WHERE `user_id` = {$story_poster['id']} AND `blocked_id` = {$_SESSION['user_id']}")->rowCount() == 0 && !is_user_blocked($story_poster['id'])) {
                             $resp = [];
-                            $resp['time'] = friendly_time($story['date']);
+                            $resp['time'] = friendly_time($story['date'], $CUR_USER['language']);
                             $resp['img'] = base64_encode(file_get_contents('../' . get_image_path_by_id($story['image_id'])));
                             $resp['text'] = $story['text'];
                             $resp['color'] = $story['text_color'];

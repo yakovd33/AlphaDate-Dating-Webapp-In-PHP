@@ -20,9 +20,9 @@
 
 <link rel="stylesheet" href="<?php echo $URL; ?>/css/meetings.css">
 
-<a href="<?php echo $URL; ?>/meetings/" class="meeting-filter-link <?php if (!isset($_GET['type'])) { echo 'active'; } ?>">הצעות חדשות</a>
-<a href="<?php echo $URL; ?>/meetings/my/" class="meeting-filter-link <?php if (isset($_GET['type']) && $_GET['type'] == 'my') { echo 'active'; } ?>">הצעות ששלחתי</a>
-<a href="<?php echo $URL; ?>/meetings/memories/" class="meeting-filter-link <?php if (isset($_GET['type']) && $_GET['type'] == 'memories') { echo 'active'; } ?>">פגישות שאושרו</a>
+<a href="<?php echo $URL; ?>/meetings/" class="meeting-filter-link <?php if (!isset($_GET['type'])) { echo 'active'; } ?>"><?php echo $translate['new_requests']; ?></a>
+<a href="<?php echo $URL; ?>/meetings/my/" class="meeting-filter-link <?php if (isset($_GET['type']) && $_GET['type'] == 'my') { echo 'active'; } ?>"><?php echo $translate['my_requests']; ?></a>
+<a href="<?php echo $URL; ?>/meetings/memories/" class="meeting-filter-link <?php if (isset($_GET['type']) && $_GET['type'] == 'memories') { echo 'active'; } ?>"><?php echo $translate['approved_meetings']; ?></a>
 
 <div id="meetings-wrap" class="row">
     <?php while ($meeting = $meetings_stmt->fetch()) : ?>
@@ -46,7 +46,7 @@
                         <div class="fullname"><?php echo $profile['fullname']; ?> <sub>(<?php echo $profile['age']; ?>)</sub></div>
                     </a>
 
-                    <div class="location"><?php echo $profile['city']; ?> | <span class="meeting-request-date">לפני 4 שעות</span></div>
+                    <div class="location"><?php echo $profile['city']; ?> | <span class="meeting-request-date"><?php echo friendly_time($meeting['date'], $CUR_USER['language']); ?></span></div>
                 </div>
 
                 <?php if ($meeting['user_two_id'] == $_SESSION['user_id']) : ?>
@@ -62,7 +62,7 @@
     <?php endwhile; ?>
 
     <?php if ($meetings_stmt->rowCount() == 0) : ?>
-        <p style="padding: 15px; color: #555;">אין פגישות להצגה כעת.</p>
+        <p style="padding: 15px; color: #555;"><?php echo $translate['no_meetings']; ?></p>
     <?php endif; ?>
 </div>
 

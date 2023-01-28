@@ -2,6 +2,10 @@
     position: relative;
 }
 
+#main-sidebar-profile-card-visual {
+    display: flex;
+}
+
 #main-sidebar-profile-card-pp img {
     height: 65px;
     width: 65px;

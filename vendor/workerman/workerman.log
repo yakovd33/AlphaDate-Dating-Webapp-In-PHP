@@ -35,3 +35,6 @@ Stack trace:
 #7 C:\wamp\www\AlphaDate\vendor\workerman\phpsocket.io\src\Event\Emitter.php(91): call_user_func_array(Array, Array)
 #8 C:\wamp\www\AlphaDate\vendor\workerman\phpsocket.io\src\Parser\Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
 #9 C:\wamp\www\AlphaDate\vend in C:\wamp\www\AlphaDate\blah.php on line 57"
+2023-01-11 18:54:49 pid:35673 Workerman[chat.io.php] start in DEBUG mode
+2023-01-11 19:30:44 pid:35673 Workerman[chat.io.php] stopping ...
+2023-01-11 19:30:44 pid:35673 Workerman[chat.io.php] has been stopped

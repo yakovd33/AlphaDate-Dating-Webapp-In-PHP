@@ -1,7 +1,10 @@
 <?php
     if (isset($_GET['language'])) {
         $language = $_GET['language'];
-        $GLOBALS['link']->query("UPDATE users SET `language` = '{$language}' WHERE `id` = {$_SESSION['user_id']}");
+
+        if (is_logged()) {
+            $GLOBALS['link']->query("UPDATE users SET `language` = '{$language}' WHERE `id` = {$_SESSION['user_id']}");
+        }
     } else {
         $language = 'en';
     }
